@@ -66,5 +66,6 @@ dummy:
 	@echo
 	@echo "Build finished. Dummy builder generates no files."
 
+.PHONY: deploy
 deploy:
-	
+	bin/deploy.sh
