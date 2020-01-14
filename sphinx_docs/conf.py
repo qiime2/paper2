@@ -1,21 +1,15 @@
-# -*- coding: utf-8 -*-
+# ----------------------------------------------------------------------------
+# Copyright (c) 2020, QIIME 2 development team.
 #
-# Configuration file for the Sphinx documentation builder.
+# Distributed under the terms of the Modified BSD License.
 #
-# This file does only contain a selection of the most common options. For a
-# full list see the documentation:
-# http://www.sphinx-doc.org/en/master/config
+# The full license is in the file LICENSE, distributed with this software.
+# ----------------------------------------------------------------------------
 
-# -- Path setup --------------------------------------------------------------
+import os
+import sys
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
-
+sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
@@ -46,6 +40,7 @@ release = ''
 # ones.
 extensions = [
     'sphinx.ext.viewcode',
+    'extensions.command_block',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -102,88 +97,11 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-# html_sidebars = {}
-
-
-# -- Options for HTMLHelp output ---------------------------------------------
-
-# Output file base name for HTML help builder.
-htmlhelp_basename = 'QIIME2-CurrentProtocolsdoc'
-
-
-# -- Options for LaTeX output ------------------------------------------------
-
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
+html_sidebars = {
+    '**': [
+        'about.html',
+        'navigation.html',
+        'searchbox.html',
+    ]
 }
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, 'QIIME2-CurrentProtocols.tex',
-     'QIIME 2 - Current Protocols Documentation',
-     'Mehrbod Estaki, Lingjing Jiang, Nicholas Bokulich, Daniel McDonald, '
-     'Antonio González, Tomasz Kosciolek, Cameron Martino, Qiyun Zhu, '
-     'Amanda Birmingham, Yoshiki Vázquez-Baeza, J Gregory Caporaso, '
-     'Rob Knight', 'manual'),
-]
-
-
-# -- Options for manual page output ------------------------------------------
-
-# One entry per manual page. List of tuples
-# (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'qiime2-currentprotocols',
-     'QIIME 2 - Current Protocols Documentation',
-     [author], 1)
-]
-
-
-# -- Options for Texinfo output ----------------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-texinfo_documents = [
-    (master_doc, 'QIIME2-CurrentProtocols',
-     'QIIME 2 - Current Protocols Documentation',
-     author, 'QIIME2-CurrentProtocols', 'One line description of project.',
-     'Miscellaneous'),
-]
-
-
-# -- Options for Epub output -------------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
-
-
 # -- Extension configuration -------------------------------------------------

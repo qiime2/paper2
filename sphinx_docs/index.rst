@@ -178,7 +178,7 @@ samples for processing. To follow along with this protocol, create a new
 directory then download the raw sequences (~ 700 MB) and the corresponding
 metadata file into it.
 
-.. code-block:: bash
+.. command-block::
 
     mkdir qiime2-ecam-tutorial
     cd qiime2-ecam-tutorial
