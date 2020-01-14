@@ -180,6 +180,10 @@ metadata file into it.
 
 .. command-block::
 
+   true | false
+
+.. command-block::
+
     mkdir qiime2-ecam-tutorial
     cd qiime2-ecam-tutorial
     wget -O 81253.zip \
