@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Comprehensive end-to-end microbiome analysis using QIIME 2 &#8212; QIIME 2 - Current Protocols  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="#" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex/" />
+    <link rel="search" title="Search" href="search/" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="comprehensive-end-to-end-microbiome-analysis-using-qiime-2">
+<h1>Comprehensive end-to-end microbiome analysis using QIIME 2<a class="headerlink" href="#comprehensive-end-to-end-microbiome-analysis-using-qiime-2" title="Permalink to this headline">¶</a></h1>
+<p><strong>Title:</strong> QIIME 2 enables comprehensive end-to-end analysis of diverse
+microbiome data and comparative studies with publicly available data</p>
+<p><strong>Running Title:</strong> Comprehensive end-to-end microbiome analysis using QIIME 2</p>
+<p><strong>Authors:</strong> Mehrbod Estaki <sup>1,#</sup>, Lingjing Jiang <sup>2,#</sup>, Nicholas
+Bokulich <sup>3,4</sup>, Daniel McDonald <sup>1</sup>, Antonio González <sup>1</sup>,
+Tomasz Kosciolek <sup>1,5</sup>, Cameron Martino <sup>6,7</sup>, Qiyun Zhu <sup>1</sup>,
+Amanda Birmingham <sup>8</sup>, Yoshiki Vázquez-Baeza <sup>7,9</sup>, J Gregory
+Caporaso <sup>3,4</sup>, Rob Knight <sup>1,7,10,11*</sup></p>
+<p><sup>1</sup> Department of Pediatrics, University of California San Diego, La
+Jolla, CA, USA, <sup>2</sup> Division of Biostatistics, University of California
+San Diego, La Jolla, CA, USA, <sup>3</sup> Center for Applied Microbiome Science,
+Pathogen and Microbiome Institute, Northern Arizona University, Flagstaff, AZ,
+USA, <sup>4</sup> Department of Biological Sciences, Northern Arizona University,
+Flagstaff, AZ, USA, <sup>5</sup> Malopolska Centre of Biotechnology, Jagiellonian
+University, Kraków, Poland, <sup>6</sup> Bioinformatics and Systems Biology
+Program, University of California San Diego, La Jolla, CA, USA, <sup>7</sup> Center
+for Microbiome Innovation, University of California San Diego, La Jolla, CA,
+USA, <sup>8</sup> Center for Computational Biology and Bioinformatics, UC San
+Diego, La Jolla, CA, USA, <sup>9</sup> Jacobs School of Engineering, University of
+California San Diego, La Jolla, CA, USA, <sup>10</sup> Department of Computer
+Science and Engineering, University of California San Diego, La Jolla, CA, USA,
+<sup>11</sup> Department of Bioengineering, University of California San Diego, La
+Jolla, CA, USA</p>
+<p><sup>*</sup> To whom correspondence should be addressed.</p>
+<p>Rob Knight
+9500 Gilman Dr. MC 0763
+La Jolla, CA 92093
+Phone: 858-246-1184
+Email: <a class="reference external" href="mailto:robknight&#37;&#52;&#48;ucsd&#46;edu">robknight<span>&#64;</span>ucsd<span>&#46;</span>edu</a></p>
+<p><sup>#</sup> The first two authors should be regarded as Joint First Authors.</p>
+</div>
+<div class="section" id="abstract">
+<h1>Abstract<a class="headerlink" href="#abstract" title="Permalink to this headline">¶</a></h1>
+<p>QIIME 2 is a completely reengineered microbiome bioinformatics platform based
+on the popular QIIME platform, which it has replaced. QIIME 2 facilitates
+comprehensive and fully reproducible microbiome data science, improving
+accessibility to diverse users by adding multiple user interfaces. QIIME 2 can
+be combined with Qiita, an open-source web-based platform, to re-use available
+data for meta-analysis. The following protocol describes how to install QIIME 2
+on a single computer and analyze microbiome sequence data, from processing of
+raw DNA sequence reads through generating publishable interactive figures.
+These interactive figures allow readers of a study to interact with data with
+the same ease as its authors, advancing microbiome science transparency and
+reproducibility. We also show how plug-ins developed by the community to add
+analysis capabilities can be installed and used with QIIME 2, enhancing various
+aspects of microbiome analyses such as improving taxonomic classification
+accuracy. Finally, we illustrate how users can perform meta-analyses combining
+different datasets using readily available public data through Qiita. In this
+tutorial, we analyze a subset of the Early Childhood Antibiotics and the
+Microbiome (ECAM) study, which tracked the microbiome composition and
+development of 43 infants in the United States from birth to two years of age,
+identifying microbiome associations with antibiotic exposure, delivery mode,
+and diet. For more information about QIIME 2, see <a class="reference external" href="https://qiime2.org">https://qiime2.org</a>. To
+troubleshoot or ask questions about QIIME 2 and microbiome analysis, join the
+active community at <a class="reference external" href="https://forum.qiime2.org">https://forum.qiime2.org</a>.</p>
+<p><em>Keywords:</em> Microbiome, QIIME 2, bioinformatics, Qiita, metagenomics</p>
+</div>
+<div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial illustrates the use of QIIME 2 (Bolyen et al., 2019) in
+processing, analyzing, and visualizing microbiome data. Here we use, as an
+example, a high-throughput 16S rRNA gene sequencing study, starting with raw
+sequences and producing publication-ready analysis and figures. QIIME 2 can
+also process other types of microbiome data, including amplicons of other
+markers such as 18S rRNA, ITS, and COI, shotgun metagenomics, and untargeted
+metabolomics. We will also show how to combine results from an individual study
+with data from other studies using the Qiita public database framework
+(Gonzalez et al., 2018), which can be used to confirm relationships between
+microbiome and phenotype variables in a new cohort, or to generate hypotheses
+for future testing.</p>
+<p>A typical QIIME 2 analysis can vary in many ways, depending on your
+experimental and data analysis goals and on how you collected the data. In this
+tutorial, we use the QIIME 2 command-line interface, and focus on processing
+and analyzing a subset of samples from the Early Childhood Antibiotics and the
+Microbiome (ECAM) study (Bokulich, Chung, et al., 2016). We will start with raw
+sequence files and use a single analysis pipeline for clarity, but note where
+alternative methods are possible and why you might want to use them.</p>
+<div class="section" id="before-starting">
+<h2>Before Starting<a class="headerlink" href="#before-starting" title="Permalink to this headline">¶</a></h2>
+<p>We recommend that you read about the core concepts of QIIME 2
+(<a class="reference external" href="https://docs.qiime2.org/2019.10/concepts/">https://docs.qiime2.org/2019.10/concepts/</a>) before starting this tutorial to
+familiarize yourself with the platform’s main features and concepts, including
+enhanced visualization methods through QIIME 2 View, decentralized provenance
+tracking (which ensures reproducible bioinformatics), multiple interfaces
+(including the Python 3 API and the QIIME 2 Studio graphical interface), the
+plugin architecture (which enables anyone to expand QIIME 2’s functionality),
+and semantic types (which enables QIIME to help users avoid misusing their
+data). In general, we suggest referring to the QIIME 2 website
+(<a class="reference external" href="https://qiime2.org">https://qiime2.org</a>), which will always be the most up-to-date source for
+information and tutorials on QIIME 2, including newer versions of this
+tutorial. Questions, suggestions, and general discussion should always be
+directed to the QIIME 2 Forum (<a class="reference external" href="https://forum.qiime2.org">https://forum.qiime2.org</a>). A brief ‘Glossary of
+terms’ for common QIIME 2 terminology is provided as Appendix 1.</p>
+</div>
+</div>
+<div class="section" id="basic-protocols">
+<h1>Basic protocols<a class="headerlink" href="#basic-protocols" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="necessary-resources">
+<h2>Necessary resources<a class="headerlink" href="#necessary-resources" title="Permalink to this headline">¶</a></h2>
+<p><em>Hardware:</em> QIIME 2 can be installed on almost any computer system (native
+installation is available on Mac OS and Linux; or Windows via a virtual
+machine). The amount of free disk space and memory you will need vary
+dramatically depending on the number of samples and sequences you will analyze,
+and the algorithms you will use to do so. At present QIIME 2 requires a minimum
+of 6-7 GB for installation, and we recommend a minimum of 2 GB of memory as a
+starting point. Other types of analyses, such as those using shotgun
+metagenomics plugins, may require significantly more memory and disk space.</p>
+<p><em>Software:</em> An up-to-date web browser, such as the latest version of Firefox or
+Chrome is needed for the visualizations using QIIME 2 View.</p>
+</div>
+<div class="section" id="installing-qiime-2">
+<h2>Installing QIIME 2<a class="headerlink" href="#installing-qiime-2" title="Permalink to this headline">¶</a></h2>
+<p>The latest version of QIIME 2, as well as detailed instructions on how to
+install on various operating systems, can be found at <a class="reference external" href="https://docs.qiime2.org">https://docs.qiime2.org</a>.
+QIIME 2 utilizes a variety of external independent packages, and while we
+thrive to maintain backward compatibility, occasionally changes or updates to
+these external packages may create compatibility issues with older versions of
+QIIME 2. To avoid these problems we recommend to always use the most recent
+version of QIIME 2 available online. The online tutorial will always provide
+installation instructions for the most up-to-date, tested, and stable version
+of QIIME 2. The following protocol was completed using QIIME 2 v 2019.10 and
+demonstrates usage with the command line interface (CLI). For users comfortable
+with Python 3 programming, an application programmer interface (API) version of
+this protocol is also available at [insert API notebook link here]. No
+additional software is needed for using the API. Jupyter notebooks for both of
+these protocols are also available at [insert notebooks directory here].
+Finally, an enhanced interactive online version of the CLI protocol is also
+available at [live protocol link here] with all intermediary files precomputed.
+While we strongly encourage users to install QIIME 2 and follow along this
+tutorial, this enhanced tutorial provides an alternative for when time and
+computational resources are limited.</p>
+<div class="topic">
+<p class="topic-title first">Troubleshooting:</p>
+<p>If you encounter any issues with installation, or at any other stages of
+this tutorial, please get in touch on the QIIME 2 Forum at
+<a class="reference external" href="https://forum.qiime.org">https://forum.qiime.org</a>.  The QIIME 2 Forum is the hub of the QIIME 2 user
+and developer communities. Technical support for users and developers is
+provided there, free of charge. We try to reply to technical support
+questions on the forum within 1-2 business days (though sometimes we need
+more time). Getting involved on the QIIME 2 Forum, for example by reading
+existing posts, answering questions, or sharing resources that you’ve
+created such as educational content, is a great way to get involved with
+QIIME 2. We strive to create an inclusive and welcoming community where we
+can collaborate to improve microbiome science. We hope you’ll join us!</p>
+</div>
+</div>
+<div class="section" id="acquire-the-data-from-the-ecam-study">
+<h2>Acquire the data from the ECAM study<a class="headerlink" href="#acquire-the-data-from-the-ecam-study" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial, we’ll be using QIIME 2 to perform cross-sectional as well as
+longitudinal analyses of human infant fecal microbiome samples. The samples we
+will be analyzing are a subset of the ECAM study, which consists of monthly
+fecal samples collected from children at birth up to 24 months of life, as well
+as corresponding fecal samples collected from the mothers throughout the same
+period. The original sequence files from this study are of the V4 region of the
+16S rRNA gene that were sequenced across 5 separate runs (2x150 bp) on an
+Illumina MiSeq machine. To simplify and reduce the computational time required
+for this tutorial we have selected the forward reads of a subset of these
+samples for processing. To follow along with this protocol, create a new
+directory then download the raw sequences (~ 700 MB) and the corresponding
+metadata file into it.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir qiime2-ecam-tutorial
+<span class="nb">cd</span> qiime2-ecam-tutorial
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>qiime feature-table summarize --i-table table.qza --o-visualization table.qzv
+</pre></div>
+</div>
+<div class="admonition">
+<p><strong>Output artifacts:</strong></p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">table.qza</span></code>: <a class="reference external" href="https://view.qiime2.org?src=https%3A%2F%2Fqiime2-curr-protoc-bioinformatics.s3-us-west-2.amazonaws.com%2Fdata%2Findex%2Ftable.qza">view</a> | <a class="reference external" href="https://qiime2-curr-protoc-bioinformatics.s3-us-west-2.amazonaws.com/data/index/table.qza">download</a></p></li>
+</ul>
+<p><strong>Output visualizations:</strong></p>
+<ul class="simple">
+<li><p><code class="file docutils literal notranslate"><span class="pre">table.qzv</span></code>: <a class="reference external" href="https://view.qiime2.org?src=https%3A%2F%2Fqiime2-curr-protoc-bioinformatics.s3-us-west-2.amazonaws.com%2Fdata%2Findex%2Ftable.qzv">view</a> | <a class="reference external" href="https://qiime2-curr-protoc-bioinformatics.s3-us-west-2.amazonaws.com/data/index/table.qzv">download</a></p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">QIIME 2 - Current Protocols</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Mehrbod Estaki, Lingjing Jiang, Nicholas Bokulich, Daniel McDonald, Antonio González, Tomasz Kosciolek, Cameron Martino, Qiyun Zhu, Amanda Birmingham, Yoshiki Vázquez-Baeza, J Gregory Caporaso, Rob Knight.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
