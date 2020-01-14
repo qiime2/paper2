@@ -66,102 +66,102 @@ active community at https://forum.qiime2.org.
 
 *Keywords:* Microbiome, QIIME 2, bioinformatics, Qiita, metagenomics
 
-.. Introduction
-.. ============
-.. 
-.. This tutorial illustrates the use of QIIME 2 (Bolyen et al., 2019) in
-.. processing, analyzing, and visualizing microbiome data. Here we use, as an
-.. example, a high-throughput 16S rRNA gene sequencing study, starting with raw
-.. sequences and producing publication-ready analysis and figures. QIIME 2 can
-.. also process other types of microbiome data, including amplicons of other
-.. markers such as 18S rRNA, ITS, and COI, shotgun metagenomics, and untargeted
-.. metabolomics. We will also show how to combine results from an individual study
-.. with data from other studies using the Qiita public database framework
-.. (Gonzalez et al., 2018), which can be used to confirm relationships between
-.. microbiome and phenotype variables in a new cohort, or to generate hypotheses
-.. for future testing.
-.. 
-.. A typical QIIME 2 analysis can vary in many ways, depending on your
-.. experimental and data analysis goals and on how you collected the data. In this
-.. tutorial, we use the QIIME 2 command-line interface, and focus on processing
-.. and analyzing a subset of samples from the Early Childhood Antibiotics and the
-.. Microbiome (ECAM) study (Bokulich, Chung, et al., 2016). We will start with raw
-.. sequence files and use a single analysis pipeline for clarity, but note where
-.. alternative methods are possible and why you might want to use them.
-.. 
-.. Before Starting
-.. ---------------
-.. 
-.. We recommend that you read about the core concepts of QIIME 2
-.. (https://docs.qiime2.org/2019.10/concepts/) before starting this tutorial to
-.. familiarize yourself with the platform's main features and concepts, including
-.. enhanced visualization methods through QIIME 2 View, decentralized provenance
-.. tracking (which ensures reproducible bioinformatics), multiple interfaces
-.. (including the Python 3 API and the QIIME 2 Studio graphical interface), the
-.. plugin architecture (which enables anyone to expand QIIME 2's functionality),
-.. and semantic types (which enables QIIME to help users avoid misusing their
-.. data). In general, we suggest referring to the QIIME 2 website
-.. (https://qiime2.org), which will always be the most up-to-date source for
-.. information and tutorials on QIIME 2, including newer versions of this
-.. tutorial. Questions, suggestions, and general discussion should always be
-.. directed to the QIIME 2 Forum (https://forum.qiime2.org). A brief 'Glossary of
-.. terms' for common QIIME 2 terminology is provided as Appendix 1.
-.. 
-.. Basic protocols
-.. ===============
-.. 
-.. Necessary resources
-.. -------------------
-.. 
-.. *Hardware:* QIIME 2 can be installed on almost any computer system (native
-.. installation is available on Mac OS and Linux; or Windows via a virtual
-.. machine). The amount of free disk space and memory you will need vary
-.. dramatically depending on the number of samples and sequences you will analyze,
-.. and the algorithms you will use to do so. At present QIIME 2 requires a minimum
-.. of 6-7 GB for installation, and we recommend a minimum of 2 GB of memory as a
-.. starting point. Other types of analyses, such as those using shotgun
-.. metagenomics plugins, may require significantly more memory and disk space.
-.. 
-.. *Software:* An up-to-date web browser, such as the latest version of Firefox or
-.. Chrome is needed for the visualizations using QIIME 2 View.
-.. 
-.. Installing QIIME 2
-.. ------------------
-.. 
-.. The latest version of QIIME 2, as well as detailed instructions on how to
-.. install on various operating systems, can be found at https://docs.qiime2.org.
-.. QIIME 2 utilizes a variety of external independent packages, and while we
-.. thrive to maintain backward compatibility, occasionally changes or updates to
-.. these external packages may create compatibility issues with older versions of
-.. QIIME 2. To avoid these problems we recommend to always use the most recent
-.. version of QIIME 2 available online. The online tutorial will always provide
-.. installation instructions for the most up-to-date, tested, and stable version
-.. of QIIME 2. The following protocol was completed using QIIME 2 v 2019.10 and
-.. demonstrates usage with the command line interface (CLI). For users comfortable
-.. with Python 3 programming, an application programmer interface (API) version of
-.. this protocol is also available at [insert API notebook link here]. No
-.. additional software is needed for using the API. Jupyter notebooks for both of
-.. these protocols are also available at [insert notebooks directory here].
-.. Finally, an enhanced interactive online version of the CLI protocol is also
-.. available at [live protocol link here] with all intermediary files precomputed.
-.. While we strongly encourage users to install QIIME 2 and follow along this
-.. tutorial, this enhanced tutorial provides an alternative for when time and
-.. computational resources are limited.
-.. 
-.. .. topic:: Troubleshooting:
-.. 
-..     If you encounter any issues with installation, or at any other stages of
-..     this tutorial, please get in touch on the QIIME 2 Forum at
-..     https://forum.qiime.org.  The QIIME 2 Forum is the hub of the QIIME 2 user
-..     and developer communities. Technical support for users and developers is
-..     provided there, free of charge. We try to reply to technical support
-..     questions on the forum within 1-2 business days (though sometimes we need
-..     more time). Getting involved on the QIIME 2 Forum, for example by reading
-..     existing posts, answering questions, or sharing resources that you've
-..     created such as educational content, is a great way to get involved with
-..     QIIME 2. We strive to create an inclusive and welcoming community where we
-..     can collaborate to improve microbiome science. We hope you'll join us!
-.. 
+Introduction
+============
+
+This tutorial illustrates the use of QIIME 2 (Bolyen et al., 2019) in
+processing, analyzing, and visualizing microbiome data. Here we use, as an
+example, a high-throughput 16S rRNA gene sequencing study, starting with raw
+sequences and producing publication-ready analysis and figures. QIIME 2 can
+also process other types of microbiome data, including amplicons of other
+markers such as 18S rRNA, ITS, and COI, shotgun metagenomics, and untargeted
+metabolomics. We will also show how to combine results from an individual study
+with data from other studies using the Qiita public database framework
+(Gonzalez et al., 2018), which can be used to confirm relationships between
+microbiome and phenotype variables in a new cohort, or to generate hypotheses
+for future testing.
+
+A typical QIIME 2 analysis can vary in many ways, depending on your
+experimental and data analysis goals and on how you collected the data. In this
+tutorial, we use the QIIME 2 command-line interface, and focus on processing
+and analyzing a subset of samples from the Early Childhood Antibiotics and the
+Microbiome (ECAM) study (Bokulich, Chung, et al., 2016). We will start with raw
+sequence files and use a single analysis pipeline for clarity, but note where
+alternative methods are possible and why you might want to use them.
+
+Before Starting
+---------------
+
+We recommend that you read about the core concepts of QIIME 2
+(https://docs.qiime2.org/2019.10/concepts/) before starting this tutorial to
+familiarize yourself with the platform's main features and concepts, including
+enhanced visualization methods through QIIME 2 View, decentralized provenance
+tracking (which ensures reproducible bioinformatics), multiple interfaces
+(including the Python 3 API and the QIIME 2 Studio graphical interface), the
+plugin architecture (which enables anyone to expand QIIME 2's functionality),
+and semantic types (which enables QIIME to help users avoid misusing their
+data). In general, we suggest referring to the QIIME 2 website
+(https://qiime2.org), which will always be the most up-to-date source for
+information and tutorials on QIIME 2, including newer versions of this
+tutorial. Questions, suggestions, and general discussion should always be
+directed to the QIIME 2 Forum (https://forum.qiime2.org). A brief 'Glossary of
+terms' for common QIIME 2 terminology is provided as Appendix 1.
+
+Basic protocols
+===============
+
+Necessary resources
+-------------------
+
+*Hardware:* QIIME 2 can be installed on almost any computer system (native
+installation is available on Mac OS and Linux; or Windows via a virtual
+machine). The amount of free disk space and memory you will need vary
+dramatically depending on the number of samples and sequences you will analyze,
+and the algorithms you will use to do so. At present QIIME 2 requires a minimum
+of 6-7 GB for installation, and we recommend a minimum of 2 GB of memory as a
+starting point. Other types of analyses, such as those using shotgun
+metagenomics plugins, may require significantly more memory and disk space.
+
+*Software:* An up-to-date web browser, such as the latest version of Firefox or
+Chrome is needed for the visualizations using QIIME 2 View.
+
+Installing QIIME 2
+------------------
+
+The latest version of QIIME 2, as well as detailed instructions on how to
+install on various operating systems, can be found at https://docs.qiime2.org.
+QIIME 2 utilizes a variety of external independent packages, and while we
+thrive to maintain backward compatibility, occasionally changes or updates to
+these external packages may create compatibility issues with older versions of
+QIIME 2. To avoid these problems we recommend to always use the most recent
+version of QIIME 2 available online. The online tutorial will always provide
+installation instructions for the most up-to-date, tested, and stable version
+of QIIME 2. The following protocol was completed using QIIME 2 v 2019.10 and
+demonstrates usage with the command line interface (CLI). For users comfortable
+with Python 3 programming, an application programmer interface (API) version of
+this protocol is also available at [insert API notebook link here]. No
+additional software is needed for using the API. Jupyter notebooks for both of
+these protocols are also available at [insert notebooks directory here].
+Finally, an enhanced interactive online version of the CLI protocol is also
+available at [live protocol link here] with all intermediary files precomputed.
+While we strongly encourage users to install QIIME 2 and follow along this
+tutorial, this enhanced tutorial provides an alternative for when time and
+computational resources are limited.
+
+.. topic:: Troubleshooting:
+
+    If you encounter any issues with installation, or at any other stages of
+    this tutorial, please get in touch on the QIIME 2 Forum at
+    https://forum.qiime.org.  The QIIME 2 Forum is the hub of the QIIME 2 user
+    and developer communities. Technical support for users and developers is
+    provided there, free of charge. We try to reply to technical support
+    questions on the forum within 1-2 business days (though sometimes we need
+    more time). Getting involved on the QIIME 2 Forum, for example by reading
+    existing posts, answering questions, or sharing resources that you've
+    created such as educational content, is a great way to get involved with
+    QIIME 2. We strive to create an inclusive and welcoming community where we
+    can collaborate to improve microbiome science. We hope you'll join us!
+
 .. download::
    :url: https://docs.qiime2.org/2019.10/data/tutorials/moving-pictures/table.qza
    :saveas: table.qza

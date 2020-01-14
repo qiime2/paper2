@@ -65,3 +65,6 @@ dummy:
 	$(SPHINXBUILD) -b dummy -D command_block_no_exec=1 $(ALLSPHINXOPTS) $(BUILDDIR)/dummy
 	@echo
 	@echo "Build finished. Dummy builder generates no files."
+
+deploy:
+	

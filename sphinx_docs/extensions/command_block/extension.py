@@ -278,8 +278,8 @@ class CommandBlockDirective(docutils.parsers.rst.Directive):
     def _get_output_links(self, output_paths, name):
         content = []
         if output_paths:
-            # TODO it would be nice to not hardcode this.
-            url_prefix = 'https://docs.qiime2.org/%s/' % qiime2.__release__
+            url_prefix = ('https://qiime2-curr-protoc-bioinformatics.'
+                          's3-us-west-2.amazonaws.com/')
 
             # TODO it would be cool to format the artifacts/visualizations
             # as tables instead of unordered lists, but will take a little
