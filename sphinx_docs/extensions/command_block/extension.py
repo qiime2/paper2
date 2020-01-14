@@ -74,6 +74,7 @@ class CommandBlockDirective(docutils.parsers.rst.Directive):
         'saveas': docutils.parsers.rst.directives.unchanged_required,
         'stdout': docutils.parsers.rst.directives.flag,
         'stderr': docutils.parsers.rst.directives.flag,
+        'expect-exit-codes': docutils.parsers.rst.directives.unchanged_required,
     }
 
     def run(self):
@@ -82,6 +83,11 @@ class CommandBlockDirective(docutils.parsers.rst.Directive):
 
         command_mode = True if self.name == 'command-block' else False
         opts = self.options
+
+        if 'expect-exit-codes' in opts and opts['expect-exit-codes'] != '':
+            entries = opts['expect-exit-codes'].split()
+            opts['expect-exit-codes'] = [int(i) for i in entries]
+
         download_opts = [k in opts for k in ['url', 'saveas']]
 
         if command_mode:
@@ -121,7 +127,18 @@ class CommandBlockDirective(docutils.parsers.rst.Directive):
                                        env.docname)
             os.makedirs(working_dir, exist_ok=True)
 
-            completed_processes = self._execute_commands(commands, working_dir)
+            if 'expect-exit-codes' in opts:
+                if len(opts['expect-exit-codes']) != len(commands):
+                    raise sphinx.errors.ExtensionError(
+                        'Attemping to check for %d error codes in %d '
+                        'commands (these numbers should be the same).' %
+                        (len(opts['expect-exit-codes']), len(commands)))
+            else:
+                # Would do this sooner, expect we need a sanitized cmd count
+                opts['expect-exit-codes'] = [0 for _ in commands]
+
+            completed_processes = self._execute_commands(
+                commands, working_dir, opts['expect-exit-codes'])
 
             if command_mode:
                 for stream_type in ['stdout', 'stderr']:
@@ -147,9 +164,9 @@ class CommandBlockDirective(docutils.parsers.rst.Directive):
         node['language'] = 'shell'
         return node
 
-    def _execute_commands(self, commands, working_dir):
+    def _execute_commands(self, commands, working_dir, exit_codes):
         comp_procs = []
-        for command in commands:
+        for command, exit_code in zip(commands, exit_codes):
             command = command.strip()
             if not command:
                 continue
@@ -176,13 +193,13 @@ class CommandBlockDirective(docutils.parsers.rst.Directive):
                                                    "command %r: %s" %
                                                    (command, e))
 
-            if comp_proc.returncode != 0:
+            if comp_proc.returncode != exit_code:
                 msg = (
-                    "Command %r exited with non-zero return code %d.\n\n"
+                    "Command %r exited with return code %d (expected %d).\n\n"
                     "stdout:\n\n%s\n\n"
                     "stderr:\n\n%s" %
-                    (command, comp_proc.returncode, comp_proc.stdout,
-                     comp_proc.stderr)
+                    (command, comp_proc.returncode, exit_code,
+                     comp_proc.stdout, comp_proc.stderr)
                 )
                 raise sphinx.errors.ExtensionError(msg)
 

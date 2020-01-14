@@ -1,5 +1,5 @@
-Welcome to QIIME 2 - Current Protocols's documentation!
-=======================================================
+Comprehensive end-to-end microbiome analysis using QIIME 2
+==========================================================
 
 **Title:** QIIME 2 enables comprehensive end-to-end analysis of diverse
 microbiome data and comparative studies with publicly available data
@@ -180,16 +180,18 @@ metadata file into it.
 
 .. command-block::
 
-   true | false
-
-.. command-block::
-
     mkdir qiime2-ecam-tutorial
     cd qiime2-ecam-tutorial
-    wget -O 81253.zip \
-        "https://qiita.ucsd.edu/public_artifact_download/?artifact_id=81253"
-    unzip 81253.zip
-    mv mapping_files/81253_mapping_file.txt metadata.tsv
+
+.. download::
+   :url: https://qiita.ucsd.edu/public_artifact_download/?artifact_id=81253
+   :saveas: 81253.zip
+
+.. command-block::
+   :expect-exit-codes: 2 0
+
+   unzip 81253.zip
+   mv mapping_files/81253_mapping_file.txt metadata.tsv
 
 In this new directory, you should now have a new subfolder called
 "demux-se-reads" containing 478 gzipped FASTQ sequencing files and the
@@ -276,7 +278,8 @@ the name you assign to each of your samples, and the second column
 absolute-filepath provides the absolute file path leading to your raw sequence
 files. For example:
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     sample-id	absolute-filepath
     10249.M001.03R	$PWD/demux-se-reads/10249.M001.03R.fastq.gz
@@ -291,34 +294,26 @@ simple bash script to create ours.
 
 1. Create the manifest file with the required column headers.
 
-.. code-block:: bash
+.. command-block::
 
     echo -e "sample-id\tabsolute-filepath" > manifest.tsv
 
 2. Use a loop function to insert the sample names into the sample-id column and
    add the full paths to the sequence files in the absolute-filepath column.
 
-.. code-block:: bash
+.. command-block::
 
-    for f in `ls per_sample_FASTQ/81253/*.gz`;
-    do
-        n=`basename $f`
-        echo -e "12802.${n/.fastq.gz}\t$PWD/$f"
-    done >> manifest.tsv
-
-* :file:`manifest.tsv`: `download <_static/manifest.tsv>`__
+    for f in `ls per_sample_FASTQ/81253/*.gz`; do n=`basename $f`; echo -e "12802.${n/.fastq.gz}\t$PWD/$f"; done >> manifest.tsv
 
 3. Use the manifest file to import the sequences into QIIME 2
 
-.. code-block:: bash
+.. command-block::
 
    qiime tools import \
        --input-path manifest.tsv \
        --type 'SampleData[SequencesWithQuality]' \
        --input-format SingleEndFastqManifestPhred33V2 \
        --output-path se-demux.qza
-
-* :file:`se-demux.qza`: `view <https://view.qiime2.org?src=foo/_static/se-demux.qza>`__ | `download <_static/se-demux.qza>`__
 
 .. topic:: Alternative Pipeline:
 
@@ -342,13 +337,11 @@ per sample, and the distribution of sequence quality scores at each position.
 
 4. Create a summary of the demultiplexed artifact:
 
-.. code-block:: bash
+.. command-block::
 
     qiime demux summarize \
         --i-data se-demux.qza \
         --o-visualization se-demux.qzv
-
-* :file:`se-demux.qzv`: `view <https://view.qiime2.org?src=foo/_static/se-demux.qzv>`__ | `download <_static/se-demux.qzv>`__
 
 You'll notice that the output of the summarize action above is a Visualization,
 with the file extension ``.qzv``. Visualizations are a type of QIIME 2 Result. Like
@@ -366,7 +359,8 @@ installed, making it useful for sharing data with collaborators who do not have
 QIIME 2 installed. Try visualizing ``se-demux.qzv`` using each of these methods,
 then use the method you prefer for the rest of this tutorial.
 
-.. code-block:: bash
+.. command-block::
+   :no-exec:
 
     qiime tools view se-demux.qzv
 
@@ -440,15 +434,12 @@ Deblur is applied in two steps.
    method is an implementation of the quality filtering approach described by
    Bokulich et al. (Bokulich et al., 2013).
 
-.. code-block:: bash
+.. command-block::
 
     qiime quality-filter q-score \
         --i-demux se-demux.qza \
         --o-filtered-sequences demux-filtered.qza \
         --o-filter-stats demux-filter-stats.qza
-
-* :file:`demux-filtered.qza`: `view <https://view.qiime2.org?src=foo/_static/demux-filtered.qza>`__ | `download <_static/demux-filtered.qza>`__
-* :file:`demux-filter-stats.qza`: `view <https://view.qiime2.org?src=foo/_static/demux-filter-stats.qza>`__ | `download <_static/demux-filter-stats.qza>`__
 
 2. Apply the Deblur workflow using the denoise-16S action. This method requires
    one parameter that is used in quality filtering, ``--p-trim-length`` which
@@ -464,7 +455,7 @@ Deblur is applied in two steps.
    shows high quality scores along the full length of our reads, therefore it
    is reasonable to truncate our reads at the 150 bp position.
 
-.. code-block:: bash
+.. command-block::
 
     qiime deblur denoise-16S \
         --i-demultiplexed-seqs demux-filtered.qza \
@@ -474,10 +465,6 @@ Deblur is applied in two steps.
         --o-stats deblur-stats.qza \
         --o-representative-sequences rep-seqs-deblur.qza \
         --o-table table-deblur.qza
-
-* :file:`deblur-stats.qza`: `view <https://view.qiime2.org?src=foo/_static/deblur-stats.qza>`__ | `download <_static/deblur-stats.qza>`__
-* :file:`rep-seqs-deblur.qza`: `view <https://view.qiime2.org?src=foo/_static/rep-seqs-deblur.qza>`__ | `download <_static/rep-seqs-deblur.qza>`__
-* :file:`table-deblur.qza`: `view <https://view.qiime2.org?src=foo/_static/table-deblur.qza>`__ | `download <_static/table-deblur.qza>`__
 
 .. topic:: Tip!
 
@@ -499,13 +486,11 @@ to provide important information.
 
 3. Create a visualization summary of the DeblurStats artifact with the command:
 
-.. code-block:: bash
+.. command-block::
 
     qiime deblur visualize-stats \
         --i-deblur-stats deblur-stats.qza \
         --o-visualization deblur-stats.qzv
-
-* :file:`deblur-stats.qzv`: `view <https://view.qiime2.org?src=foo/_static/deblur-stats.qzv>`__ | `download <_static/deblur-stats.qzv>`__
 
 The statistics summary (Figure 2) provides us with information about what
 happened to each of the samples during the deblur process. The reads-raw column
@@ -541,13 +526,11 @@ QIIME 2 artifact.
 
 4. Visualize the representative sequences by entering:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table tabulate-seqs \
         --i-data rep-seqs-deblur.qza \
         --o-visualization rep-seqs-deblur.qzv
-
-* :file:`rep-seqs-deblur.qzv`: `view <https://view.qiime2.org?src=foo/_static/rep-seqs-deblur.qzv>`__ | `download <_static/rep-seqs-deblur.qzv>`__
 
 This Visualization (Figure 3) will provide statistics and a seven-number
 summary of sequence lengths, and more importantly, show a sequence table that
@@ -580,14 +563,12 @@ the database is not very similar to the sequence you are using as a query.
    fully under control, often leads to samples dropping out of the analysis
    because too few reads were obtained from them.
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table summarize \
         --i-table table-deblur.qza \
         --m-sample-metadata-file metadata.tsv \
         --o-visualization table-deblur.qzv
-
-* :file:`table-deblur.qzv`: `view <https://view.qiime2.org?src=foo/_static/table-deblur.qzv>`__ | `download <_static/table-deblur.qzv>`__
 
 The first 'Overview' tab gives information about how many sequences come from
 each sample, histograms of those distributions, and related summary statistics.
@@ -636,14 +617,14 @@ consider the alternative methods mentioned in the box below.
 1. Download a backbone tree as the base for our features to be inserted onto.
    Here we use the greengenes (16s rRNA) reference database.
 
-.. code-block:: bash
+.. command-block::
 
     wget -O "sepp-refs-gg-13-8.qza" \
         "https://data.qiime2.org/2019.10/common/sepp-refs-gg-13-8.qza"
 
 2. Create an insertion tree by entering the following commands:
 
-.. code-block:: bash
+.. command-block::
 
     qiime fragment-insertion sepp \
         --i-representative-sequences rep-seqs-deblur.qza \
@@ -651,9 +632,6 @@ consider the alternative methods mentioned in the box below.
         --p-threads 1 \
         --o-tree insertion-tree.qza \
         --o-placements insertion-placements.qza
-
-* :file:`insertion-tree.qza`: `view <https://view.qiime2.org?src=foo/_static/insertion-tree.qza>`__ | `download <_static/insertion-tree.qza>`__
-* :file:`insertion-placements.qza`: `view <https://view.qiime2.org?src=foo/_static/insertion-placements.qza>`__ | `download <_static/insertion-placements.qza>`__
 
 The newly formed ``insertion-tree.qza`` is stored as a rooted phylogenetic tree (of
 semantic type ``Phylogeny[Rooted]`` and can be used in downstream analysis
@@ -679,16 +657,13 @@ determined for sequences not in the tree.
 
 3. Filter your feature-table by running the following:
 
-.. code-block:: bash
+.. command-block::
 
     qiime fragment-insertion filter-features \
         --i-table table-deblur.qza \
         --i-tree insertion-tree.qza \
         --o-filtered-table filtered-table-deblur.qza \
         --o-removed-table removed-table.qza
-
-* :file:`filtered-table-deblur.qza`: `view <https://view.qiime2.org?src=foo/_static/filtered-table-deblur.qza>`__ | `download <_static/filtered-table-deblur.qza>`__
-* :file:`removed-table.qza`: `view <https://view.qiime2.org?src=foo/_static/removed-table.qza>`__ | `download <_static/removed-table.qza>`__
 
 This command generates two feature-tables: The ``filtered-table-deblur.qza``
 contains only features that are also present in the tree while the
@@ -764,15 +739,21 @@ https://github.com/BenKaehler/readytowear/blob/master/inventory.tsv.
 
 1. Start by downloading the three required files from the inventory:
 
-.. code-block:: bash
+.. download::
+   :url: https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/human-stool.qza
+   :saveas: human-stool.qza
 
-    wget https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/human-stool.qza
-    wget https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/ref-seqs-v4.qza
-    wget https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/ref-tax.qza
+.. download::
+   :url: https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/ref-seqs-v4.qza
+   :saveas: ref-seqs-v4.qza
+
+.. download::
+    :url: https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/ref-tax.qza
+    :saveas: ref-tax.qza
 
 2. Train a classifier using these files:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-classifier fit-classifier-naive-bayes \
         --i-reference-reads ref-seqs-v4.qza \
@@ -780,18 +761,14 @@ https://github.com/BenKaehler/readytowear/blob/master/inventory.tsv.
         --i-class-weight human-stool.qza \
         --o-classifier gg138_v4_human-stool_classifier.qza
 
-* :file:`gg138_v4_human-stool_classifier.qza`: `view <https://view.qiime2.org?src=foo/_static/gg138_v4_human-stool_classifier.qza>`__ | `download <_static/gg138_v4_human-stool_classifier.qza>`__
-
 3. Assign taxonomy to our representative sequences using our newly trained classifier:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-classifier classify-sklearn \
         --i-reads rep-seqs-deblur.qza \
         --i-classifier gg138_v4_human-stool_classifier.qza \
         --o-classification bespoke-taxonomy.qza
-
-* :file:`bespoke-taxonomy.qza`: `view <https://view.qiime2.org?src=foo/_static/bespoke-taxonomy.qza>`__ | `download <_static/bespoke-taxonomy.qza>`__
 
 This new ``bespoke-taxonomy.qza`` data artifact is a ``FeatureData[Taxonomy]``
 type which can be used as input in any plugins that accept taxonomic
@@ -799,14 +776,12 @@ assignments.
 
 4. Visualize our taxonomies by entering the following:
 
-.. code-block:: bash
+.. command-block::
 
     qiime metadata tabulate \
         --m-input-file bespoke-taxonomy.qza \
         --m-input-file rep-seqs-deblur.qza \
         --o-visualization bespoke-taxonomy.qzv
-
-* :file:`bespoke-taxonomy.qzv`: `view <https://view.qiime2.org?src=foo/_static/bespoke-taxonomy.qzv>`__ | `download <_static/bespoke-taxonomy.qzv>`__
 
 The Visualization (Figure 5) shows the classified taxonomic name for each
 feature ID, with additional information on confidence level and sequences. You
@@ -846,7 +821,7 @@ https://docs.qiime2.org/2019.10/tutorials/filtering/. To separate the child
 samples we will use the filter-samples action to separate samples based on the
 metadata column "mom_or_child", where a value of "C" represents a child sample.
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-samples \
         --i-table filtered-table-deblur.qza \
@@ -854,19 +829,15 @@ metadata column "mom_or_child", where a value of "C" represents a child sample.
         --p-where "[mom_or_child]='C'" \
         --o-filtered-table child-table.qza
 
-* :file:`child-table.qza`: `view <https://view.qiime2.org?src=foo/_static/child-table.qza>`__ | `download <_static/child-table.qza>`__
-
 We now have a new subsetted feature table consisting of child samples only.
 Let's visualize this new feature table as we did previously:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table summarize \
         --i-table child-table.qza \
         --m-sample-metadata-file metadata.tsv \
         --o-visualization child-table.qzv
-
-* :file:`child-table.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-table.qzv>`__ | `download <_static/child-table.qzv>`__
 
 Load this new Visualization artifact and keep it open, as we will be referring
 to this in the following section.
@@ -896,7 +867,7 @@ and samples can be grouped based on metadata categories in the resulting
 visualization if sample metadata is provided with the ``--m-metadata-file``
 parameter.
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity alpha-rarefaction \
         --i-table child-table.qza \
@@ -904,8 +875,6 @@ parameter.
         --p-max-depth 10000 \
         --m-metadata-file metadata.tsv \
         --o-visualization child-alpha-rarefaction.qzv
-
-* :file:`child-alpha-rarefaction.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-alpha-rarefaction.qzv>`__ | `download <_static/child-alpha-rarefaction.qzv>`__
 
 Load the ``child-alpha-rarefaction.qzv`` Visualization.
 
@@ -995,7 +964,7 @@ manually identified those samples that would be considered false replicates in
 rounding step under the column month_replicate and will use this to filter our
 table.
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-samples \
         --i-table child-table.qza \
@@ -1003,18 +972,14 @@ table.
         --p-where "[month_replicate]='no'" \
         --o-filtered-table child-table-norep.qza
 
-* :file:`child-table-norep.qza`: `view <https://view.qiime2.org?src=foo/_static/child-table-norep.qza>`__ | `download <_static/child-table-norep.qza>`__
-
 Create a Visualization summary of this new table as before:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table summarize \
         --i-table child-table-norep.qza \
         --m-sample-metadata-file metadata.tsv \
         --o-visualization child-table-norep.qzv
-
-* :file:`child-table-norep.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-table-norep.qzv>`__ | `download <_static/child-table-norep.qzv>`__
 
 We are now ready to explore our microbial communities. One simple method to
 visualize the taxonomic composition of samples is to visualize them
@@ -1024,15 +989,13 @@ plugin's barplot action.
 
 1. Generate the taxonomic barplot by running:
 
-.. code-block:: bash
+.. command-block::
 
     qiime taxa barplot \
         --i-table child-table-norep.qza \
         --i-taxonomy bespoke-taxonomy.qza \
         --m-metadata-file metadata.tsv \
         --o-visualization child-bar-plots.qzv
-
-* :file:`child-bar-plots.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-bar-plots.qzv>`__ | `download <_static/child-bar-plots.qzv>`__
 
 This barplot (Figure 7) shows the relative frequency of features in each
 sample, where you can choose the taxonomic level to display, and sort the
@@ -1070,7 +1033,7 @@ of the beta diversity metrics. For this tutorial, we'll use a sampling depth of
 2. Compute alpha and beta diversity by entering the following commands, minding
    the ``--p-n-jobs`` option if multi-core usage is desired:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity core-metrics-phylogenetic \
         --i-table child-table.qza \
@@ -1079,29 +1042,6 @@ of the beta diversity metrics. For this tutorial, we'll use a sampling depth of
         --m-metadata-file metadata.tsv \
         --p-n-jobs 1 \
         --output-dir child-norep-core-metrics-results
-
-Visualizations:
-
-* :file:`child-norep-core-metrics-results/unweighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/unweighted_unifrac_emperor.qzv>`__ | `download <_static/child-norep-core-metrics-results/unweighted_unifrac_emperor.qzv>`__
-* :file:`child-norep-core-metrics-results/jaccard_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/jaccard_emperor.qzv>`__ | `download <_static/child-norep-core-metrics-results/jaccard_emperor.qzv>`__
-* :file:`child-norep-core-metrics-results/bray_curtis_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/bray_curtis_emperor.qzv>`__ | `download <_static/child-norep-core-metrics-results/bray_curtis_emperor.qzv>`__
-* :file:`child-norep-core-metrics-results/weighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/weighted_unifrac_emperor.qzv>`__ | `download <_static/child-norep-core-metrics-results/weighted_unifrac_emperor.qzv>`__
-
-Artifacts:
-
-* :file:`child-norep-core-metrics-results/faith_pd_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/faith_pd_vector.qza>`__ | `download <_static/child-norep-core-metrics-results/faith_pd_vector.qza>`__
-* :file:`child-norep-core-metrics-results/unweighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__ | `download <_static/child-norep-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__
-* :file:`child-norep-core-metrics-results/bray_curtis_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/bray_curtis_pcoa_results.qza>`__ | `download <_static/child-norep-core-metrics-results/bray_curtis_pcoa_results.qza>`__
-* :file:`child-norep-core-metrics-results/shannon_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/shannon_vector.qza>`__ | `download <_static/child-norep-core-metrics-results/shannon_vector.qza>`__
-* :file:`child-norep-core-metrics-results/rarefied_table.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/rarefied_table.qza>`__ | `download <_static/child-norep-core-metrics-results/rarefied_table.qza>`__
-* :file:`child-norep-core-metrics-results/weighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__ | `download <_static/child-norep-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__
-* :file:`child-norep-core-metrics-results/jaccard_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/jaccard_pcoa_results.qza>`__ | `download <_static/child-norep-core-metrics-results/jaccard_pcoa_results.qza>`__
-* :file:`child-norep-core-metrics-results/observed_otus_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/observed_otus_vector.qza>`__ | `download <_static/child-norep-core-metrics-results/observed_otus_vector.qza>`__
-* :file:`child-norep-core-metrics-results/weighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__ | `download <_static/child-norep-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__
-* :file:`child-norep-core-metrics-results/jaccard_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/jaccard_distance_matrix.qza>`__ | `download <_static/child-norep-core-metrics-results/jaccard_distance_matrix.qza>`__
-* :file:`child-norep-core-metrics-results/evenness_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/evenness_vector.qza>`__ | `download <_static/child-norep-core-metrics-results/evenness_vector.qza>`__
-* :file:`child-norep-core-metrics-results/bray_curtis_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/bray_curtis_distance_matrix.qza>`__ | `download <_static/child-norep-core-metrics-results/bray_curtis_distance_matrix.qza>`__
-* :file:`child-norep-core-metrics-results/unweighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__ | `download <_static/child-norep-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__
 
 By default, the following metrics are computed by this pipeline and stored
 within the child-core-metrics-results directory.
@@ -1157,14 +1097,12 @@ alpha diversity and not share any features. The rarefied
 univariate, continuous values and can be tested using common non-parametric
 statistical test (e.g. Kruskal-Wallis test) with the following command:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity alpha-group-significance \
         --i-alpha-diversity child-norep-core-metrics-results/shannon_vector.qza \
         --m-metadata-file metadata.tsv \
         --o-visualization child-norep-core-metrics-results/shannon-group-significance.qzv
-
-* :file:`child-norep-core-metrics-results/shannon-group-significance.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/shannon-group-significance.qzv>`__ | `download <_static/child-norep-core-metrics-results/shannon-group-significance.qzv>`__
 
 Load the newly created ``shannon-group-significance.qzv`` Visualization.
 
@@ -1190,7 +1128,7 @@ and posting your own question if you do not find a pre-existing answer.
 So let's re-analyze our data at the final (month 24) timepoint, by filtering
 our feature-table again:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-samples \
         --i-table child-table-norep.qza \
@@ -1198,13 +1136,11 @@ our feature-table again:
         --p-where "[month]='24'" \
         --o-filtered-table table-norep-C24.qza
 
-* :file:`table-norep-C24.qza`: `view <https://view.qiime2.org?src=foo/_static/table-norep-C24.qza>`__ | `download <_static/table-norep-C24.qza>`__
-
 Next, we'll re-run the core-metrics-phylogenetic pipeline. Visualize the
 summary of this new table and select a new sampling depth as shown in the
 previous section. Re-run core-metrics-phylogenetic:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity core-metrics-phylogenetic \
         --i-table table-norep-C24.qza \
@@ -1214,39 +1150,14 @@ previous section. Re-run core-metrics-phylogenetic:
         --p-n-jobs 1 \
         --output-dir norep-C24-core-metrics-results
 
-Visualizations:
-
-* :file:`norep-C24-core-metrics-results/unweighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/unweighted_unifrac_emperor.qzv>`__ | `download <_static/norep-C24-core-metrics-results/unweighted_unifrac_emperor.qzv>`__
-* :file:`norep-C24-core-metrics-results/jaccard_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/jaccard_emperor.qzv>`__ | `download <_static/norep-C24-core-metrics-results/jaccard_emperor.qzv>`__
-* :file:`norep-C24-core-metrics-results/bray_curtis_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/bray_curtis_emperor.qzv>`__ | `download <_static/norep-C24-core-metrics-results/bray_curtis_emperor.qzv>`__
-* :file:`norep-C24-core-metrics-results/weighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/weighted_unifrac_emperor.qzv>`__ | `download <_static/norep-C24-core-metrics-results/weighted_unifrac_emperor.qzv>`__
-
-Artifacts:
-
-* :file:`norep-C24-core-metrics-results/faith_pd_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/faith_pd_vector.qza>`__ | `download <_static/norep-C24-core-metrics-results/faith_pd_vector.qza>`__
-* :file:`norep-C24-core-metrics-results/unweighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__ | `download <_static/norep-C24-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__
-* :file:`norep-C24-core-metrics-results/bray_curtis_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/bray_curtis_pcoa_results.qza>`__ | `download <_static/norep-C24-core-metrics-results/bray_curtis_pcoa_results.qza>`__
-* :file:`norep-C24-core-metrics-results/shannon_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/shannon_vector.qza>`__ | `download <_static/norep-C24-core-metrics-results/shannon_vector.qza>`__
-* :file:`norep-C24-core-metrics-results/rarefied_table.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/rarefied_table.qza>`__ | `download <_static/norep-C24-core-metrics-results/rarefied_table.qza>`__
-* :file:`norep-C24-core-metrics-results/weighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__ | `download <_static/norep-C24-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__
-* :file:`norep-C24-core-metrics-results/jaccard_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/jaccard_pcoa_results.qza>`__ | `download <_static/norep-C24-core-metrics-results/jaccard_pcoa_results.qza>`__
-* :file:`norep-C24-core-metrics-results/observed_otus_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/observed_otus_vector.qza>`__ | `download <_static/norep-C24-core-metrics-results/observed_otus_vector.qza>`__
-* :file:`norep-C24-core-metrics-results/weighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__ | `download <_static/norep-C24-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__
-* :file:`norep-C24-core-metrics-results/jaccard_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/jaccard_distance_matrix.qza>`__ | `download <_static/norep-C24-core-metrics-results/jaccard_distance_matrix.qza>`__
-* :file:`norep-C24-core-metrics-results/evenness_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/evenness_vector.qza>`__ | `download <_static/norep-C24-core-metrics-results/evenness_vector.qza>`__
-* :file:`norep-C24-core-metrics-results/bray_curtis_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/bray_curtis_distance_matrix.qza>`__ | `download <_static/norep-C24-core-metrics-results/bray_curtis_distance_matrix.qza>`__
-* :file:`norep-C24-core-metrics-results/unweighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__ | `download <_static/norep-C24-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__
-
 And finally, run alpha-group-significance action again:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity alpha-group-significance \
         --i-alpha-diversity norep-C24-core-metrics-results/shannon_vector.qza \
         --m-metadata-file metadata.tsv \
         --o-visualization norep-C24-core-metrics-results/shannon-group-significance.qzv
-
-* :file:`norep-C24-core-metrics-results/shannon-group-significance.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/shannon-group-significance.qzv>`__ | `download <_static/norep-C24-core-metrics-results/shannon-group-significance.qzv>`__
 
 Load this new Visualization.
 
@@ -1324,7 +1235,7 @@ were generated by looking at PCoA results. New hypotheses must unfortunately be
 tested with new, independent data. Here, we perform the PERMANOVA test with the
 following command:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity beta-group-significance \
         --i-distance-matrix norep-C24-core-metrics-results/unweighted_unifrac_distance_matrix.qza \
@@ -1332,8 +1243,6 @@ following command:
         --m-metadata-column delivery \
         --p-pairwise \
         --o-visualization norep-C24-core-metrics-results/uw_unifrac-delivery-significance.qzv
-
-* :file:`norep-C24-core-metrics-results/uw_unifrac-delivery-significance.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/uw_unifrac-delivery-significance.qzv>`__ | `download <_static/norep-C24-core-metrics-results/uw_unifrac-delivery-significance.qzv>`__
 
 Load the Visualization.
 
@@ -1399,7 +1308,7 @@ our full dataset by calling on the day_of_life column instead of month. We'll
 need to calculate our diversity metrics again on the full dataset before
 replicates were removed:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity core-metrics-phylogenetic \
         --i-table child-table.qza \
@@ -1409,35 +1318,12 @@ replicates were removed:
         --p-n-jobs 1 \
         --output-dir child-core-metrics-results
 
-Visualizations:
-
-* :file:`child-core-metrics-results/unweighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/unweighted_unifrac_emperor.qzv>`__ | `download <_static/child-core-metrics-results/unweighted_unifrac_emperor.qzv>`__
-* :file:`child-core-metrics-results/jaccard_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/jaccard_emperor.qzv>`__ | `download <_static/child-core-metrics-results/jaccard_emperor.qzv>`__
-* :file:`child-core-metrics-results/bray_curtis_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/bray_curtis_emperor.qzv>`__ | `download <_static/child-core-metrics-results/bray_curtis_emperor.qzv>`__
-* :file:`child-core-metrics-results/weighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/weighted_unifrac_emperor.qzv>`__ | `download <_static/child-core-metrics-results/weighted_unifrac_emperor.qzv>`__
-
-Artifacts:
-
-* :file:`child-core-metrics-results/faith_pd_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/faith_pd_vector.qza>`__ | `download <_static/child-core-metrics-results/faith_pd_vector.qza>`__
-* :file:`child-core-metrics-results/unweighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__ | `download <_static/child-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__
-* :file:`child-core-metrics-results/bray_curtis_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/bray_curtis_pcoa_results.qza>`__ | `download <_static/child-core-metrics-results/bray_curtis_pcoa_results.qza>`__
-* :file:`child-core-metrics-results/shannon_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/shannon_vector.qza>`__ | `download <_static/child-core-metrics-results/shannon_vector.qza>`__
-* :file:`child-core-metrics-results/rarefied_table.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/rarefied_table.qza>`__ | `download <_static/child-core-metrics-results/rarefied_table.qza>`__
-* :file:`child-core-metrics-results/weighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__ | `download <_static/child-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__
-* :file:`child-core-metrics-results/jaccard_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/jaccard_pcoa_results.qza>`__ | `download <_static/child-core-metrics-results/jaccard_pcoa_results.qza>`__
-* :file:`child-core-metrics-results/observed_otus_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/observed_otus_vector.qza>`__ | `download <_static/child-core-metrics-results/observed_otus_vector.qza>`__
-* :file:`child-core-metrics-results/weighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__ | `download <_static/child-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__
-* :file:`child-core-metrics-results/jaccard_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/jaccard_distance_matrix.qza>`__ | `download <_static/child-core-metrics-results/jaccard_distance_matrix.qza>`__
-* :file:`child-core-metrics-results/evenness_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/evenness_vector.qza>`__ | `download <_static/child-core-metrics-results/evenness_vector.qza>`__
-* :file:`child-core-metrics-results/bray_curtis_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/bray_curtis_distance_matrix.qza>`__ | `download <_static/child-core-metrics-results/bray_curtis_distance_matrix.qza>`__
-* :file:`child-core-metrics-results/unweighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__ | `download <_static/child-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__
-
 To demonstrate how covariates can be included in an LME model, here we will
 test the effects of delivery method and diet (predominantly breast-fed versus
 predominantly formula-fed during the first 3 months of life) simultaneously
 using the following:
 
-.. code-block:: bash
+.. command-block::
 
     qiime longitudinal linear-mixed-effects \
         --m-metadata-file metadata.tsv \
@@ -1448,8 +1334,6 @@ using the following:
         --p-state-column day_of_life \
         --p-individual-id-column host_subject_id \
         --o-visualization lme-shannon.qzv
-
-* :file:`lme-shannon.qzv`: `view <https://view.qiime2.org?src=foo/_static/lme-shannon.qzv>`__ | `download <_static/lme-shannon.qzv>`__
 
 In this Visualization (Figure 12), the model results provide all the outputs
 from the LME model, where we see a significant birth mode effect in Shannon
@@ -1474,7 +1358,7 @@ individual subjects.
 
 The volatility plot can be generated by running:
 
-.. code-block:: bash
+.. command-block::
 
     qiime longitudinal volatility \
         --m-metadata-file metadata.tsv \
@@ -1484,8 +1368,6 @@ The volatility plot can be generated by running:
         --p-state-column day_of_life \
         --p-individual-id-column host_subject_id \
         --o-visualization shannon-volatility.qzv
-
-* :file:`shannon-volatility.qzv`: `view <https://view.qiime2.org?src=foo/_static/shannon-volatility.qzv>`__ | `download <_static/shannon-volatility.qzv>`__
 
 The volatility plot (Figure 13) shows the mean curve of each group in selected
 group column on top of individual trajectories over time. This plot can be
@@ -1529,15 +1411,13 @@ our analysis.
 
 1. Create a new feature-table that contains only samples from children at 6 months:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-samples \
         --i-table child-table-norep.qza \
         --m-metadata-file metadata.tsv \
         --p-where "[month]='6'" \
         --o-filtered-table table-norep-C6.qza
-
-* :file:`table-norep-C6.qza`: `view <https://view.qiime2.org?src=foo/_static/table-norep-C6.qza>`__ | `download <_static/table-norep-C6.qza>`__
 
 When performing differential abundance testing, it is generally a good idea to
 filter out features that have very low abundances across your dataset, as well
@@ -1549,15 +1429,13 @@ samples.
 
 2. Filter out features with the following commands:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-features \
         --i-table table-norep-C6.qza \
         --p-min-samples 5 \
         --p-min-frequency 20 \
         --o-filtered-table filtered-table-C6.qza
-
-* :file:`filtered-table-C6.qza`: `view <https://view.qiime2.org?src=foo/_static/filtered-table-C6.qza>`__ | `download <_static/filtered-table-C6.qza>`__
 
 Because ANCOM operates on relative abundance data, it requires as input a
 feature-table of type FeatureTable[Composition]; it also cannot tolerate
@@ -1567,26 +1445,22 @@ transformation and add a pseudocount of 1 to all of our counts.
 
 3. Add pseudocount to the filtered feature table:
 
-.. code-block:: bash
+.. command-block::
 
     qiime composition add-pseudocount \
         --i-table filtered-table-C6.qza \
         --o-composition-table comp-table-C6.qza
 
-* :file:`comp-table-C6.qza`: `view <https://view.qiime2.org?src=foo/_static/comp-table-C6.qza>`__ | `download <_static/comp-table-C6.qza>`__
-
 4. Run ANCOM to determine which features differ in relative abundance across
    the different birth modes:
 
-.. code-block:: bash
+.. command-block::
 
     qiime composition ancom \
         --i-table comp-table-C6.qza \
         --m-metadata-file metadata.tsv \
         --m-metadata-column delivery \
         --o-visualization ancom-C6-delivery.qzv
-
-* :file:`ancom-C6-delivery.qzv`: `view <https://view.qiime2.org?src=foo/_static/ancom-C6-delivery.qzv>`__ | `download <_static/ancom-C6-delivery.qzv>`__
 
 The Visualization of ANCOM results (Figure 14) first shows a volcano plot,
 where the x-axis summarizes the effect size difference of the given features
@@ -1641,14 +1515,15 @@ C-section.
    your QIIME 2 environment and make a folder to store the songbird results by
    running:
 
-.. code-block:: bash
+.. command-block::
+   :no-exec:
 
     conda install songbird -c conda-forge
     mkdir songbird-results
 
 2. Run songbird with the following command:
 
-.. code-block:: bash
+.. command-block::
 
     qiime songbird multinomial \
         --i-table table-norep-C6.qza \
@@ -1660,19 +1535,13 @@ C-section.
         --o-regression-stats songbird-results/regression-stats6monthControlled.qza \
         --o-regression-biplot songbird-results/regression-biplot6monthControlled.qza
 
-* :file:`songbird-results/regression-stats6monthControlled.qza`: `view <https://view.qiime2.org?src=foo/_static/songbird-results/regression-stats6monthControlled.qza>`__ | `download <_static/songbird-results/regression-stats6monthControlled.qza>`__
-* :file:`songbird-results/regression-biplot6monthControlled.qza`: `view <https://view.qiime2.org?src=foo/_static/songbird-results/regression-biplot6monthControlled.qza>`__ | `download <_static/songbird-results/regression-biplot6monthControlled.qza>`__
-* :file:`songbird-results/differentials6monthControlled.qza`: `view <https://view.qiime2.org?src=foo/_static/songbird-results/differentials6monthControlled.qza>`__ | `download <_static/songbird-results/differentials6monthControlled.qza>`__
-
 3. Examine the estimated coefficients for each feature by running:
 
-.. code-block:: bash
+.. command-block::
 
     qiime tools export \
         --input-path songbird-results/differentials6monthControlled.qza \
         --output-path songbird-results/exported-differentials6monthControlled
-
-* :file:`songbird-results/exported-differentials6monthControlled/differentials.tsv`: `download <_static/songbird-results/exported-differentials6monthControlled/differentials.tsv>`__
 
 Based on the estimated coefficients for ``delivery[T.Vaginal]`` in the output of
 regression stats, we consider the features with the positive coefficients to be
@@ -1728,7 +1597,8 @@ samples get indexed by redbiom.
 
 To use redbiom, we first need to install the package using conda.
 
-.. code-block:: bash
+.. command-block::
+   :no-exec:
 
     conda install -c conda-forge redbiom
 
@@ -1739,7 +1609,7 @@ contexts command provides information about the names of the contexts and the
 number of samples and features indexed. The context names themselves describe
 the processing parameters used.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize contexts
 
@@ -1750,7 +1620,8 @@ five lines of this output is below, which provides the context name, the number
 of samples in the context, the number of unique features, and a succinct
 description of the bioinformatic processing performed.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     ContextName	SamplesWithData	FeaturesWithData	Description
     Pick_closed-reference_OTUs-Greengenes-Illumina-16S-V4-125nt-65468f	16622	40899	Pick closed-reference OTUs (reference-seq: \|databases\|gg\|13_8\|rep_set\|97_otus.fasta) \| Trimming (length: 125)
@@ -1773,13 +1644,11 @@ which the sequence was observed, and save the output into a file called
 search; use the ``bespoke-taxonomy.qzv`` Visualization to locate its
 corresponding DNA sequences.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom search features --context Deblur-Illumina-16S-V4-150nt-780653 \
         TACGTAGGGTGCAAGCGTTATCCGGAATTATTGGGCGTAAAGGGCTCGTAGGCGGTTCGTCGCGTCCGGTGTGAAAGTCCATCGCTTAACGGTGGATCTGCGCCGGGTACGGGCGGGCTGGAGTGCGGTAGGGGAGACTGGAATTCCCGG \
         > observed_samples.txt
-
-* :file:`observed_samples.txt`: `download <_static/observed_samples.txt>`__
 
 If we examine the ``observed_samples.txt`` file, we'll see that over 17,000
 samples contain this particular feature. These samples are part of 137
@@ -1792,7 +1661,7 @@ the Earth Microbiome Project Ontology (Thompson et al., 2017). The EMPO_3 level
 describes basic environmental information about a sample. Only samples which
 describe an entry in their metadata for empo_3 will be obtained.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize samples \
         --category empo_3 \
@@ -1801,7 +1670,8 @@ describe an entry in their metadata for empo_3 will be obtained.
 What we can see from this output is that (as expected) the feature is primarily
 observed in samples associated with the animal distal gut.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     Animal distal gut	7124
     Animal surface	331
@@ -1832,21 +1702,19 @@ correspond to an individual's recorded age. In addition, we will explicitly
 omit the ECAM study from our qiita search as our dataset was drawn from this
 study.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom select samples-from-metadata \
         --context Deblur-Illumina-16S-V4-150nt-780653 \
         --from observed_samples.txt "where (host_age < 3 or age < 3) and qiita_study_id != 10249" \
         > infant_samples.txt
 
-* :file:`infant_samples.txt`: `download <_static/infant_samples.txt>`__
-
 We can then summarize the metadata of these infant samples. In order to do so,
 we need to determine what metadata category to summarize over. So let's search
 Qiita for all metadata categories (not shown below) that contain the word birth
 in the name, pick a few that seem plausible, and summarize them.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom search metadata \
         --categories birth
@@ -1855,14 +1723,15 @@ redbiom summarize metadata birth_method birth_mode
 
 We can see that birth_mode is represented by thousands of samples.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     birth_method	72
     birth_mode	2176
 
 Soo let's use that metadata category.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize samples \
         --category birth_mode \
@@ -1871,7 +1740,8 @@ Soo let's use that metadata category.
 From this summary, it appears our feature of interest is present in many more
 samples associated with a vaginal birth than cesarean section.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     Vaginal	38
     Cesarea	16
@@ -1885,7 +1755,7 @@ possibility that there may be more representations of vaginal birth samples in
 Qiita. However, a summary of that metadata category across all of Qiita can be
 performed easily.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize metadata-category \
         --counter \
@@ -1895,7 +1765,8 @@ This suggests the variable is not extremely unbalanced between C-section and
 vaginal births, and that actually more of the samples are associated with
 C-sections.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     Category value	count
     Cesarea	47
@@ -1907,7 +1778,7 @@ C-sections.
 Last, we can see the studies these samples were observed in by summarizing over
 the qiita_study_id category.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize samples \
         --category qiita_study_id \
@@ -1915,7 +1786,8 @@ the qiita_study_id category.
 
 We see that nine different Qiita studies are represented by the infant samples.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     10581	54
     10918	30
@@ -1957,13 +1829,11 @@ directory. For example, a user may be interested in visualizing their
 phylogenetic tree using a package in R. To obtain the raw tree file (in Newick
 format) simply run:
 
-.. code-block:: bash
+.. command-block::
 
     qiime tools export \
         --input-path insertion-tree.qza \
         --output-path extracted-insertion-tree
-
-* :file:`extracted-insertion-tree/tree.nwk`: `download <_static/extracted-insertion-tree/tree.nwk>`__
 
 Analysis of shotgun metagenomic data
 ------------------------------------
@@ -1990,7 +1860,8 @@ et al., 2018).
 
 1. Install QIIME 2 shotgun metagenomics plugins by running:
 
-.. code-block:: bash
+.. command-block::
+   :no-exec:
 
     conda install -c bioconda bowtie2
     pip install https://github.com/knights-lab/SHOGUN/archive/master.zip
@@ -1999,16 +1870,25 @@ et al., 2018).
 
 2. Download sample data from the q2-shogun repository:
 
-.. code-block:: bash
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/query.qza
+   :saveas: query.qza
 
-    for i in query refseqs taxonomy bt2-database;
-    do
-        wget https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/$i.qza
-    done
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/refseqs.qza
+   :saveas: refseqs.qza
+
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/taxonomy.qza
+   :saveas: taxonomy.qza
+
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/bt2-database.qza
+   :saveas: bt2-database.qza
 
 3. Run shotgun metagenomics pipeline with the following commands:
 
-.. code-block:: bash
+.. command-block::
 
     qiime shogun nobunaga \
         --i-query query.qza \
@@ -2016,8 +1896,6 @@ et al., 2018).
         --i-reference-taxonomy taxonomy.qza \
         --i-database bt2-database.qza \
         --o-taxa-table taxatable.qza
-
-* :file:`taxatable.qza`: `view <https://view.qiime2.org?src=foo/_static/taxatable.qza>`__ | `download <_static/taxatable.qza>`__
 
 In this example, SHOGUN is called to align query sequences ``query.qza``
 against a reference sequence database refseqs.qza using the popular short
@@ -2032,7 +1910,7 @@ Bowtie2 index is necessary for this operation.
 4. Import an existing Bowtie2 index (typically built from the reference
    sequence database) into QIIME 2:
 
-.. code-block:: bash
+.. command-block::
 
     qiime tools import \
         --input-path bowtie-db/ \
@@ -2054,7 +1932,7 @@ should be directed to the QIIME 2 Forum as this will expand over time.
 
 5. Import resulting profile into QIIME 2 by running:
 
-.. code-block:: bash
+.. command-block::
 
     qiime tools import \
         --input-path profile.biom \
@@ -2064,7 +1942,7 @@ should be directed to the QIIME 2 Forum as this will expand over time.
 If the profile is in plain text (i.e., a tab-delimited file), one needs to
 convert it into BIOM format before importing into QIIME 2:
 
-.. code-block:: bash
+.. command-block::
 
     biom convert --to-hdf5 -i profile.tsv -o profile.biom
 
