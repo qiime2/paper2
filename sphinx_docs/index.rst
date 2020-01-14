@@ -1,18 +1,32 @@
-.. QIIME 2 - Current Protocols documentation master file, created by
-   sphinx-quickstart on Sat Jan 11 09:39:56 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Comprehensive end-to-end microbiome analysis using QIIME 2
+==========================================================
 
-Welcome to QIIME 2 - Current Protocols's documentation!
-=======================================================
-
-**Title:** QIIME 2 enables comprehensive end-to-end analysis of diverse microbiome data and comparative studies with publicly available data
+**Title:** QIIME 2 enables comprehensive end-to-end analysis of diverse
+microbiome data and comparative studies with publicly available data
 
 **Running Title:** Comprehensive end-to-end microbiome analysis using QIIME 2
 
-**Authors:** Mehrbod Estaki :sup:`1,#`, Lingjing Jiang :sup:`2,#`, Nicholas Bokulich :sup:`3,4`, Daniel McDonald :sup:`1`, Antonio González :sup:`1`, Tomasz Kosciolek :sup:`1,5`, Cameron Martino :sup:`6,7`, Qiyun Zhu :sup:`1`, Amanda Birmingham :sup:`8`, Yoshiki Vázquez-Baeza :sup:`7,9`, J Gregory Caporaso :sup:`3,4`, Rob Knight :sup:`1,7,10,11*`
+**Authors:** Mehrbod Estaki :sup:`1,#`, Lingjing Jiang :sup:`2,#`, Nicholas
+Bokulich :sup:`3,4`, Daniel McDonald :sup:`1`, Antonio González :sup:`1`,
+Tomasz Kosciolek :sup:`1,5`, Cameron Martino :sup:`6,7`, Qiyun Zhu :sup:`1`,
+Amanda Birmingham :sup:`8`, Yoshiki Vázquez-Baeza :sup:`7,9`, J Gregory
+Caporaso :sup:`3,4`, Rob Knight :sup:`1,7,10,11*`
 
-:sup:`1` Department of Pediatrics, University of California San Diego, La Jolla, CA, USA, :sup:`2` Division of Biostatistics, University of California San Diego, La Jolla, CA, USA, :sup:`3` Center for Applied Microbiome Science, Pathogen and Microbiome Institute, Northern Arizona University, Flagstaff, AZ, USA, :sup:`4` Department of Biological Sciences, Northern Arizona University, Flagstaff, AZ, USA, :sup:`5` Malopolska Centre of Biotechnology, Jagiellonian University, Kraków, Poland, :sup:`6` Bioinformatics and Systems Biology Program, University of California San Diego, La Jolla, CA, USA, :sup:`7` Center for Microbiome Innovation, University of California San Diego, La Jolla, CA, USA, :sup:`8` Center for Computational Biology and Bioinformatics, UC San Diego, La Jolla, CA, USA, :sup:`9` Jacobs School of Engineering, University of California San Diego, La Jolla, CA, USA, :sup:`10` Department of Computer Science and Engineering, University of California San Diego, La Jolla, CA, USA, :sup:`11` Department of Bioengineering, University of California San Diego, La Jolla, CA, USA 
+:sup:`1` Department of Pediatrics, University of California San Diego, La
+Jolla, CA, USA, :sup:`2` Division of Biostatistics, University of California
+San Diego, La Jolla, CA, USA, :sup:`3` Center for Applied Microbiome Science,
+Pathogen and Microbiome Institute, Northern Arizona University, Flagstaff, AZ,
+USA, :sup:`4` Department of Biological Sciences, Northern Arizona University,
+Flagstaff, AZ, USA, :sup:`5` Malopolska Centre of Biotechnology, Jagiellonian
+University, Kraków, Poland, :sup:`6` Bioinformatics and Systems Biology
+Program, University of California San Diego, La Jolla, CA, USA, :sup:`7` Center
+for Microbiome Innovation, University of California San Diego, La Jolla, CA,
+USA, :sup:`8` Center for Computational Biology and Bioinformatics, UC San
+Diego, La Jolla, CA, USA, :sup:`9` Jacobs School of Engineering, University of
+California San Diego, La Jolla, CA, USA, :sup:`10` Department of Computer
+Science and Engineering, University of California San Diego, La Jolla, CA, USA,
+:sup:`11` Department of Bioengineering, University of California San Diego, La
+Jolla, CA, USA
 
 :sup:`*` To whom correspondence should be addressed.
 
@@ -24,7 +38,7 @@ Email: robknight@ucsd.edu
 
 :sup:`#` The first two authors should be regarded as Joint First Authors.
 
-Abstract 
+Abstract
 ========
 
 QIIME 2 is a completely reengineered microbiome bioinformatics platform based
@@ -48,7 +62,7 @@ development of 43 infants in the United States from birth to two years of age,
 identifying microbiome associations with antibiotic exposure, delivery mode,
 and diet. For more information about QIIME 2, see https://qiime2.org. To
 troubleshoot or ask questions about QIIME 2 and microbiome analysis, join the
-active community at https://forum.qiime2.org. 
+active community at https://forum.qiime2.org.
 
 *Keywords:* Microbiome, QIIME 2, bioinformatics, Qiita, metagenomics
 
@@ -65,7 +79,7 @@ metabolomics. We will also show how to combine results from an individual study
 with data from other studies using the Qiita public database framework
 (Gonzalez et al., 2018), which can be used to confirm relationships between
 microbiome and phenotype variables in a new cohort, or to generate hypotheses
-for future testing. 
+for future testing.
 
 A typical QIIME 2 analysis can vary in many ways, depending on your
 experimental and data analysis goals and on how you collected the data. In this
@@ -73,7 +87,7 @@ tutorial, we use the QIIME 2 command-line interface, and focus on processing
 and analyzing a subset of samples from the Early Childhood Antibiotics and the
 Microbiome (ECAM) study (Bokulich, Chung, et al., 2016). We will start with raw
 sequence files and use a single analysis pipeline for clarity, but note where
-alternative methods are possible and why you might want to use them. 
+alternative methods are possible and why you might want to use them.
 
 Before Starting
 ---------------
@@ -107,7 +121,7 @@ and the algorithms you will use to do so. At present QIIME 2 requires a minimum
 of 6-7 GB for installation, and we recommend a minimum of 2 GB of memory as a
 starting point. Other types of analyses, such as those using shotgun
 metagenomics plugins, may require significantly more memory and disk space.
-      
+
 *Software:* An up-to-date web browser, such as the latest version of Firefox or
 Chrome is needed for the visualizations using QIIME 2 View.
 
@@ -133,8 +147,8 @@ available at [live protocol link here] with all intermediary files precomputed.
 While we strongly encourage users to install QIIME 2 and follow along this
 tutorial, this enhanced tutorial provides an alternative for when time and
 computational resources are limited.
-  
-.. topic:: Troubleshooting: 
+
+.. topic:: Troubleshooting:
 
     If you encounter any issues with installation, or at any other stages of
     this tutorial, please get in touch on the QIIME 2 Forum at
@@ -162,21 +176,27 @@ Illumina MiSeq machine. To simplify and reduce the computational time required
 for this tutorial we have selected the forward reads of a subset of these
 samples for processing. To follow along with this protocol, create a new
 directory then download the raw sequences (~ 700 MB) and the corresponding
-metadata file into it. 
+metadata file into it.
 
-.. code-block:: bash
+.. command-block::
 
-    mkdir qiime2-ecam-tutorial 
-    cd qiime2-ecam-tutorial 
-    wget -O 81253.zip \ 
-        "https://qiita.ucsd.edu/public_artifact_download/?artifact_id=81253" 
-    unzip 81253.zip 
-    mv mapping_files/81253_mapping_file.txt metadata.tsv
+    mkdir qiime2-ecam-tutorial
+    cd qiime2-ecam-tutorial
+
+.. download::
+   :url: https://qiita.ucsd.edu/public_artifact_download/?artifact_id=81253
+   :saveas: 81253.zip
+
+.. command-block::
+   :expect-exit-codes: 2 0
+
+   unzip 81253.zip
+   mv mapping_files/81253_mapping_file.txt metadata.tsv
 
 In this new directory, you should now have a new subfolder called
 "demux-se-reads" containing 478 gzipped FASTQ sequencing files and the
 corresponding ``metadata.tsv`` file. You can now delete the original ecam-data
-folder to save space. 
+folder to save space.
 
 Explore sample metadata files
 -----------------------------
@@ -258,11 +278,12 @@ the name you assign to each of your samples, and the second column
 absolute-filepath provides the absolute file path leading to your raw sequence
 files. For example:
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
-    sample-id	absolute-filepath 
-    10249.M001.03R	$PWD/demux-se-reads/10249.M001.03R.fastq.gz 
-    10249.M001.03SS	$PWD/demux-se-reads/10249.M001.03SS.fastq.gz 
+    sample-id	absolute-filepath
+    10249.M001.03R	$PWD/demux-se-reads/10249.M001.03R.fastq.gz
+    10249.M001.03SS	$PWD/demux-se-reads/10249.M001.03SS.fastq.gz
     10249.M001.03V	$PWD/demux-se-reads/10249.M001.03V.fastq.gz
 
 Alternatively, your sample metadata file can also double as a manifest file by
@@ -273,36 +294,28 @@ simple bash script to create ours.
 
 1. Create the manifest file with the required column headers.
 
-.. code-block:: bash
+.. command-block::
 
     echo -e "sample-id\tabsolute-filepath" > manifest.tsv
 
 2. Use a loop function to insert the sample names into the sample-id column and
    add the full paths to the sequence files in the absolute-filepath column.
 
-.. code-block:: bash
+.. command-block::
 
-    for f in `ls per_sample_FASTQ/81253/*.gz`; 
-    do
-        n=`basename $f`
-        echo -e "12802.${n/.fastq.gz}\t$PWD/$f"
-    done >> manifest.tsv
-
-* :file:`manifest.tsv`: `download <_static/manifest.tsv>`__
+    for f in `ls per_sample_FASTQ/81253/*.gz`; do n=`basename $f`; echo -e "12802.${n/.fastq.gz}\t$PWD/$f"; done >> manifest.tsv
 
 3. Use the manifest file to import the sequences into QIIME 2
 
-.. code-block:: bash
+.. command-block::
 
    qiime tools import \
-       --input-path manifest.tsv \ 
+       --input-path manifest.tsv \
        --type 'SampleData[SequencesWithQuality]' \
        --input-format SingleEndFastqManifestPhred33V2 \
        --output-path se-demux.qza
 
-* :file:`se-demux.qza`: `view <https://view.qiime2.org?src=foo/_static/se-demux.qza>`__ | `download <_static/se-demux.qza>`__
-
-.. topic:: Alternative Pipeline: 
+.. topic:: Alternative Pipeline:
 
     Your data may not be demultiplexed prior to importing to QIIME 2.
     Instructions on how to import multiplexed FASTQ files, as well as a variety
@@ -315,7 +328,7 @@ simple bash script to create ours.
     or the q2-cutadapt
     (https://docs.qiime2.org/2019.10/plugins/available/cutadapt/) plugin (which
     additionally supports demultiplexing of dual-index barcodes using cutadapt
-    (Martin, 2011)) 
+    (Martin, 2011))
 
 The demultiplexed artifact allows us to create an interactive summary of our
 sequences. This summary provides information useful for assessing the quality
@@ -324,13 +337,11 @@ per sample, and the distribution of sequence quality scores at each position.
 
 4. Create a summary of the demultiplexed artifact:
 
-.. code-block:: bash
+.. command-block::
 
-    qiime demux summarize \ 
-        --i-data se-demux.qza \ 
+    qiime demux summarize \
+        --i-data se-demux.qza \
         --o-visualization se-demux.qzv
-
-* :file:`se-demux.qzv`: `view <https://view.qiime2.org?src=foo/_static/se-demux.qzv>`__ | `download <_static/se-demux.qzv>`__
 
 You'll notice that the output of the summarize action above is a Visualization,
 with the file extension ``.qzv``. Visualizations are a type of QIIME 2 Result. Like
@@ -346,9 +357,10 @@ view or alternatively by loading them with QIIME 2 View
 (https://view.qiime2.org/). QIIME 2 View does not require QIIME 2 to be
 installed, making it useful for sharing data with collaborators who do not have
 QIIME 2 installed. Try visualizing ``se-demux.qzv`` using each of these methods,
-then use the method you prefer for the rest of this tutorial. 
+then use the method you prefer for the rest of this tutorial.
 
-.. code-block:: bash
+.. command-block::
+   :no-exec:
 
     qiime tools view se-demux.qzv
 
@@ -365,7 +377,7 @@ those sequences are used to generate the box plots. By default, 10,000
 sequences are subsampled, but you can control that number with ``--p-n`` on the
 demux summarize command. Keep in mind that because of this random subsampling,
 every time you run demux summarize on the same sequence data you will obtain
-slightly different plots. 
+slightly different plots.
 
 When you hover the mouse over a box plot for a given base position, the box
 plot's data is shown in a table below the interactive plot as a parametric
@@ -406,7 +418,7 @@ these methods. For instance, DADA2 includes joining of paired-end reads in its
 processing workflow and is therefore simpler to use when paired-end read
 joining is desired, while Deblur users must join reads independently prior to
 denoising using other plugins such as q2-vsearch's join-pairs method (Rognes,
-Flouri, Nichols, Quince, & Mahژ, 2016). 
+Flouri, Nichols, Quince, & Mahژ, 2016).
 
 In this tutorial, we'll denoise our sequences with q2-deblur which uses a
 pre-calculated static sequence error profile to associate erroneous sequence
@@ -414,23 +426,20 @@ reads with the true biological sequence from which they are derived. Unlike
 DADA2, which creates sequence error profiles on a per analysis basis, this
 allows Deblur to be simultaneously applied across different datasets,
 reflecting its design motivation for performing meta-analyses. Additionally,
-using a pre-defined error profile generally results in shorter runtimes.  
+using a pre-defined error profile generally results in shorter runtimes.
 
 Deblur is applied in two steps.
- 
+
 1. Apply an initial quality filtering process based on quality scores. This
    method is an implementation of the quality filtering approach described by
    Bokulich et al. (Bokulich et al., 2013).
 
-.. code-block:: bash
+.. command-block::
 
     qiime quality-filter q-score \
         --i-demux se-demux.qza \
         --o-filtered-sequences demux-filtered.qza \
         --o-filter-stats demux-filter-stats.qza
-
-* :file:`demux-filtered.qza`: `view <https://view.qiime2.org?src=foo/_static/demux-filtered.qza>`__ | `download <_static/demux-filtered.qza>`__
-* :file:`demux-filter-stats.qza`: `view <https://view.qiime2.org?src=foo/_static/demux-filter-stats.qza>`__ | `download <_static/demux-filter-stats.qza>`__
 
 2. Apply the Deblur workflow using the denoise-16S action. This method requires
    one parameter that is used in quality filtering, ``--p-trim-length`` which
@@ -444,9 +453,9 @@ Deblur is applied in two steps.
    the same for all of the sequencing runs being compared to avoid introducing
    a study-specific bias. In the current example dataset, our quality plot
    shows high quality scores along the full length of our reads, therefore it
-   is reasonable to truncate our reads at the 150 bp position. 
+   is reasonable to truncate our reads at the 150 bp position.
 
-.. code-block:: bash
+.. command-block::
 
     qiime deblur denoise-16S \
         --i-demultiplexed-seqs demux-filtered.qza \
@@ -457,12 +466,8 @@ Deblur is applied in two steps.
         --o-representative-sequences rep-seqs-deblur.qza \
         --o-table table-deblur.qza
 
-* :file:`deblur-stats.qza`: `view <https://view.qiime2.org?src=foo/_static/deblur-stats.qza>`__ | `download <_static/deblur-stats.qza>`__
-* :file:`rep-seqs-deblur.qza`: `view <https://view.qiime2.org?src=foo/_static/rep-seqs-deblur.qza>`__ | `download <_static/rep-seqs-deblur.qza>`__
-* :file:`table-deblur.qza`: `view <https://view.qiime2.org?src=foo/_static/table-deblur.qza>`__ | `download <_static/table-deblur.qza>`__
+.. topic:: Tip!
 
-.. topic:: Tip! 
-    
     The denoising step is often one of the longest steps in microbiome analysis
     pipelines. Luckily, both DADA2 and Deblur are parallelizable, meaning you
     can significantly reduce computation time if your machine has access to
@@ -481,13 +486,11 @@ to provide important information.
 
 3. Create a visualization summary of the DeblurStats artifact with the command:
 
-.. code-block:: bash
+.. command-block::
 
     qiime deblur visualize-stats \
         --i-deblur-stats deblur-stats.qza \
         --o-visualization deblur-stats.qzv
-
-* :file:`deblur-stats.qzv`: `view <https://view.qiime2.org?src=foo/_static/deblur-stats.qzv>`__ | `download <_static/deblur-stats.qzv>`__
 
 The statistics summary (Figure 2) provides us with information about what
 happened to each of the samples during the deblur process. The reads-raw column
@@ -514,22 +517,20 @@ and reads-missed-reference).  The number in the reads-hit-reference column is
 the final number of per-sample sequences present in the ``table-deblur.qza``
 QIIME 2 artifact.
 
-.. note:: 
+.. note::
 
     The shorthand "artifact" in the per-sample Deblur statistics denotes
     artifactual sequences (i.e. those erroneously generated as byproducts of
     the PCR and DNA sequencing process), not a QIIME 2 artifact (i.e. a valid
-    data product of QIIME 2). 
+    data product of QIIME 2).
 
-4. Visualize the representative sequences by entering: 
- 
-.. code-block:: bash
+4. Visualize the representative sequences by entering:
+
+.. command-block::
 
     qiime feature-table tabulate-seqs \
         --i-data rep-seqs-deblur.qza \
         --o-visualization rep-seqs-deblur.qzv
-
-* :file:`rep-seqs-deblur.qzv`: `view <https://view.qiime2.org?src=foo/_static/rep-seqs-deblur.qzv>`__ | `download <_static/rep-seqs-deblur.qzv>`__
 
 This Visualization (Figure 3) will provide statistics and a seven-number
 summary of sequence lengths, and more importantly, show a sequence table that
@@ -547,11 +548,11 @@ of these features, especially in cases where the closest reference sequence in
 the database is not very similar to the sequence you are using as a query.
 
 .. note::
-    
+
     By default, QIIME 2 uses MD5 hashing of a feature's full sequence to assign
     a feature ID. These are the 32-bit strings of numbers and characters you
     see in the Feature ID column above. Hashing in q2-deblur can be disabled by
-    adding the ``--p-no-hashed-feature-ids`` parameter. 
+    adding the ``--p-no-hashed-feature-ids`` parameter.
 
 5. Visualize the feature table. Note that in this step, we can provide our
    metadata file, which then adds information about sample groups into the
@@ -562,14 +563,12 @@ the database is not very similar to the sequence you are using as a query.
    fully under control, often leads to samples dropping out of the analysis
    because too few reads were obtained from them.
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table summarize \
         --i-table table-deblur.qza \
         --m-sample-metadata-file metadata.tsv \
-        --o-visualization table-deblur.qzv 
-
-* :file:`table-deblur.qzv`: `view <https://view.qiime2.org?src=foo/_static/table-deblur.qzv>`__ | `download <_static/table-deblur.qzv>`__
+        --o-visualization table-deblur.qzv
 
 The first 'Overview' tab gives information about how many sequences come from
 each sample, histograms of those distributions, and related summary statistics.
@@ -578,7 +577,7 @@ of samples associated with the metadata category of interest, and the feature
 count in each sample is shown in the table below. Note that you can choose the
 metadata categories and change sampling depth by dragging the bar or typing in
 the value. The 'Feature Detail' tab shows the frequency and number of observed
-samples associated with each feature. 
+samples associated with each feature.
 
 .. topic:: Alternative Pipelines:
 
@@ -588,14 +587,14 @@ samples associated with each feature.
     recommend that denoising methods be used prior to clustering in order to
     utilize the superior quality-control procedures within these tools.
 
-Generating a phylogenetic tree 
+Generating a phylogenetic tree
 ------------------------------
 
 Although microbiome data can be analyzed without a phylogenetic tree, many
 commonly used diversity analysis methods such as Faith's phylogenetic diversity
 (Faith, 1992) and UniFrac (C. Lozupone & Knight, 2005) require one. To use
 these methods, we must construct a phylogenetic tree that allows us to consider
-evolutionary relatedness between the DNA sequences. 
+evolutionary relatedness between the DNA sequences.
 
 QIIME 2 offers several methods for reconstructing phylogenetic trees based on
 features found in your data. These include several variants of traditional
@@ -613,19 +612,19 @@ unknown short fragments to full length sequences in a known reference database
 and then places them onto a fixed tree. Note that this plugin has only been
 tested and benchmarked on 16S data against the Greengenes reference database
 (McDonald et al., 2012), so if you are using different data types you should
-consider the alternative methods mentioned in the box below. 
+consider the alternative methods mentioned in the box below.
 
 1. Download a backbone tree as the base for our features to be inserted onto.
    Here we use the greengenes (16s rRNA) reference database.
 
-.. code-block:: bash
+.. command-block::
 
     wget -O "sepp-refs-gg-13-8.qza" \
         "https://data.qiime2.org/2019.10/common/sepp-refs-gg-13-8.qza"
 
-2. Create an insertion tree by entering the following commands: 
+2. Create an insertion tree by entering the following commands:
 
-.. code-block:: bash
+.. command-block::
 
     qiime fragment-insertion sepp \
         --i-representative-sequences rep-seqs-deblur.qza \
@@ -634,14 +633,11 @@ consider the alternative methods mentioned in the box below.
         --o-tree insertion-tree.qza \
         --o-placements insertion-placements.qza
 
-* :file:`insertion-tree.qza`: `view <https://view.qiime2.org?src=foo/_static/insertion-tree.qza>`__ | `download <_static/insertion-tree.qza>`__
-* :file:`insertion-placements.qza`: `view <https://view.qiime2.org?src=foo/_static/insertion-placements.qza>`__ | `download <_static/insertion-placements.qza>`__
-
 The newly formed ``insertion-tree.qza`` is stored as a rooted phylogenetic tree (of
 semantic type ``Phylogeny[Rooted]`` and can be used in downstream analysis
 for phylogenetic diversity computations.
 
-.. topic:: Tip! 
+.. topic:: Tip!
 
     Building a tree using SEPP can be computationally demanding and often has
     longer run times than most steps in a typical microbiome analysis pipeline.
@@ -657,11 +653,11 @@ because SEPP might reject the insertion of some fragments, such as erroneous
 sequences or those that are too distantly related to the reference alignment
 and phylogeny. Features in your feature-table without a corresponding phylogeny
 will cause diversity computation to fail, because branch lengths cannot be
-determined for sequences not in the tree. 
+determined for sequences not in the tree.
 
 3. Filter your feature-table by running the following:
 
-.. code-block:: bash
+.. command-block::
 
     qiime fragment-insertion filter-features \
         --i-table table-deblur.qza \
@@ -669,15 +665,12 @@ determined for sequences not in the tree.
         --o-filtered-table filtered-table-deblur.qza \
         --o-removed-table removed-table.qza
 
-* :file:`filtered-table-deblur.qza`: `view <https://view.qiime2.org?src=foo/_static/filtered-table-deblur.qza>`__ | `download <_static/filtered-table-deblur.qza>`__
-* :file:`removed-table.qza`: `view <https://view.qiime2.org?src=foo/_static/removed-table.qza>`__ | `download <_static/removed-table.qza>`__
-
 This command generates two feature-tables: The ``filtered-table-deblur.qza``
 contains only features that are also present in the tree while the
 ``removed-table.qza`` contains features not present in the tree. Both of these
 tables can be visualized as shown in Step 5 of the previous section.
 
-.. topic:: Alternative Pipelines: 
+.. topic:: Alternative Pipelines:
 
     If a traditional de novo phylogenetic tree is desired/required, QIIME 2
     offers several methods (FastTree (Price, Dehal, & Arkin, 2010), IQ-TREE
@@ -689,15 +682,15 @@ tables can be visualized as shown in Step 5 of the previous section.
     requires. However, if some of your sequences are not 16S rRNA genes, the
     tree will be incorrect in ways that may severely affect your results.
 
-4. Visualize the phylogenetic tree. 
-   
+4. Visualize the phylogenetic tree.
+
 The phylogenetic tree artifact (semantic type: ``Phylogeny[Rooted]``)
 produced in this step can be readily visualized using q2-empress
 (https://github.com/biocore/empress) or  iTOL's (Letunic & Bork, 2019)
 interactive web-based tool by simply uploading the artifact at
 https://itol.embl.de/upload.cgi. The underlying tree, in Newick format, can
 also be easily exported for use in your application of choice (see the
-"Exporting QIIME 2 data" section in Supporting Protocols. 
+"Exporting QIIME 2 data" section in Supporting Protocols.
 
 Taxonomic classification
 ------------------------
@@ -746,15 +739,21 @@ https://github.com/BenKaehler/readytowear/blob/master/inventory.tsv.
 
 1. Start by downloading the three required files from the inventory:
 
-.. code-block:: bash
+.. download::
+   :url: https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/human-stool.qza
+   :saveas: human-stool.qza
 
-    wget https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/human-stool.qza
-    wget https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/ref-seqs-v4.qza
-    wget https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/ref-tax.qza
+.. download::
+   :url: https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/ref-seqs-v4.qza
+   :saveas: ref-seqs-v4.qza
+
+.. download::
+    :url: https://github.com/BenKaehler/readytowear/raw/master/data/gg_13_8/515f-806r/ref-tax.qza
+    :saveas: ref-tax.qza
 
 2. Train a classifier using these files:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-classifier fit-classifier-naive-bayes \
         --i-reference-reads ref-seqs-v4.qza \
@@ -762,33 +761,27 @@ https://github.com/BenKaehler/readytowear/blob/master/inventory.tsv.
         --i-class-weight human-stool.qza \
         --o-classifier gg138_v4_human-stool_classifier.qza
 
-* :file:`gg138_v4_human-stool_classifier.qza`: `view <https://view.qiime2.org?src=foo/_static/gg138_v4_human-stool_classifier.qza>`__ | `download <_static/gg138_v4_human-stool_classifier.qza>`__
-
 3. Assign taxonomy to our representative sequences using our newly trained classifier:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-classifier classify-sklearn \
         --i-reads rep-seqs-deblur.qza \
         --i-classifier gg138_v4_human-stool_classifier.qza \
         --o-classification bespoke-taxonomy.qza
 
-* :file:`bespoke-taxonomy.qza`: `view <https://view.qiime2.org?src=foo/_static/bespoke-taxonomy.qza>`__ | `download <_static/bespoke-taxonomy.qza>`__
-
 This new ``bespoke-taxonomy.qza`` data artifact is a ``FeatureData[Taxonomy]``
 type which can be used as input in any plugins that accept taxonomic
-assignments. 
+assignments.
 
 4. Visualize our taxonomies by entering the following:
 
-.. code-block:: bash
+.. command-block::
 
     qiime metadata tabulate \
         --m-input-file bespoke-taxonomy.qza \
         --m-input-file rep-seqs-deblur.qza \
         --o-visualization bespoke-taxonomy.qzv
-
-* :file:`bespoke-taxonomy.qzv`: `view <https://view.qiime2.org?src=foo/_static/bespoke-taxonomy.qzv>`__ | `download <_static/bespoke-taxonomy.qzv>`__
 
 The Visualization (Figure 5) shows the classified taxonomic name for each
 feature ID, with additional information on confidence level and sequences. You
@@ -803,7 +796,7 @@ taxonomies. The results here will generally be more accurate than those
 received from the simple BLAST search linked from the ``rep-seqs.qzv``
 Visualization.
 
-.. topic:: Alternative Pipeline: 
+.. topic:: Alternative Pipeline:
 
     To assemble your own taxonomic weights for regions not available in the
     readytowear inventory, follow the detailed instructions outlined at
@@ -828,7 +821,7 @@ https://docs.qiime2.org/2019.10/tutorials/filtering/. To separate the child
 samples we will use the filter-samples action to separate samples based on the
 metadata column "mom_or_child", where a value of "C" represents a child sample.
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-samples \
         --i-table filtered-table-deblur.qza \
@@ -836,19 +829,15 @@ metadata column "mom_or_child", where a value of "C" represents a child sample.
         --p-where "[mom_or_child]='C'" \
         --o-filtered-table child-table.qza
 
-* :file:`child-table.qza`: `view <https://view.qiime2.org?src=foo/_static/child-table.qza>`__ | `download <_static/child-table.qza>`__
-
 We now have a new subsetted feature table consisting of child samples only.
 Let's visualize this new feature table as we did previously:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table summarize \
         --i-table child-table.qza \
         --m-sample-metadata-file metadata.tsv \
-        --o-visualization child-table.qzv   
-
-* :file:`child-table.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-table.qzv>`__ | `download <_static/child-table.qzv>`__
+        --o-visualization child-table.qzv
 
 Load this new Visualization artifact and keep it open, as we will be referring
 to this in the following section.
@@ -878,7 +867,7 @@ and samples can be grouped based on metadata categories in the resulting
 visualization if sample metadata is provided with the ``--m-metadata-file``
 parameter.
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity alpha-rarefaction \
         --i-table child-table.qza \
@@ -886,8 +875,6 @@ parameter.
         --p-max-depth 10000 \
         --m-metadata-file metadata.tsv \
         --o-visualization child-alpha-rarefaction.qzv
-
-* :file:`child-alpha-rarefaction.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-alpha-rarefaction.qzv>`__ | `download <_static/child-alpha-rarefaction.qzv>`__
 
 Load the ``child-alpha-rarefaction.qzv`` Visualization.
 
@@ -913,7 +900,7 @@ will be unreliable because it will have been computed on relatively few
 samples. When grouping samples by metadata, it is therefore essential to look
 at the bottom plot to ensure that the data presented in the top plot is
 reliable. Try using the drop-down menus at the top of the plots to switch
-between the different calculated diversity metrics and metadata categories. 
+between the different calculated diversity metrics and metadata categories.
 
 As mentioned earlier, a normalization method to account for unequal sampling
 depth across samples in microbiome data is essential to avoid the introduction
@@ -927,7 +914,7 @@ analyses that are otherwise dominated by sample-to-sample variation in the
 number of sequences per sample obtained (Weiss et al., 2017). Selecting the
 depth to which to rarefy samples to is a subjective decision motivated by the
 desire to maximize the rarefying threshold while minimizing loss of samples due
-to insufficient coverage. 
+to insufficient coverage.
 
 Let's consider our current dataset as an example. In the rarefaction plots
 above we can see that there is a natural leveling of our diversity metrics
@@ -952,7 +939,7 @@ months 6, 12, and 24, while still maintaining a minimum depth that will capture
 the overall signature of the alpha diversity metrics as seen by our rarefaction
 plots.
 
-.. topic:: Alternative Pipelines: 
+.. topic:: Alternative Pipelines:
 
     Newer methods are actively being developed that circumvent the need for
     rarefying by taking advantage of the compositional nature of microbiome
@@ -977,7 +964,7 @@ manually identified those samples that would be considered false replicates in
 rounding step under the column month_replicate and will use this to filter our
 table.
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-samples \
         --i-table child-table.qza \
@@ -985,18 +972,14 @@ table.
         --p-where "[month_replicate]='no'" \
         --o-filtered-table child-table-norep.qza
 
-* :file:`child-table-norep.qza`: `view <https://view.qiime2.org?src=foo/_static/child-table-norep.qza>`__ | `download <_static/child-table-norep.qza>`__
-
 Create a Visualization summary of this new table as before:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table summarize \
         --i-table child-table-norep.qza \
         --m-sample-metadata-file metadata.tsv \
         --o-visualization child-table-norep.qzv
-
-* :file:`child-table-norep.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-table-norep.qzv>`__ | `download <_static/child-table-norep.qzv>`__
 
 We are now ready to explore our microbial communities. One simple method to
 visualize the taxonomic composition of samples is to visualize them
@@ -1006,15 +989,13 @@ plugin's barplot action.
 
 1. Generate the taxonomic barplot by running:
 
-.. code-block:: bash
+.. command-block::
 
     qiime taxa barplot \
         --i-table child-table-norep.qza \
         --i-taxonomy bespoke-taxonomy.qza \
         --m-metadata-file metadata.tsv \
         --o-visualization child-bar-plots.qzv
-
-* :file:`child-bar-plots.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-bar-plots.qzv>`__ | `download <_static/child-bar-plots.qzv>`__
 
 This barplot (Figure 7) shows the relative frequency of features in each
 sample, where you can choose the taxonomic level to display, and sort the
@@ -1024,11 +1005,11 @@ clicking it in the legend. The snapshot above shows a barplot at the phylum
 level (level 2) where samples were sorted by day. Three phyla were highlighted
 to show that Proteobacteria (grey) dominate at birth but by 6 months of age the
 relative abundance of Bacteroidetes (green) and Firmicutes (purple) make up the
-majority of the community. 
+majority of the community.
 
 While barplots can be informative with regards to the composition of our
 microbial communities, they are hard to disentangle meaningful signals from
-noises. 
+noises.
 
 Many microbial ecology studies use alpha diversity (within-sample richness
 and/or evenness) and beta diversity (between-sample dissimilarity) to reveal
@@ -1039,7 +1020,7 @@ generates interactive visualizations. The diversity metrics used in any given
 study should be based on the overall goals of the experiment. For a list of
 available diversity metrics in QIIME 2 and a brief description of the
 motivation behind them, we recommend reviewing the following tutorial:
-https://forum.qiime2.org/t/alpha-and-beta-diversity-explanations-and-commands. 
+https://forum.qiime2.org/t/alpha-and-beta-diversity-explanations-and-commands.
 
 In this tutorial we'll utilize the pipeline action core-metrics-phylogenetic,
 which simultaneously rarefies a ``FeatureTable[Frequency]`` to a user-specified
@@ -1047,12 +1028,12 @@ depth, computes several commonly used alpha and beta diversity metrics, and
 generates principal coordinates analysis (PCoA) plots using the EMPeror
 visualization tool (V‡zquez-Baeza, Pirrung, Gonzalez, & Knight, 2013) for each
 of the beta diversity metrics. For this tutorial, we'll use a sampling depth of
-3,400 as determined from the previous step. 
+3,400 as determined from the previous step.
 
 2. Compute alpha and beta diversity by entering the following commands, minding
    the ``--p-n-jobs`` option if multi-core usage is desired:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity core-metrics-phylogenetic \
         --i-table child-table.qza \
@@ -1062,41 +1043,18 @@ of the beta diversity metrics. For this tutorial, we'll use a sampling depth of
         --p-n-jobs 1 \
         --output-dir child-norep-core-metrics-results
 
-Visualizations: 
-
-* :file:`child-norep-core-metrics-results/unweighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/unweighted_unifrac_emperor.qzv>`__ | `download <_static/child-norep-core-metrics-results/unweighted_unifrac_emperor.qzv>`__
-* :file:`child-norep-core-metrics-results/jaccard_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/jaccard_emperor.qzv>`__ | `download <_static/child-norep-core-metrics-results/jaccard_emperor.qzv>`__
-* :file:`child-norep-core-metrics-results/bray_curtis_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/bray_curtis_emperor.qzv>`__ | `download <_static/child-norep-core-metrics-results/bray_curtis_emperor.qzv>`__
-* :file:`child-norep-core-metrics-results/weighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/weighted_unifrac_emperor.qzv>`__ | `download <_static/child-norep-core-metrics-results/weighted_unifrac_emperor.qzv>`__
-
-Artifacts:
-
-* :file:`child-norep-core-metrics-results/faith_pd_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/faith_pd_vector.qza>`__ | `download <_static/child-norep-core-metrics-results/faith_pd_vector.qza>`__
-* :file:`child-norep-core-metrics-results/unweighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__ | `download <_static/child-norep-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__
-* :file:`child-norep-core-metrics-results/bray_curtis_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/bray_curtis_pcoa_results.qza>`__ | `download <_static/child-norep-core-metrics-results/bray_curtis_pcoa_results.qza>`__
-* :file:`child-norep-core-metrics-results/shannon_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/shannon_vector.qza>`__ | `download <_static/child-norep-core-metrics-results/shannon_vector.qza>`__
-* :file:`child-norep-core-metrics-results/rarefied_table.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/rarefied_table.qza>`__ | `download <_static/child-norep-core-metrics-results/rarefied_table.qza>`__
-* :file:`child-norep-core-metrics-results/weighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__ | `download <_static/child-norep-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__
-* :file:`child-norep-core-metrics-results/jaccard_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/jaccard_pcoa_results.qza>`__ | `download <_static/child-norep-core-metrics-results/jaccard_pcoa_results.qza>`__
-* :file:`child-norep-core-metrics-results/observed_otus_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/observed_otus_vector.qza>`__ | `download <_static/child-norep-core-metrics-results/observed_otus_vector.qza>`__
-* :file:`child-norep-core-metrics-results/weighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__ | `download <_static/child-norep-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__
-* :file:`child-norep-core-metrics-results/jaccard_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/jaccard_distance_matrix.qza>`__ | `download <_static/child-norep-core-metrics-results/jaccard_distance_matrix.qza>`__
-* :file:`child-norep-core-metrics-results/evenness_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/evenness_vector.qza>`__ | `download <_static/child-norep-core-metrics-results/evenness_vector.qza>`__
-* :file:`child-norep-core-metrics-results/bray_curtis_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/bray_curtis_distance_matrix.qza>`__ | `download <_static/child-norep-core-metrics-results/bray_curtis_distance_matrix.qza>`__
-* :file:`child-norep-core-metrics-results/unweighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__ | `download <_static/child-norep-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__
-
 By default, the following metrics are computed by this pipeline and stored
-within the child-core-metrics-results directory. 
+within the child-core-metrics-results directory.
 
 Alpha diversity metrics
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 * Shannon's diversity index (a quantitative measure of community richness)
-  (Shannon & Weaver, 1949) 
+  (Shannon & Weaver, 1949)
 * Observed features (a quantitative measure of community richness, called
-  "observed OTUs" here for historical reasons); 
+  "observed OTUs" here for historical reasons);
 * Evenness (or Pielou's Evenness; a measure of community evenness) (Pielou,
-  1966); 
+  1966);
 * Faith's Phylogenetic Diversity (a qualitative measure of community richness
   that incorporates phylogenetic relationships between the features) (Faith,
   1992); this metric is sometimes referred to as PD_whole_tree, but we
@@ -1107,9 +1065,9 @@ Beta diversity metrics
 ^^^^^^^^^^^^^^^^^^^^^^
 
 * Jaccard distance (a qualitative measure of community dissimilarity) (P.
-  Jaccard, 1908); 
+  Jaccard, 1908);
 * Bray-Curtis distance (a quantitative measure of community dissimilarity)
-  (Sørensen, 1948); 
+  (Sørensen, 1948);
 * unweighted UniFrac distance (a qualitative measure of community dissimilarity
   that incorporates phylogenetic relationships between the features) (C.
   Lozupone & Knight, 2005); Implementation based on Striped UniFrac (McDonald
@@ -1125,7 +1083,7 @@ microbial composition of the samples in the context of their metadata.
 Performing statistical tests on diversity and generating interactive visualizations
 -----------------------------------------------------------------------------------
 
-Alpha diversity 
+Alpha diversity
 ^^^^^^^^^^^^^^^
 
 We will first test for associations between our categorical metadata columns
@@ -1139,14 +1097,12 @@ alpha diversity and not share any features. The rarefied
 univariate, continuous values and can be tested using common non-parametric
 statistical test (e.g. Kruskal-Wallis test) with the following command:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity alpha-group-significance \
         --i-alpha-diversity child-norep-core-metrics-results/shannon_vector.qza \
         --m-metadata-file metadata.tsv \
         --o-visualization child-norep-core-metrics-results/shannon-group-significance.qzv
-
-* :file:`child-norep-core-metrics-results/shannon-group-significance.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-norep-core-metrics-results/shannon-group-significance.qzv>`__ | `download <_static/child-norep-core-metrics-results/shannon-group-significance.qzv>`__
 
 Load the newly created ``shannon-group-significance.qzv`` Visualization.
 
@@ -1167,12 +1123,12 @@ is not able to detect that: you must always be knowledgeable about the
 assumptions of the statistical tests that you are applying, and whether they
 are applicable to your data. These types of questions are common on the QIIME 2
 Forum, so if you are unsure start by searching for your question on the forum,
-and posting your own question if you do not find a pre-existing answer. 
+and posting your own question if you do not find a pre-existing answer.
 
 So let's re-analyze our data at the final (month 24) timepoint, by filtering
 our feature-table again:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-samples \
         --i-table child-table-norep.qza \
@@ -1180,13 +1136,11 @@ our feature-table again:
         --p-where "[month]='24'" \
         --o-filtered-table table-norep-C24.qza
 
-* :file:`table-norep-C24.qza`: `view <https://view.qiime2.org?src=foo/_static/table-norep-C24.qza>`__ | `download <_static/table-norep-C24.qza>`__
-
 Next, we'll re-run the core-metrics-phylogenetic pipeline. Visualize the
 summary of this new table and select a new sampling depth as shown in the
 previous section. Re-run core-metrics-phylogenetic:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity core-metrics-phylogenetic \
         --i-table table-norep-C24.qza \
@@ -1196,41 +1150,16 @@ previous section. Re-run core-metrics-phylogenetic:
         --p-n-jobs 1 \
         --output-dir norep-C24-core-metrics-results
 
-Visualizations:
-
-* :file:`norep-C24-core-metrics-results/unweighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/unweighted_unifrac_emperor.qzv>`__ | `download <_static/norep-C24-core-metrics-results/unweighted_unifrac_emperor.qzv>`__
-* :file:`norep-C24-core-metrics-results/jaccard_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/jaccard_emperor.qzv>`__ | `download <_static/norep-C24-core-metrics-results/jaccard_emperor.qzv>`__
-* :file:`norep-C24-core-metrics-results/bray_curtis_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/bray_curtis_emperor.qzv>`__ | `download <_static/norep-C24-core-metrics-results/bray_curtis_emperor.qzv>`__
-* :file:`norep-C24-core-metrics-results/weighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/weighted_unifrac_emperor.qzv>`__ | `download <_static/norep-C24-core-metrics-results/weighted_unifrac_emperor.qzv>`__
-
-Artifacts:
-
-* :file:`norep-C24-core-metrics-results/faith_pd_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/faith_pd_vector.qza>`__ | `download <_static/norep-C24-core-metrics-results/faith_pd_vector.qza>`__
-* :file:`norep-C24-core-metrics-results/unweighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__ | `download <_static/norep-C24-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__
-* :file:`norep-C24-core-metrics-results/bray_curtis_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/bray_curtis_pcoa_results.qza>`__ | `download <_static/norep-C24-core-metrics-results/bray_curtis_pcoa_results.qza>`__
-* :file:`norep-C24-core-metrics-results/shannon_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/shannon_vector.qza>`__ | `download <_static/norep-C24-core-metrics-results/shannon_vector.qza>`__
-* :file:`norep-C24-core-metrics-results/rarefied_table.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/rarefied_table.qza>`__ | `download <_static/norep-C24-core-metrics-results/rarefied_table.qza>`__
-* :file:`norep-C24-core-metrics-results/weighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__ | `download <_static/norep-C24-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__
-* :file:`norep-C24-core-metrics-results/jaccard_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/jaccard_pcoa_results.qza>`__ | `download <_static/norep-C24-core-metrics-results/jaccard_pcoa_results.qza>`__
-* :file:`norep-C24-core-metrics-results/observed_otus_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/observed_otus_vector.qza>`__ | `download <_static/norep-C24-core-metrics-results/observed_otus_vector.qza>`__
-* :file:`norep-C24-core-metrics-results/weighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__ | `download <_static/norep-C24-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__
-* :file:`norep-C24-core-metrics-results/jaccard_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/jaccard_distance_matrix.qza>`__ | `download <_static/norep-C24-core-metrics-results/jaccard_distance_matrix.qza>`__
-* :file:`norep-C24-core-metrics-results/evenness_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/evenness_vector.qza>`__ | `download <_static/norep-C24-core-metrics-results/evenness_vector.qza>`__
-* :file:`norep-C24-core-metrics-results/bray_curtis_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/bray_curtis_distance_matrix.qza>`__ | `download <_static/norep-C24-core-metrics-results/bray_curtis_distance_matrix.qza>`__
-* :file:`norep-C24-core-metrics-results/unweighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__ | `download <_static/norep-C24-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__
-
 And finally, run alpha-group-significance action again:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity alpha-group-significance \
         --i-alpha-diversity norep-C24-core-metrics-results/shannon_vector.qza \
         --m-metadata-file metadata.tsv \
         --o-visualization norep-C24-core-metrics-results/shannon-group-significance.qzv
 
-* :file:`norep-C24-core-metrics-results/shannon-group-significance.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/shannon-group-significance.qzv>`__ | `download <_static/norep-C24-core-metrics-results/shannon-group-significance.qzv>`__
-
-Load this new Visualization. 
+Load this new Visualization.
 
 We can see now that at month 24 (Figure 9), vaginal birth appears to be
 associated with a higher Shannon value than cesarean birth (p-value = 0.02),
@@ -1253,10 +1182,10 @@ covariates. Moreover, users can customize their figures using existing
 drop-down menus: hiding certain samples in 'Visibility', changing the
 brightness of dots in 'Opacity', controlling their size in 'Scale', choosing
 different shapes for samples in 'Shape', modifying the color of axes and
-background in 'Axes' and creating a moving picture under the 'Animations' tabs. 
+background in 'Axes' and creating a moving picture under the 'Animations' tabs.
 
 .. topic:: Alternative Pipeline:
-    
+
     Visualizing Longitudinal Variation with Emperor.  For longitudinal studies,
     we've found great use in visualizing temporal variability using animated
     traces in Emperor. By doing this, you can follow the longitudinal dynamics
@@ -1280,7 +1209,7 @@ background in 'Axes' and creating a moving picture under the 'Animations' tabs.
     start over, click on the 'back' button. Using the ECAM dataset, we have
     generated an animation visualizing the temporal trajectories of one vaginal
     born and one cesarean baby in the 3D PCoA plot. This animation is available at
-    https://www.dropbox.com/s/v8vhbbuhrg51ff0/animation.mov?dl=0. 
+    https://www.dropbox.com/s/v8vhbbuhrg51ff0/animation.mov?dl=0.
 
     For more information about animated ordinations, visit Emperor's online
     tutorial at
@@ -1306,7 +1235,7 @@ were generated by looking at PCoA results. New hypotheses must unfortunately be
 tested with new, independent data. Here, we perform the PERMANOVA test with the
 following command:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity beta-group-significance \
         --i-distance-matrix norep-C24-core-metrics-results/unweighted_unifrac_distance_matrix.qza \
@@ -1314,8 +1243,6 @@ following command:
         --m-metadata-column delivery \
         --p-pairwise \
         --o-visualization norep-C24-core-metrics-results/uw_unifrac-delivery-significance.qzv
-
-* :file:`norep-C24-core-metrics-results/uw_unifrac-delivery-significance.qzv`: `view <https://view.qiime2.org?src=foo/_static/norep-C24-core-metrics-results/uw_unifrac-delivery-significance.qzv>`__ | `download <_static/norep-C24-core-metrics-results/uw_unifrac-delivery-significance.qzv>`__
 
 Load the Visualization.
 
@@ -1331,7 +1258,7 @@ beta diversity (as represented by unweighted UniFrac distances) at month 24
 the limited sample size in this dataset. We would conclude that further
 experiments would be needed to confirm our findings.
 
-.. topic:: Alternative Pipeline: 
+.. topic:: Alternative Pipeline:
 
     The beta diversity analysis above was carried on a rarefied subset of our
     data. An alternative method that does not require rarefying is offered
@@ -1381,7 +1308,7 @@ our full dataset by calling on the day_of_life column instead of month. We'll
 need to calculate our diversity metrics again on the full dataset before
 replicates were removed:
 
-.. code-block:: bash
+.. command-block::
 
     qiime diversity core-metrics-phylogenetic \
         --i-table child-table.qza \
@@ -1391,35 +1318,12 @@ replicates were removed:
         --p-n-jobs 1 \
         --output-dir child-core-metrics-results
 
-Visualizations:
-
-* :file:`child-core-metrics-results/unweighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/unweighted_unifrac_emperor.qzv>`__ | `download <_static/child-core-metrics-results/unweighted_unifrac_emperor.qzv>`__
-* :file:`child-core-metrics-results/jaccard_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/jaccard_emperor.qzv>`__ | `download <_static/child-core-metrics-results/jaccard_emperor.qzv>`__
-* :file:`child-core-metrics-results/bray_curtis_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/bray_curtis_emperor.qzv>`__ | `download <_static/child-core-metrics-results/bray_curtis_emperor.qzv>`__
-* :file:`child-core-metrics-results/weighted_unifrac_emperor.qzv`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/weighted_unifrac_emperor.qzv>`__ | `download <_static/child-core-metrics-results/weighted_unifrac_emperor.qzv>`__
-
-Artifacts:
-
-* :file:`child-core-metrics-results/faith_pd_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/faith_pd_vector.qza>`__ | `download <_static/child-core-metrics-results/faith_pd_vector.qza>`__
-* :file:`child-core-metrics-results/unweighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__ | `download <_static/child-core-metrics-results/unweighted_unifrac_distance_matrix.qza>`__
-* :file:`child-core-metrics-results/bray_curtis_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/bray_curtis_pcoa_results.qza>`__ | `download <_static/child-core-metrics-results/bray_curtis_pcoa_results.qza>`__
-* :file:`child-core-metrics-results/shannon_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/shannon_vector.qza>`__ | `download <_static/child-core-metrics-results/shannon_vector.qza>`__
-* :file:`child-core-metrics-results/rarefied_table.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/rarefied_table.qza>`__ | `download <_static/child-core-metrics-results/rarefied_table.qza>`__
-* :file:`child-core-metrics-results/weighted_unifrac_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__ | `download <_static/child-core-metrics-results/weighted_unifrac_distance_matrix.qza>`__
-* :file:`child-core-metrics-results/jaccard_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/jaccard_pcoa_results.qza>`__ | `download <_static/child-core-metrics-results/jaccard_pcoa_results.qza>`__
-* :file:`child-core-metrics-results/observed_otus_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/observed_otus_vector.qza>`__ | `download <_static/child-core-metrics-results/observed_otus_vector.qza>`__
-* :file:`child-core-metrics-results/weighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__ | `download <_static/child-core-metrics-results/weighted_unifrac_pcoa_results.qza>`__
-* :file:`child-core-metrics-results/jaccard_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/jaccard_distance_matrix.qza>`__ | `download <_static/child-core-metrics-results/jaccard_distance_matrix.qza>`__
-* :file:`child-core-metrics-results/evenness_vector.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/evenness_vector.qza>`__ | `download <_static/child-core-metrics-results/evenness_vector.qza>`__
-* :file:`child-core-metrics-results/bray_curtis_distance_matrix.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/bray_curtis_distance_matrix.qza>`__ | `download <_static/child-core-metrics-results/bray_curtis_distance_matrix.qza>`__
-* :file:`child-core-metrics-results/unweighted_unifrac_pcoa_results.qza`: `view <https://view.qiime2.org?src=foo/_static/child-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__ | `download <_static/child-core-metrics-results/unweighted_unifrac_pcoa_results.qza>`__
-
 To demonstrate how covariates can be included in an LME model, here we will
 test the effects of delivery method and diet (predominantly breast-fed versus
 predominantly formula-fed during the first 3 months of life) simultaneously
 using the following:
 
-.. code-block:: bash
+.. command-block::
 
     qiime longitudinal linear-mixed-effects \
         --m-metadata-file metadata.tsv \
@@ -1430,8 +1334,6 @@ using the following:
         --p-state-column day_of_life \
         --p-individual-id-column host_subject_id \
         --o-visualization lme-shannon.qzv
-
-* :file:`lme-shannon.qzv`: `view <https://view.qiime2.org?src=foo/_static/lme-shannon.qzv>`__ | `download <_static/lme-shannon.qzv>`__
 
 In this Visualization (Figure 12), the model results provide all the outputs
 from the LME model, where we see a significant birth mode effect in Shannon
@@ -1456,7 +1358,7 @@ individual subjects.
 
 The volatility plot can be generated by running:
 
-.. code-block:: bash
+.. command-block::
 
     qiime longitudinal volatility \
         --m-metadata-file metadata.tsv \
@@ -1467,8 +1369,6 @@ The volatility plot can be generated by running:
         --p-individual-id-column host_subject_id \
         --o-visualization shannon-volatility.qzv
 
-* :file:`shannon-volatility.qzv`: `view <https://view.qiime2.org?src=foo/_static/shannon-volatility.qzv>`__ | `download <_static/shannon-volatility.qzv>`__
-
 The volatility plot (Figure 13) shows the mean curve of each group in selected
 group column on top of individual trajectories over time. This plot can be
 useful in identifying outliers qualitatively, by turning on 'show global
@@ -1476,7 +1376,7 @@ control limits' to show +/- 2x and 3x standard deviation lines from global
 mean. Observations above those global control limits are susceptible to be
 outliers. In this analysis, we see high variance at time zero, while they
 become more similar by month 6 (day 180), and by month 24 (day 720),
-vaginally-born children appear to be higher than cesarean-born (as expected). 
+vaginally-born children appear to be higher than cesarean-born (as expected).
 
 Differential abundance testing
 ------------------------------
@@ -1511,7 +1411,7 @@ our analysis.
 
 1. Create a new feature-table that contains only samples from children at 6 months:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-samples \
         --i-table child-table-norep.qza \
@@ -1519,27 +1419,23 @@ our analysis.
         --p-where "[month]='6'" \
         --o-filtered-table table-norep-C6.qza
 
-* :file:`table-norep-C6.qza`: `view <https://view.qiime2.org?src=foo/_static/table-norep-C6.qza>`__ | `download <_static/table-norep-C6.qza>`__
-
 When performing differential abundance testing, it is generally a good idea to
 filter out features that have very low abundances across your dataset, as well
 those that are present in only a few samples. These features tend to add noise
 to the results so we will remove them. Here we use the filter-features action
 to filter out features appearing in less than ~10% of our samples (min 5 of 43
 samples) and those that have a total frequency less than 20 counts across all
-samples. 
+samples.
 
 2. Filter out features with the following commands:
 
-.. code-block:: bash
+.. command-block::
 
     qiime feature-table filter-features \
         --i-table table-norep-C6.qza \
         --p-min-samples 5 \
         --p-min-frequency 20 \
         --o-filtered-table filtered-table-C6.qza
-
-* :file:`filtered-table-C6.qza`: `view <https://view.qiime2.org?src=foo/_static/filtered-table-C6.qza>`__ | `download <_static/filtered-table-C6.qza>`__
 
 Because ANCOM operates on relative abundance data, it requires as input a
 feature-table of type FeatureTable[Composition]; it also cannot tolerate
@@ -1549,26 +1445,22 @@ transformation and add a pseudocount of 1 to all of our counts.
 
 3. Add pseudocount to the filtered feature table:
 
-.. code-block:: bash
+.. command-block::
 
     qiime composition add-pseudocount \
         --i-table filtered-table-C6.qza \
         --o-composition-table comp-table-C6.qza
 
-* :file:`comp-table-C6.qza`: `view <https://view.qiime2.org?src=foo/_static/comp-table-C6.qza>`__ | `download <_static/comp-table-C6.qza>`__
-
 4. Run ANCOM to determine which features differ in relative abundance across
    the different birth modes:
 
-.. code-block:: bash
+.. command-block::
 
     qiime composition ancom \
         --i-table comp-table-C6.qza \
         --m-metadata-file metadata.tsv \
         --m-metadata-column delivery \
         --o-visualization ancom-C6-delivery.qzv
-      
-* :file:`ancom-C6-delivery.qzv`: `view <https://view.qiime2.org?src=foo/_static/ancom-C6-delivery.qzv>`__ | `download <_static/ancom-C6-delivery.qzv>`__
 
 The Visualization of ANCOM results (Figure 14) first shows a volcano plot,
 where the x-axis summarizes the effect size difference of the given features
@@ -1591,7 +1483,7 @@ that every sample will appear to have at least 1 count of every feature).
 However, in 75% of the samples in the Vaginal group, 884.75 or fewer sequences
 were observed that were ultimately assigned to this feature. This percentile
 abundance table suggests that the detected feature is higher in vaginally- than
-cesarean-born babies. 
+cesarean-born babies.
 
 The ANCOM test has identified 1 feature that differ significantly by birth
 mode. To identify which taxa this feature corresponds to, we can load our
@@ -1601,7 +1493,7 @@ search-bar at the top.
 This identified feature and its corresponding taxonomic assignment are as follows:
 
 Feature with higher abundance in vaginal born children:
-d75b7080930e7a77ef3de8c6154895b9 -> 
+d75b7080930e7a77ef3de8c6154895b9 ->
 k\_\_Bacteria; p\_\_Actinobacteria; c\_\_Actinobacteria; o\_\_Bifidobacteriales; f\_\_Bifidobacteriaceae; g\_\_Bifidobacterium; s\_\_
 
 Perhaps not surprisingly, these results echo findings from the original ECAM paper (Bokulich, Chung, et al., 2016) encompassing the full dataset.
@@ -1617,20 +1509,21 @@ by using the sum of squares of all feature weights as penalty term to the loss
 function, as in Ridge regression). Here, we control for confounding variables
 such as antibiotic exposure, infants' diet and sex when identifying features
 that are significantly different between babies born vaginally or through
-C-section. 
+C-section.
 
 1. Install the songbird qiime2 plugin (https://github.com/biocore/songbird) in
    your QIIME 2 environment and make a folder to store the songbird results by
    running:
 
-.. code-block:: bash
+.. command-block::
+   :no-exec:
 
     conda install songbird -c conda-forge
     mkdir songbird-results
-      
+
 2. Run songbird with the following command:
 
-.. code-block:: bash
+.. command-block::
 
     qiime songbird multinomial \
         --i-table table-norep-C6.qza \
@@ -1642,19 +1535,13 @@ C-section.
         --o-regression-stats songbird-results/regression-stats6monthControlled.qza \
         --o-regression-biplot songbird-results/regression-biplot6monthControlled.qza
 
-* :file:`songbird-results/regression-stats6monthControlled.qza`: `view <https://view.qiime2.org?src=foo/_static/songbird-results/regression-stats6monthControlled.qza>`__ | `download <_static/songbird-results/regression-stats6monthControlled.qza>`__
-* :file:`songbird-results/regression-biplot6monthControlled.qza`: `view <https://view.qiime2.org?src=foo/_static/songbird-results/regression-biplot6monthControlled.qza>`__ | `download <_static/songbird-results/regression-biplot6monthControlled.qza>`__
-* :file:`songbird-results/differentials6monthControlled.qza`: `view <https://view.qiime2.org?src=foo/_static/songbird-results/differentials6monthControlled.qza>`__ | `download <_static/songbird-results/differentials6monthControlled.qza>`__
-
 3. Examine the estimated coefficients for each feature by running:
 
-.. code-block:: bash
+.. command-block::
 
     qiime tools export \
         --input-path songbird-results/differentials6monthControlled.qza \
         --output-path songbird-results/exported-differentials6monthControlled
-
-* :file:`songbird-results/exported-differentials6monthControlled/differentials.tsv`: `download <_static/songbird-results/exported-differentials6monthControlled/differentials.tsv>`__
 
 Based on the estimated coefficients for ``delivery[T.Vaginal]`` in the output of
 regression stats, we consider the features with the positive coefficients to be
@@ -1669,7 +1556,7 @@ vaginally born associated and 4 C-section born associated features as below:
 from strongest to weakest):*
 
 d75b7080930e7a77ef3de8c6154895b9 ->
-k\_\_Bacteria; p\_\_Actinobacteria; c\_\_Actinobacteria; o\_\_Bifidobacteriales; f\_\_Bifidobacteriaceae; g\_\_Bifidobacterium; s\_\_ 
+k\_\_Bacteria; p\_\_Actinobacteria; c\_\_Actinobacteria; o\_\_Bifidobacteriales; f\_\_Bifidobacteriaceae; g\_\_Bifidobacterium; s\_\_
 
 2a99ec1157a90661db7ff643b82f1914 ->
 k\_\_Bacteria; p\_\_Bacteroidetes; c\_\_Bacteroidia; o\_\_Bacteroidales; f\_\_Bacteroidaceae; g\_\_Bacteroides; s\_\_fragilis
@@ -1678,7 +1565,7 @@ c162a4f3943238810eba8a25f0563cca ->
 k\_\_Bacteria; p\_\_Bacteroidetes; c\_\_Bacteroidia; o\_\_Bacteroidales; f\_\_Bacteroidaceae; g\_\_Bacteroides; s\_\_ovatus
 
 c4f9ef34bd2919511069f409c25de6f1 ->
-k\_\_Bacteria; p\_\_Bacteroidetes; c\_\_Bacteroidia; o\_\_Bacteroidales; f\_\_Bacteroidaceae; g\_\_Bacteroides; s\_\_ 
+k\_\_Bacteria; p\_\_Bacteroidetes; c\_\_Bacteroidia; o\_\_Bacteroidales; f\_\_Bacteroidaceae; g\_\_Bacteroides; s\_\_
 
 *Features with higher differential ranking in caesarian borns children (listed
 from strongest to weakest):*
@@ -1691,8 +1578,8 @@ k\_\_Bacteria; p\_\_Proteobacteria; c\_\_Gammaproteobacteria; o\_\_Enterobacteri
 
 bca0b81a0b8d59e90c25a323c2f62f31 ->
 k\_\_Bacteria; p\_\_Firmicutes; c\_\_Clostridia; o\_\_Clostridiales; f\_\_Clostridiaceae; g\_\_Clostridium; s\_\_perfringens
- 
-Meta-analysis through the Qiita database using redbiom 
+
+Meta-analysis through the Qiita database using redbiom
 ------------------------------------------------------
 
 After identifying differentially abundant features using ANCOM or Songbird,
@@ -1708,9 +1595,10 @@ whether that feature appears enriched in different infants by birth mode. Note
 that the exact numbers and results shown below may change overtime as more
 samples get indexed by redbiom.
 
-To use redbiom, we first need to install the package using conda. 
+To use redbiom, we first need to install the package using conda.
 
-.. code-block:: bash
+.. command-block::
+   :no-exec:
 
     conda install -c conda-forge redbiom
 
@@ -1719,9 +1607,9 @@ help improve the comparability of the contained data. Before we search for
 features, we need to decide the context to search within. The redbiom summarize
 contexts command provides information about the names of the contexts and the
 number of samples and features indexed. The context names themselves describe
-the processing parameters used. 
+the processing parameters used.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize contexts
 
@@ -1730,12 +1618,13 @@ technologies represented, a few different sequence trim lengths, a few
 different variable regions, and multiple feature assessment methods. The first
 five lines of this output is below, which provides the context name, the number
 of samples in the context, the number of unique features, and a succinct
-description of the bioinformatic processing performed. 
+description of the bioinformatic processing performed.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     ContextName	SamplesWithData	FeaturesWithData	Description
-    Pick_closed-reference_OTUs-Greengenes-Illumina-16S-V4-125nt-65468f	16622	40899	Pick closed-reference OTUs (reference-seq: \|databases\|gg\|13_8\|rep_set\|97_otus.fasta) \| Trimming (length: 125) 
+    Pick_closed-reference_OTUs-Greengenes-Illumina-16S-V4-125nt-65468f	16622	40899	Pick closed-reference OTUs (reference-seq: \|databases\|gg\|13_8\|rep_set\|97_otus.fasta) \| Trimming (length: 125)
     Deblur-Illumina-16S-V4-150nt-780653	127413	7299964	Deblur (Reference phylogeny for SEPP: Greengenes_13.8, BIOM: reference-hit.biom) \| Trimming (length: 150)
     Pick_closed-reference_OTUs-Greengenes-LS454-16S-V4-41ebc6	7326	27248	Pick closed-reference OTUs (reference-seq: \|databases\|gg\|13_8\|rep_set\|97_otus.fasta) \| Split libraries
     Pick_closed-reference_OTUs-Greengenes-LS454-16S-V4-100nt-a243a1	7434	29507	Pick closed-reference OTUs (reference-seq: \|databases\|gg\|13_8\|rep_set\|97_otus.fasta) \| Trimming (length: 100)
@@ -1746,7 +1635,7 @@ Deblur-Illumina-16S-V4-150nt-780653 context; this context is composed of
 samples which sequenced the 16S V4 region, are all 150 nucleotides in length,
 and were processed with Deblur. The context contains 127,413 samples spanning
 over 7.2 million unique features, representing hundreds of publicly available
-studies in Qiita. 
+studies in Qiita.
 
 Next, we'll take the DNA sequence corresponding to our feature of interest
 d75b7080930e7a77ef3de8c6154895b9 and identify samples within the context in
@@ -1755,35 +1644,34 @@ which the sequence was observed, and save the output into a file called
 search; use the ``bespoke-taxonomy.qzv`` Visualization to locate its
 corresponding DNA sequences.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom search features --context Deblur-Illumina-16S-V4-150nt-780653 \
         TACGTAGGGTGCAAGCGTTATCCGGAATTATTGGGCGTAAAGGGCTCGTAGGCGGTTCGTCGCGTCCGGTGTGAAAGTCCATCGCTTAACGGTGGATCTGCGCCGGGTACGGGCGGGCTGGAGTGCGGTAGGGGAGACTGGAATTCCCGG \
         > observed_samples.txt
 
-* :file:`observed_samples.txt`: `download <_static/observed_samples.txt>`__
-
 If we examine the ``observed_samples.txt`` file, we'll see that over 17,000
 samples contain this particular feature. These samples are part of 137
 different studies in Qiita. We can now begin to explore what is known about the
 samples.  A major challenge for meta-analysis though is having common metadata
-categories across studies. 
+categories across studies.
 
 First, as a sanity check, we'll search against only those samples that record
 the Earth Microbiome Project Ontology (Thompson et al., 2017). The EMPO_3 level
 describes basic environmental information about a sample. Only samples which
 describe an entry in their metadata for empo_3 will be obtained.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize samples \
         --category empo_3 \
         --from observed_samples.txt
 
 What we can see from this output is that (as expected) the feature is primarily
-observed in samples associated with the animal distal gut. 
+observed in samples associated with the animal distal gut.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     Animal distal gut	7124
     Animal surface	331
@@ -1803,8 +1691,8 @@ observed in samples associated with the animal distal gut.
     Sediment (saline)	2
     Surface (saline)	1
 
-    Total samples	8050       
-      
+    Total samples	8050
+
 Now, let's search this feature against only those samples that correspond to
 infants. For that, we'll need to select the set of samples that correspond to a
 particular criteria. In this case, we'll filter to include only samples
@@ -1814,21 +1702,19 @@ correspond to an individual's recorded age. In addition, we will explicitly
 omit the ECAM study from our qiita search as our dataset was drawn from this
 study.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom select samples-from-metadata \
         --context Deblur-Illumina-16S-V4-150nt-780653 \
         --from observed_samples.txt "where (host_age < 3 or age < 3) and qiita_study_id != 10249" \
         > infant_samples.txt
 
-* :file:`infant_samples.txt`: `download <_static/infant_samples.txt>`__
-
 We can then summarize the metadata of these infant samples. In order to do so,
 we need to determine what metadata category to summarize over. So let's search
 Qiita for all metadata categories (not shown below) that contain the word birth
 in the name, pick a few that seem plausible, and summarize them.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom search metadata \
         --categories birth
@@ -1837,23 +1723,25 @@ redbiom summarize metadata birth_method birth_mode
 
 We can see that birth_mode is represented by thousands of samples.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     birth_method	72
     birth_mode	2176
 
 Soo let's use that metadata category.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize samples \
         --category birth_mode \
         --from infant_samples.txt
 
 From this summary, it appears our feature of interest is present in many more
-samples associated with a vaginal birth than cesarean section. 
+samples associated with a vaginal birth than cesarean section.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     Vaginal	38
     Cesarea	16
@@ -1865,9 +1753,9 @@ samples associated with a vaginal birth than cesarean section.
 It is important to note however, that these findings may be confounded by the
 possibility that there may be more representations of vaginal birth samples in
 Qiita. However, a summary of that metadata category across all of Qiita can be
-performed easily. 
+performed easily.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize metadata-category \
         --counter \
@@ -1877,7 +1765,8 @@ This suggests the variable is not extremely unbalanced between C-section and
 vaginal births, and that actually more of the samples are associated with
 C-sections.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     Category value	count
     Cesarea	47
@@ -1887,9 +1776,9 @@ C-sections.
     CS	970
 
 Last, we can see the studies these samples were observed in by summarizing over
-the qiita_study_id category. 
+the qiita_study_id category.
 
-.. code-block:: bash
+.. command-block::
 
     redbiom summarize samples \
         --category qiita_study_id \
@@ -1897,7 +1786,8 @@ the qiita_study_id category.
 
 We see that nine different Qiita studies are represented by the infant samples.
 
-.. code-block:: text
+.. command-block::
+   :no-exec:
 
     10581	54
     10918	30
@@ -1939,13 +1829,11 @@ directory. For example, a user may be interested in visualizing their
 phylogenetic tree using a package in R. To obtain the raw tree file (in Newick
 format) simply run:
 
-.. code-block:: bash
+.. command-block::
 
     qiime tools export \
         --input-path insertion-tree.qza \
         --output-path extracted-insertion-tree
-
-* :file:`extracted-insertion-tree/tree.nwk`: `download <_static/extracted-insertion-tree/tree.nwk>`__
 
 Analysis of shotgun metagenomic data
 ------------------------------------
@@ -1968,11 +1856,12 @@ Two plugins that are dedicated to shotgun metagenomics are currently available
 for QIIME 2: q2-shogun (Hillmann et al., 2018) and q2-metaphlan2 (Truong et
 al., 2015). They need to be installed separately. In the example below we
 demonstrate the use of q2-shogun, a wrapper for the SHOGUN pipeline (Hillmann
-et al., 2018). 
+et al., 2018).
 
 1. Install QIIME 2 shotgun metagenomics plugins by running:
 
-.. code-block:: bash
+.. command-block::
+   :no-exec:
 
     conda install -c bioconda bowtie2
     pip install https://github.com/knights-lab/SHOGUN/archive/master.zip
@@ -1981,16 +1870,25 @@ et al., 2018).
 
 2. Download sample data from the q2-shogun repository:
 
-.. code-block:: bash
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/query.qza
+   :saveas: query.qza
 
-    for i in query refseqs taxonomy bt2-database; 
-    do 
-        wget https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/$i.qza 
-    done
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/refseqs.qza
+   :saveas: refseqs.qza
 
-3. Run shotgun metagenomics pipeline with the following commands: 
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/taxonomy.qza
+   :saveas: taxonomy.qza
 
-.. code-block:: bash
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/bt2-database.qza
+   :saveas: bt2-database.qza
+
+3. Run shotgun metagenomics pipeline with the following commands:
+
+.. command-block::
 
     qiime shogun nobunaga \
         --i-query query.qza \
@@ -1998,8 +1896,6 @@ et al., 2018).
         --i-reference-taxonomy taxonomy.qza \
         --i-database bt2-database.qza \
         --o-taxa-table taxatable.qza
-
-* :file:`taxatable.qza`: `view <https://view.qiime2.org?src=foo/_static/taxatable.qza>`__ | `download <_static/taxatable.qza>`__
 
 In this example, SHOGUN is called to align query sequences ``query.qza``
 against a reference sequence database refseqs.qza using the popular short
@@ -2009,12 +1905,12 @@ automatically stratify alignment results by sample ID. The taxonomy artifact
 ``taxonomy.qza`` defines the mapping of reference sequences to taxonomic
 lineages. In addition to taxonomy, this artifact could be any hierarchical
 (semicolon-delimited) or simple mappings, for example functional annotations. A
-Bowtie2 index is necessary for this operation. 
+Bowtie2 index is necessary for this operation.
 
 4. Import an existing Bowtie2 index (typically built from the reference
    sequence database) into QIIME 2:
 
-.. code-block:: bash
+.. command-block::
 
     qiime tools import \
         --input-path bowtie-db/ \
@@ -2036,7 +1932,7 @@ should be directed to the QIIME 2 Forum as this will expand over time.
 
 5. Import resulting profile into QIIME 2 by running:
 
-.. code-block:: bash
+.. command-block::
 
     qiime tools import \
         --input-path profile.biom \
@@ -2046,7 +1942,7 @@ should be directed to the QIIME 2 Forum as this will expand over time.
 If the profile is in plain text (i.e., a tab-delimited file), one needs to
 convert it into BIOM format before importing into QIIME 2:
 
-.. code-block:: bash
+.. command-block::
 
     biom convert --to-hdf5 -i profile.tsv -o profile.biom
 
@@ -2078,7 +1974,7 @@ Feature-tables contain magnitudes determined by random sequencing depths that
 vary dramatically between samples irrespective of the initial microbial load,
 making the data compositional in nature (Fernandes et al., 2014).
 Compositional data contains relative information where the abundance of one
-feature can only be interpreted relative to another. 
+feature can only be interpreted relative to another.
 
 Numerous normalization methods have been proposed to restore absolute
 abundances such as rarefaction (Weiss et al., 2017), median (Love, Huber, &
@@ -2095,7 +1991,7 @@ al., 2019). Transformation-dependent methods such as the centered- (clr)
 (Aitchison, 1982), isometric- (ilr) (Egozcue, Pawlowsky-Glahn, Mateu-Figueras,
 & Barceló-Vidal, 2003), and additive- (alr) (Aitchison, 1982) log ratio
 transform the data with regard to a reference. Transformation-independent
-methods operate on a single feature or ratios of features (Greenacre, 2019).  
+methods operate on a single feature or ratios of features (Greenacre, 2019).
 
 CoDA methods rely on logarithms to enforce symmetry in the weighting of
 relative increases or decreases between features (Aitchison, 1982). The
@@ -2124,7 +2020,7 @@ distance that use different zero handling methods
 https://library.qiime2.org/plugins/deicode) (Martino et al., 2019;
 Pawlowsky-Glahn, Egozcue, & Tolosana-Delgado, n.d.). Using both supervised and
 unsupervised CoDA methods, the differential features can be obtained with
-regard to sample groupings (i.e. armpit vs. foot). 
+regard to sample groupings (i.e. armpit vs. foot).
 
 After identifying differential features QIIME 2 also provides methods for
 transform-independent analysis using Qurro
@@ -2163,7 +2059,7 @@ is often treated as an afterthought, leading to uninterpretable results due to
 missing information.  To ensure a successful data analysis, begin metadata
 generation at the time of sample collection. Be sure to record all sample
 attributes that are relevant to your hypotheses, as these attributes are the
-basis of QIIME 2's visualizations and statistical tests. 
+basis of QIIME 2's visualizations and statistical tests.
 
 Spreadsheets are the most commonly used vehicle for metadata storage and
 management due to their ubiquity and convenience, but they have well-known
@@ -2180,7 +2076,7 @@ spreadsheet best-practices (Broman & Woo, 2018), and actively monitor the
 validity of your records. Alternately, generate your metadata file in a
 dedicated software tool such as ISAcreator (Rocca-Serra et al., 2010), which
 provides a structured interface designed to prevent common errors.
-  
+
 Consistency is the key to high-quality metadata.  Much effort has already been
 put into identifying and standardizing the crucial pieces of metadata for
 various sorts of studies, so investigate these guidelines before beginning your
@@ -2215,10 +2111,10 @@ tomorrow! It is much easier to record required information up-front, then it is
 to retroactively track this information down when you're working toward a tight
 paper submission deadline.
 
-Commentary 
+Commentary
 ==========
 
-Background information 
+Background information
 ----------------------
 
 Advances in the ease of microbiome data acquisition, due in large part to
@@ -2245,7 +2141,7 @@ rRNA gene, or that use custom sequencing barcodes/adaptors, can also prevent
 studies from being combined in one analysis. Making the raw data from each
 study available in public databases, as is required by many journals and
 funding agencies, and using standard methods can greatly facilitate re-use and
-citation of your dataset. 
+citation of your dataset.
 
 Critical parameters
 -------------------
@@ -2265,7 +2161,7 @@ barcodes used for multiplexed samples. Metadata must be carefully considered,
 because the analysis cannot use information you did not provide. For example,
 if you want to check whether a parameter such as immune function is correlated
 with the microbiome, that parameter must actually be measured and included in
-the metadata table. 
+the metadata table.
 
 Because capabilities in QIIME 2 are rapidly expanding, and because topics such
 as compositional data analysis are receiving intense focus from the statistics
@@ -2277,7 +2173,7 @@ questions. We look forward to reading about your applications of QIIME 2 to
 answer a wide range of compelling questions that touch on the microbiome,
 whether in the sea, the soil, or the human body!
 
-Troubleshooting suggestions for commonly encountered problems 
+Troubleshooting suggestions for commonly encountered problems
 -------------------------------------------------------------
 
 All actions in QIIME 2 have built-in help, accessible by including the
@@ -2289,12 +2185,12 @@ Internet resources with annotations (optional)
 ----------------------------------------------
 
 https://docs.qiime2.org: The official documentations on QIIME 2. This site will
-always have the most up-to-date documentations on QIIME 2. 
+always have the most up-to-date documentations on QIIME 2.
 
 https://library.qiime2.org/ is a community-driven site that will become a
 one-stop-shop for finding resources and software related to the QIIME 2
 ecosystem allowing users and authors to share information with their users, and
-where users can discover community-developed plugins and resources. 
+where users can discover community-developed plugins and resources.
 
 https://forum.qiime.org: This is the hub of the QIIME 2 user and developer
 communities. Technical support for both users and developers is provided there,
@@ -2311,7 +2207,7 @@ Acknowledgements
 
 QIIME 2 development was primarily funded by NSF Awards 1565100 to JGC and
 1565057 to RK. We wish to thank all of the contributors to and users of QIIME 2
-for their essential role in the development of QIIME 2 and its documentation. 
+for their essential role in the development of QIIME 2 and its documentation.
 
 Literature cited
 ================
@@ -2651,7 +2547,7 @@ The QIIME 2 website provides two glossaries, one written for users (see
 https://docs.qiime2.org/2019.10/glossary/) and one written for developers (see
 https://dev.qiime2.org/latest/glossary/). The user-focused glossary is
 reproduced here as it appeared at the time of publication of this paper. We
-refer readers to the online version for updated version. 
+refer readers to the online version for updated version.
 
 QIIME 2 User Glossary
 ---------------------
@@ -2679,7 +2575,7 @@ given semantic type.
 **data type:** A view of an artifact as an in-memory data representation. Data
 types are generally only encountered by Artifact API users or plugin
 developers. QIIME 2 supports many data types, and multiple data types are
-sometimes available for viewing QIIME 2 artifacts of a given semantic type.  
+sometimes available for viewing QIIME 2 artifacts of a given semantic type.
 
 **decentralized data provenance:** Information describing how a QIIME 2 result
 was generated. This will include details on all of the QIIME 2 actions that led
@@ -2687,7 +2583,7 @@ to the creation of an artifact, including the values of all parameters, and
 references to all inputs and results as UUIDs. Data provenance additionally
 contains the literature citations that are relevant to the generation of a
 QIIME 2 result. Those citations should be included in all published work that
-derives from a given QIIME 2 result. 
+derives from a given QIIME 2 result.
 
 All QIIME 2 results contain embedded data provenance which can be visualized
 with QIIME 2 View (https://view.qiime2.org). Because the data provenance is
@@ -2700,7 +2596,7 @@ sequence variant, a gene, or a metabolite. This generic term is used because
 QIIME 2 can support many different types of features.
 
 input: An artifact (i.e., non-primitive) provided to an action. For example,
-table is an input to the filter-features action in the q2-feature-table plugin. 
+table is an input to the filter-features action in the q2-feature-table plugin.
 
 **method:** A type of QIIME 2 action that takes one or more artifacts or
 parameters as input, and produces one or more artifacts as output. For example,
@@ -2728,7 +2624,7 @@ discovering additional plugins is the QIIME 2 Library
 (https://library.qiime2.org). Anyone with a QIIME 2 Forum account can share
 their plugins on the QIIME 2 Library. We plan to phase out the "core
 distribution" as we move toward distributing all QIIME 2 plugins through the
-QIIME 2 Library. 
+QIIME 2 Library.
 
 **provenance:** See decentralized data provenance.
 
@@ -2737,7 +2633,7 @@ example, strings (i.e., text), integers, and booleans (i.e., true or false
 values) are primitives. Primitives are only used as input to actions, and never
 generated as output by QIIME 2.
 
-**qza:** See artifact. 
+**qza:** See artifact.
 
 **qzv:** See visualization.
 
@@ -2748,7 +2644,7 @@ generated as output by QIIME 2.
 **semantic type:** A semantic type describes the meaning of data in QIIME 2.
 All results in QIIME 2 have a single semantic type associated with them, and
 when importing data into QIIME 2, the user must provide the semantic type of
-that data. 
+that data.
 
 The use of semantic types by QIIME 2 provides an unambiguous way to communicate
 with others about data, and allows QIIME 2 to reason about data and help users
@@ -2766,7 +2662,7 @@ slow, and therefore delay the amount of time before an error can be presented
 to a user), and then possibly make assumptions based on what is observed. If a
 user accidentally provides data of a semantic type that is not acceptable for a
 QIIME 2 action, QIIME 2 can quickly detect this mismatch and provide the user
-with detailed information on the error and how to correct it. 
+with detailed information on the error and how to correct it.
 
 Semantic types should notbe confused with data formats which define how data is
 represented on disk. For example, another QIIME 2 semantic type, the
@@ -2792,7 +2688,7 @@ determine that a given artifact was generated as output from a specific
 execution of an action using data provenance. UUIDs are an unambiguous way to
 refer to QIIME 2 results, because they can never change without invalidating a
 QIIME 2 artifact (unlike file names, for example, which are easy to change and
-can thus cause errors in tracking results). 
+can thus cause errors in tracking results).
 
 **view:** A particular representation of an artifact's data, for example as a
 data format or data type.
@@ -2810,7 +2706,7 @@ pipelines. When written to file, visualizations typically have the extension
 viewed with QIIME 2 View (https://view.qiime2.org) on systems that don't have
 QIIME 2 installed, and QIIME 2 interfaces typically provide their own support
 for viewing (such as the qiime tools view command available through the QIIME 2
-command line interface). 
+command line interface).
 
 Figure captions
 ===============

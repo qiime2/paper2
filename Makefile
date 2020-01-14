@@ -14,7 +14,7 @@ BUILDDIR      = build
 DEBUG         =
 
 # Internal variables.
-ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) sphinx
+ALLSPHINXOPTS = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) sphinx_docs
 
 .PHONY: help
 help:
