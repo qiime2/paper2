@@ -461,7 +461,7 @@ Deblur is applied in two steps.
         --i-demultiplexed-seqs demux-filtered.qza \
         --p-trim-length 150 \
         --p-sample-stats \
-        --p-jobs-to-start 1 \
+        --p-jobs-to-start 4 \
         --o-stats deblur-stats.qza \
         --o-representative-sequences rep-seqs-deblur.qza \
         --o-table table-deblur.qza
@@ -629,7 +629,7 @@ consider the alternative methods mentioned in the box below.
     qiime fragment-insertion sepp \
         --i-representative-sequences rep-seqs-deblur.qza \
         --i-reference-database sepp-refs-gg-13-8.qza \
-        --p-threads 1 \
+        --p-threads 4 \
         --o-tree insertion-tree.qza \
         --o-placements insertion-placements.qza
 
