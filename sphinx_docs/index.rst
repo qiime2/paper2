@@ -6,7 +6,7 @@ microbiome data and comparative studies with publicly available data
 
 **Running Title:** Comprehensive end-to-end microbiome analysis using QIIME 2
 
-**Authors:** Mehrbod Estaki :sup:`1,#`, Lingjing Jiang :sup:`2,#`, Nicholas A. 
+**Authors:** Mehrbod Estaki :sup:`1,#`, Lingjing Jiang :sup:`2,#`, Nicholas A.
 Bokulich :sup:`3,4`, Daniel McDonald :sup:`1`, Antonio González :sup:`1`,
 Tomasz Kosciolek :sup:`1,5`, Cameron Martino :sup:`6,7`, Qiyun Zhu :sup:`1`,
 Amanda Birmingham :sup:`8`, Yoshiki Vázquez-Baeza :sup:`7,9`, J. Gregory
@@ -193,7 +193,9 @@ metadata file into it.
    unzip 81253.zip
    mv mapping_files/81253_mapping_file.txt metadata.tsv
 
-The bad CRC warnings here are fine to ignore. These are related to downloading large files from Qiita and do not interfere with downstream work. You can also delete the original zip file ``81253.zip`` now to save space.
+The bad CRC warnings here are fine to ignore. These are related to downloading
+large files from Qiita and do not interfere with downstream work. You can also
+delete the original zip file ``81253.zip`` now to save space.
 
 Explore sample metadata files
 -----------------------------
@@ -300,7 +302,7 @@ simple bash script to create ours.
 
 .. command-block::
 
-    for f in `ls per_sample_FASTQ/81253/*.gz`; do n=`basename $f`; echo -e "12802.${n%.fastq.gz}\t$PWD/$f"; done >> manifest.tsv
+    for f in `ls per_sample_FASTQ/81253/*.gz`; do n=`basename $f`; echo -e "12802.${n/.fastq.gz}\t$PWD/$f"; done >> manifest.tsv
 
 3. Use the manifest file to import the sequences into QIIME 2
 
@@ -1868,9 +1870,21 @@ et al., 2018).
 
 2. Download all the required example files from the q2-shogun repository:
 
-.. command-block::
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/query.qza
+   :saveas: query.qza
 
-    for i in query refseqs taxonomy bt2-database; do wget https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/$i.qza; done
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/refseqs.qza
+   :saveas: refseqs.qza
+
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/taxonomy.qza
+   :saveas: taxonomy.qza
+
+.. download::
+   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/bt2-database.qza
+   :saveas: bt2-database.qza
 
 3. Run shotgun metagenomics pipeline with the following commands:
 
@@ -1890,19 +1904,20 @@ be demultiplexed or multiplexed data. In the latter case, SHOGUN will
 automatically stratify alignment results by sample ID. The taxonomy artifact
 ``taxonomy.qza`` defines the mapping of reference sequences to taxonomic
 lineages. In addition to taxonomy, this artifact could be any hierarchical
-(semicolon-delimited) or simple mappings, for example, functional annotations. A
-Bowtie2 index containing the reference sequence databaseis necessary for this operation.
+(semicolon-delimited) or simple mappings, for example, functional annotations.
+A Bowtie2 index containing the reference sequence database is necessary for
+this operation.
 
-The output file, taxatable.qza, is a feature table in which columns are sample IDs and
-rows are taxonomic lineages. Starting from this table, we may perform various
-subsequent analyses in a similar manner as to amplicon sequencing data, as detailed
-above, such as taxonomy plots, alpha and beta diversity analyses, and differential
-abundance testing.
+The output file, taxatable.qza, is a feature table in which columns are sample
+IDs and rows are taxonomic lineages. Starting from this table, we may perform
+various subsequent analyses in a similar manner as to amplicon sequencing data,
+as detailed above, such as taxonomy plots, alpha and beta diversity analyses,
+and differential abundance testing.
 
-If the user wants to prepare a custom reference sequence database from multi-FASTA file
-(e.g. refseqs.fa), it can be done as follows:
-*Note*: the below sections are presented for demonstration purposes only and are not to
-be executed unless the file refseqs.fa is first imported by the user.
+If the user wants to prepare a custom reference sequence database from
+multi-FASTA file (e.g. refseqs.fa), it can be done as follows: *Note*: the
+below sections are presented for demonstration purposes only and are not to be
+executed unless the file refseqs.fa is first imported by the user.
 
 1. Import the sequences into QIIME 2:
 
