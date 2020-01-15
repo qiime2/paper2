@@ -277,8 +277,7 @@ the name you assign to each of your samples, and the second column
 absolute-filepath provides the absolute file path leading to your raw sequence
 files. For example:
 
-.. command-block::
-   :no-exec:
+.. code-block:: none
 
     sample-id	absolute-filepath
     10249.M001.03R	$PWD/demux-se-reads/10249.M001.03R.fastq.gz
@@ -1619,8 +1618,7 @@ five lines of this output is below, which provides the context name, the number
 of samples in the context, the number of unique features, and a succinct
 description of the bioinformatic processing performed.
 
-.. command-block::
-   :no-exec:
+.. code-block:: none
 
     ContextName	SamplesWithData	FeaturesWithData	Description
     Pick_closed-reference_OTUs-Greengenes-Illumina-16S-V4-125nt-65468f	16622	40899	Pick closed-reference OTUs (reference-seq: \|databases\|gg\|13_8\|rep_set\|97_otus.fasta) \| Trimming (length: 125)
@@ -1669,8 +1667,7 @@ describe an entry in their metadata for empo_3 will be obtained.
 What we can see from this output is that (as expected) the feature is primarily
 observed in samples associated with the animal distal gut.
 
-.. command-block::
-   :no-exec:
+.. code-block:: none
 
     Animal distal gut	7124
     Animal surface	331
@@ -1722,8 +1719,7 @@ redbiom summarize metadata birth_method birth_mode
 
 We can see that birth_mode is represented by thousands of samples.
 
-.. command-block::
-   :no-exec:
+.. code-block:: none
 
     birth_method	72
     birth_mode	2176
@@ -1739,8 +1735,7 @@ Soo let's use that metadata category.
 From this summary, it appears our feature of interest is present in many more
 samples associated with a vaginal birth than cesarean section.
 
-.. command-block::
-   :no-exec:
+.. code-block:: none
 
     Vaginal	38
     Cesarea	16
@@ -1764,8 +1759,7 @@ This suggests the variable is not extremely unbalanced between C-section and
 vaginal births, and that actually more of the samples are associated with
 C-sections.
 
-.. command-block::
-   :no-exec:
+.. code-block:: none
 
     Category value	count
     Cesarea	47
@@ -1785,8 +1779,7 @@ the qiita_study_id category.
 
 We see that nine different Qiita studies are represented by the infant samples.
 
-.. command-block::
-   :no-exec:
+.. code-block:: none
 
     10581	54
     10918	30
@@ -1923,6 +1916,7 @@ executed unless the file refseqs.fa is first imported by the user.
 
 .. command-block::
    :no-exec:
+
     qiime tools import \
         --input-path refseqs.fa \
         --type FeatureDate[Sequence]
@@ -1932,6 +1926,7 @@ executed unless the file refseqs.fa is first imported by the user.
 
 .. command-block::
     :no-exec:
+
     bowtie2-build refseqs.fa bt2-database
 
 3. The Bowtie2 index files will be saved under directory bt2-database. Then import it into
@@ -1939,6 +1934,7 @@ QIIME 2:
 
 .. command-block::
     :no-exec:
+
     qiime tools import \
     --input-path bt2-database/ \
     --type Bowtie2Index \

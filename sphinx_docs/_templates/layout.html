@@ -1,0 +1,15 @@
+{% extends "!layout.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ pathto('_static/css/bootstrap.min.css', 1) }}" media="screen" />
+  <link rel="stylesheet" href="{{ pathto('_static/css/bootstrap-theme.min.css', 1) }}" media="screen" />
+  <link rel="stylesheet" href="{{ pathto('_static/css/custom.css', 1) }}" media="screen" />
+  <script src="{{ pathto('_static/js/bootstrap.min.js', 1) }}"></script>
+  <script src="{{ pathto('_static/js/clipboard.min.js', 1) }}"></script>
+{% endblock %}
+
+{% block footer %}
+  {{ super() }}
+  <script src="{{ pathto('_static/js/clipboard-driver.js', 1) }}"></script>
+{% endblock %}
