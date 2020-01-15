@@ -139,14 +139,16 @@ installation instructions for the most up-to-date, tested, and stable version
 of QIIME 2. The following protocol was completed using QIIME 2 v 2019.10 and
 demonstrates usage with the command line interface (CLI). For users comfortable
 with Python 3 programming, an application programmer interface (API) version of
-this protocol is also available at [insert API notebook link here]. No
-additional software is needed for using the API. Jupyter notebooks for both of
-these protocols are also available at [insert notebooks directory here].
-Finally, an enhanced interactive online version of the CLI protocol is also
-available at [live protocol link here] with all intermediary files precomputed.
-While we strongly encourage users to install QIIME 2 and follow along this
-tutorial, this enhanced tutorial provides an alternative for when time and
-computational resources are limited.
+this protocol is also available
+`here <https://github.com/qiime2/paper2/blob/master/notebooks/qiime2-protocol-API.ipynb>`_
+. No additional software is needed for using the API. Jupyter notebooks for
+both of these protocols are also available
+`here <https://github.com/qiime2/paper2/tree/master/notebooks>`_
+.  Finally, an enhanced interactive online version of the CLI protocol is
+also available at [live protocol link here] with all intermediary files
+precomputed.  While we strongly encourage users to install QIIME 2 and follow
+along this tutorial, this enhanced tutorial provides an alternative for when
+time and computational resources are limited.
 
 .. topic:: Troubleshooting:
 
