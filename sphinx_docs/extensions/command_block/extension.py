@@ -187,7 +187,8 @@ class CommandBlockDirective(docutils.parsers.rst.Directive):
                                            cwd=working_dir,
                                            shell=True,
                                            encoding='utf-8',
-                                           universal_newlines=True)
+                                           universal_newlines=True,
+                                           executable='/bin/bash')
             except OSError as e:
                 raise sphinx.errors.ExtensionError("Unable to execute "
                                                    "command %r: %s" %
