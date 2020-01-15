@@ -1519,6 +1519,9 @@ C-section.
    :no-exec:
 
     conda install songbird -c conda-forge
+
+.. command-block::
+
     mkdir songbird-results
 
 2. Run songbird with the following command:
