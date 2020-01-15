@@ -6,10 +6,10 @@ microbiome data and comparative studies with publicly available data
 
 **Running Title:** Comprehensive end-to-end microbiome analysis using QIIME 2
 
-**Authors:** Mehrbod Estaki :sup:`1,#`, Lingjing Jiang :sup:`2,#`, Nicholas
+**Authors:** Mehrbod Estaki :sup:`1,#`, Lingjing Jiang :sup:`2,#`, Nicholas A. 
 Bokulich :sup:`3,4`, Daniel McDonald :sup:`1`, Antonio González :sup:`1`,
 Tomasz Kosciolek :sup:`1,5`, Cameron Martino :sup:`6,7`, Qiyun Zhu :sup:`1`,
-Amanda Birmingham :sup:`8`, Yoshiki Vázquez-Baeza :sup:`7,9`, J Gregory
+Amanda Birmingham :sup:`8`, Yoshiki Vázquez-Baeza :sup:`7,9`, J. Gregory
 Caporaso :sup:`3,4`, Rob Knight :sup:`1,7,10,11*`
 
 :sup:`1` Department of Pediatrics, University of California San Diego, La
@@ -193,10 +193,7 @@ metadata file into it.
    unzip 81253.zip
    mv mapping_files/81253_mapping_file.txt metadata.tsv
 
-In this new directory, you should now have a new subfolder called
-"demux-se-reads" containing 478 gzipped FASTQ sequencing files and the
-corresponding ``metadata.tsv`` file. You can now delete the original ecam-data
-folder to save space.
+The bad CRC warnings here are fine to ignore. These are related to downloading large files from Qiita and do not interfere with downstream work. You can also delete the original zip file ``81253.zip`` now to save space.
 
 Explore sample metadata files
 -----------------------------
@@ -303,7 +300,7 @@ simple bash script to create ours.
 
 .. command-block::
 
-    for f in `ls per_sample_FASTQ/81253/*.gz`; do n=`basename $f`; echo -e "12802.${n/.fastq.gz}\t$PWD/$f"; done >> manifest.tsv
+    for f in `ls per_sample_FASTQ/81253/*.gz`; do n=`basename $f`; echo -e "12802.${n%.fastq.gz}\t$PWD/$f"; done >> manifest.tsv
 
 3. Use the manifest file to import the sequences into QIIME 2
 
@@ -1745,7 +1742,7 @@ samples associated with a vaginal birth than cesarean section.
 
     Vaginal	38
     Cesarea	16
-    Vag	3
+    Vag	    3
     CSseed	1
 
     Total samples	58
@@ -1772,8 +1769,8 @@ C-sections.
     Cesarea	47
     Vaginal	135
     CSseed	335
-    Vag	689
-    CS	970
+    Vag	    689
+    CS	    970
 
 Last, we can see the studies these samples were observed in by summarizing over
 the qiita_study_id category.
@@ -1864,27 +1861,16 @@ et al., 2018).
    :no-exec:
 
     conda install -c bioconda bowtie2
+    conda install cytoolz
     pip install https://github.com/knights-lab/SHOGUN/archive/master.zip
     pip install https://github.com/qiime2/q2-shogun/archive/master.zip
     qiime dev refresh-cache
 
-2. Download sample data from the q2-shogun repository:
+2. Download all the required example files from the q2-shogun repository:
 
-.. download::
-   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/query.qza
-   :saveas: query.qza
+.. command-block::
 
-.. download::
-   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/refseqs.qza
-   :saveas: refseqs.qza
-
-.. download::
-   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/taxonomy.qza
-   :saveas: taxonomy.qza
-
-.. download::
-   :url: https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/bt2-database.qza
-   :saveas: bt2-database.qza
+    for i in query refseqs taxonomy bt2-database; do wget https://github.com/qiime2/q2-shogun/raw/master/q2_shogun/tests/data/$i.qza; done
 
 3. Run shotgun metagenomics pipeline with the following commands:
 
@@ -1900,28 +1886,48 @@ et al., 2018).
 In this example, SHOGUN is called to align query sequences ``query.qza``
 against a reference sequence database refseqs.qza using the popular short
 sequence aligner Bowtie2 (Langmead & Salzberg, 2012). The query sequences may
-be single-sample or multiplexed data. In the later case, SHOGUN will
+be demultiplexed or multiplexed data. In the latter case, SHOGUN will
 automatically stratify alignment results by sample ID. The taxonomy artifact
 ``taxonomy.qza`` defines the mapping of reference sequences to taxonomic
 lineages. In addition to taxonomy, this artifact could be any hierarchical
-(semicolon-delimited) or simple mappings, for example functional annotations. A
-Bowtie2 index is necessary for this operation.
+(semicolon-delimited) or simple mappings, for example, functional annotations. A
+Bowtie2 index containing the reference sequence databaseis necessary for this operation.
 
-4. Import an existing Bowtie2 index (typically built from the reference
-   sequence database) into QIIME 2:
+The output file, taxatable.qza, is a feature table in which columns are sample IDs and
+rows are taxonomic lineages. Starting from this table, we may perform various
+subsequent analyses in a similar manner as to amplicon sequencing data, as detailed
+above, such as taxonomy plots, alpha and beta diversity analyses, and differential
+abundance testing.
+
+If the user wants to prepare a custom reference sequence database from multi-FASTA file
+(e.g. refseqs.fa), it can be done as follows:
+*Note*: the below sections are presented for demonstration purposes only and are not to
+be executed unless the file refseqs.fa is first imported by the user.
+
+1. Import the sequences into QIIME 2:
 
 .. command-block::
-
+   :no-exec:
     qiime tools import \
-        --input-path bowtie-db/ \
-        --output-path bt2-database.qza \
-        --type Bowtie2Index
+        --input-path refseqs.fa \
+        --type FeatureDate[Sequence]
+        --output-path refseqs.qza
 
-The output file, ``taxatable.qza``, is a feature table in which columns are
-sample IDs and rows are taxonomic lineages. Starting from this table, we may
-perform various subsequent analyses in a similar manner as to amplicon
-sequencing data, as detailed above, such taxonomy plots, alpha and beta
-diversity analyses, and differential abundance analyses.
+2. Build a Bowtie2 index based on the sequences:
+
+.. command-block::
+    :no-exec:
+    bowtie2-build refseqs.fa bt2-database
+
+3. The Bowtie2 index files will be saved under directory bt2-database. Then import it into
+QIIME 2:
+
+.. command-block::
+    :no-exec:
+    qiime tools import \
+    --input-path bt2-database/ \
+    --type Bowtie2Index \
+    --output-path bt2-database.qza
 
 QIIME 2 is flexible in the types of metagenomic analyses it supports. In
 addition to calling SHOGUN or MetaPhlAn2 from the QIIME 2 interface, one may
@@ -1929,28 +1935,6 @@ perform taxonomic or functional profiling of shotgun metagenomic data
 separately using any tool, then import the resulting profile into QIIME 2. BIOM
 formatted files are supported as input. Questions about other supported formats
 should be directed to the QIIME 2 Forum as this will expand over time.
-
-5. Import resulting profile into QIIME 2 by running:
-
-.. command-block::
-
-    qiime tools import \
-        --input-path profile.biom \
-        --output-path profile.qza \
-        --type FeatureTable[Frequency]
-
-If the profile is in plain text (i.e., a tab-delimited file), one needs to
-convert it into BIOM format before importing into QIIME 2:
-
-.. command-block::
-
-    biom convert --to-hdf5 -i profile.tsv -o profile.biom
-
-Subsequent analyses can be applied to this feature table. One thing to keep in
-mind is that some tools report the fraction, not the count, of sequences
-assigned to each taxonomic unit or functional category. This should be taken
-into consideration in choosing appropriate data processing and statistical
-approaches.
 
 Source tracking
 ---------------
