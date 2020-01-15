@@ -9,8 +9,9 @@ microbiome data and comparative studies with publicly available data
 **Authors:** Mehrbod Estaki :sup:`1,#`, Lingjing Jiang :sup:`2,#`, Nicholas A.
 Bokulich :sup:`3,4`, Daniel McDonald :sup:`1`, Antonio González :sup:`1`,
 Tomasz Kosciolek :sup:`1,5`, Cameron Martino :sup:`6,7`, Qiyun Zhu :sup:`1`,
-Amanda Birmingham :sup:`8`, Yoshiki Vázquez-Baeza :sup:`7,9`, J. Gregory
-Caporaso :sup:`3,4`, Rob Knight :sup:`1,7,10,11*`
+Amanda Birmingham :sup:`8`, Yoshiki Vázquez-Baeza :sup:`7,9`, Matthew R. Dillon
+:sup:`3`, Evan Bolyen :sup:`3`, J. Gregory Caporaso :sup:`3,4`, Rob Knight
+:sup:`1,7,10,11*`
 
 :sup:`1` Department of Pediatrics, University of California San Diego, La
 Jolla, CA, USA, :sup:`2` Division of Biostatistics, University of California
