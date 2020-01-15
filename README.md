@@ -9,6 +9,7 @@
     pip install https://github.com/knights-lab/SHOGUN/archive/master.zip
     pip install https://github.com/qiime2/q2-shogun/archive/master.zip
     conda install -c conda-forge sphinx awscli -y
+    conda install cytoolz
 
 ## building
 
