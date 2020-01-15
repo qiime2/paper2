@@ -2592,7 +2592,7 @@ provenance is described as being decentralized.
 sequence variant, a gene, or a metabolite. This generic term is used because
 QIIME 2 can support many different types of features.
 
-input: An artifact (i.e., non-primitive) provided to an action. For example,
+**input**: An artifact (i.e., non-primitive) provided to an action. For example,
 table is an input to the filter-features action in the q2-feature-table plugin.
 
 **method:** A type of QIIME 2 action that takes one or more artifacts or
