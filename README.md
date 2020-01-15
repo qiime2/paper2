@@ -2,14 +2,18 @@
 
 ## development setup
 
+The following is not necessary to run if you are following along with the
+tutorial. Only run these commands if you are publishing a new version or
+release of this document!
+
     conda env create -n protocols --file qiime2-$RELEASE-py36-$ARCH-conda.yml
     conda activate protocols
     conda install -c conda-forge songbird redbiom -y
     conda install -c bioconda bowtie2 -y
-    pip install https://github.com/knights-lab/SHOGUN/archive/master.zip
+    pip install https://github.com/knights-lab/SHOGUN/archive/v1.0.7.zip
     pip install https://github.com/qiime2/q2-shogun/archive/master.zip
+    conda install cytoolz -y
     conda install -c conda-forge sphinx awscli -y
-    conda install cytoolz
 
 ## building
 
