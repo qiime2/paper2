@@ -303,7 +303,7 @@ simple bash script to create ours.
 
 .. command-block::
 
-    for f in `ls per_sample_FASTQ/81253/*.gz`; do n=`basename $f`; echo -e "12802.${n/.fastq.gz}\t$PWD/$f"; done >> manifest.tsv
+    for f in `ls per_sample_FASTQ/81253/*.gz`; do n=`basename $f`; echo -e "12802.${n%.fastq.gz}\t$PWD/$f"; done >> manifest.tsv
 
 3. Use the manifest file to import the sequences into QIIME 2
 
