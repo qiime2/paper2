@@ -145,10 +145,10 @@ this protocol is also available
 both of these protocols are also available
 `in the Github repo <https://github.com/qiime2/paper2/tree/master/notebooks>`_
 .  Finally, an enhanced interactive online version of the CLI protocol is
-also available at [live protocol link here] with all intermediary files
-precomputed.  While we strongly encourage users to install QIIME 2 and follow
-along this tutorial, this enhanced tutorial provides an alternative for when
-time and computational resources are limited.
+also available at https://curr-protoc-bioinformatics.qiime2.org/ with all
+intermediary files precomputed.  While we strongly encourage users to install
+QIIME 2 and follow along this tutorial, this enhanced tutorial provides an
+alternative for when time and computational resources are limited.
 
 .. topic:: Troubleshooting:
 
