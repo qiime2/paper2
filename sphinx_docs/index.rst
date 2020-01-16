@@ -2712,75 +2712,75 @@ command line interface).
 Figure captions
 ===============
 
-.. figure:: _static/Figure1.jpg
+.. figure:: _static/Figure1.png
     :figclass: align-center
 
     **Figure 1** QIIME 2 visualization of the interactive quality plot summarizing
     the results of demultiplexing sequences
 
-.. figure:: _static/Figure2.jpg
+.. figure:: _static/Figure2.png
     :figclass: align-center
 
     **Figure 2** Deblur summary statistics table
 
-.. figure:: _static/Figure3.jpg
+.. figure:: _static/Figure3.png
     :figclass: align-center
 
     **Figure 3** QIIME 2 visualization of deblurred sequences
 
-.. figure:: _static/Figure4.jpg
+.. figure:: _static/Figure4.png
     :figclass: align-center
 
     **Figure 4** QIIME 2 visualization of interactive sample detail on feature
     table summaries
 
-.. figure:: _static/Figure5.jpg
+.. figure:: _static/Figure5.png
     :figclass: align-center
 
     **Figure 5** QIIME 2 visualization of classified taxonomy
 
-.. figure:: _static/Figure6.jpg
+.. figure:: _static/Figure6.png
     :figclass: align-center
 
     **Figure 6** QIIME 2 Visualization of alpha diversity rarefaction plots
 
-.. figure:: _static/Figure7.jpg
+.. figure:: _static/Figure7.png
     :figclass: align-center
 
     **Figure 7** QIIME 2 visualization of alpha diversity rarefaction plots
 
-.. figure:: _static/Figure8.jpg
+.. figure:: _static/Figure8.png
     :figclass: align-center
 
     **Figure 8** QIIME 2 visualization of alpha diversity comparisons across all
     time points
 
-.. figure:: _static/Figure9.jpg
+.. figure:: _static/Figure9.png
     :figclass: align-center
 
     **Figure 9** QIIME 2 visualization of alpha diversity at month 24
 
-.. figure:: _static/Figure10.jpg
+.. figure:: _static/Figure10.png
     :figclass: align-center
 
     **Figure 10** QIIME 2 visualization of PCoA plot using Emperor
 
-.. figure:: _static/Figure11.jpg
+.. figure:: _static/Figure11.png
     :figclass: align-center
 
     **Figure 11** QIIME 2 visualization of PERMANOVA test results
 
-.. figure:: _static/Figure12.jpg
+.. figure:: _static/Figure12.png
     :figclass: align-center
 
     **Figure 12** QIIME 2 visualization of Linear Mixed Effects Model results
 
-.. figure:: _static/Figure13.jpg
+.. figure:: _static/Figure13.png
     :figclass: align-center
 
     **Figure 13** QIIME 2 visualization of volatility analysis
 
-.. figure:: _static/Figure14.jpg
+.. figure:: _static/Figure14.png
     :figclass: align-center
 
     **Figure 14** QIIME 2 visualization of ANCOM results (identified features
