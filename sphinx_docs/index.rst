@@ -1152,9 +1152,9 @@ Load the newly created ``shannon-group-significance.qzv`` Visualization.
 
 From the boxplots and Kurskal-Wallis test results (Figure 8), it appears that
 there are no differences between the child samples in terms of Shannon H
-diversity when mode of delivery is considered (p-value = 0.33). However,
+diversity when mode of delivery is considered (p-value = 0.63). However,
 exposure to antibiotics appears to be associated with higher diversity (p-value
-= 0.006). What are the biological implications?
+= 0.026). What are the biological implications?
 
 One important confounding factor here is that we are simultaneously analyzing
 our samples across all time-points and in doing so potentially losing
