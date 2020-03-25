@@ -1253,7 +1253,7 @@ background in 'Axes' and creating a moving picture under the 'Animations' tabs.
     start over, click on the 'back' button. Using the ECAM dataset, we have
     generated an animation visualizing the temporal trajectories of one vaginal
     born and one cesarean baby in the 3D PCoA plot. This animation is available at
-    https://www.dropbox.com/s/v8vhbbuhrg51ff0/animation.mov?dl=0.
+    https://tinyurl.com/qwuagsx.
 
     For more information about animated ordinations, visit Emperor's online
     tutorial at
