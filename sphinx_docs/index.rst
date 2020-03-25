@@ -1582,6 +1582,13 @@ C-section.
         --o-regression-stats songbird-results/regression-stats6monthControlled.qza \
         --o-regression-biplot songbird-results/regression-biplot6monthControlled.qza
 
+.. topic::
+
+   Note that users can adjust their model parameters and validate fitted
+   models by using the existing model diagnostic tools in songbird, such as
+   plotting graphs of predicition accuracy and visualizing convergence
+   summary.
+
 3. Examine the estimated coefficients for each feature by running:
 
 .. command-block::
