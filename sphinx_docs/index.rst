@@ -1080,11 +1080,11 @@ of the beta diversity metrics. For this tutorial, we'll use a sampling depth of
 .. command-block::
 
     qiime diversity core-metrics-phylogenetic \
-        --i-table child-table.qza \
+        --i-table child-table-norep.qza \
         --i-phylogeny insertion-tree.qza \
         --p-sampling-depth 3400 \
         --m-metadata-file metadata.tsv \
-        --p-n-jobs 1 \
+        --p-n-jobs 4 \
         --output-dir child-norep-core-metrics-results
 
 By default, the following metrics are computed by this pipeline and stored
@@ -1191,7 +1191,7 @@ previous section. Re-run core-metrics-phylogenetic:
         --i-phylogeny insertion-tree.qza \
         --p-sampling-depth 3400 \
         --m-metadata-file metadata.tsv \
-        --p-n-jobs 1 \
+        --p-n-jobs 4 \
         --output-dir norep-C24-core-metrics-results
 
 And finally, run alpha-group-significance action again:
@@ -1359,7 +1359,7 @@ replicates were removed:
         --i-phylogeny insertion-tree.qza \
         --p-sampling-depth 3400 \
         --m-metadata-file metadata.tsv \
-        --p-n-jobs 1 \
+        --p-n-jobs 4 \
         --output-dir child-core-metrics-results
 
 To demonstrate how covariates can be included in an LME model, here we will
