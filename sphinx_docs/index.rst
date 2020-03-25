@@ -98,9 +98,9 @@ We recommend that you read about the core concepts of QIIME 2
 familiarize yourself with the platform's main features and concepts, including
 enhanced visualization methods through QIIME 2 View, decentralized provenance
 tracking (which ensures reproducible bioinformatics), multiple interfaces
-(including the Python 3 API and the QIIME 2 Studio graphical interface), the
+(including the Python 3 API and QIIME 2 Studio graphical interface), the
 plugin architecture (which enables anyone to expand QIIME 2's functionality),
-and semantic types (which enables QIIME to help users avoid misusing their
+and semantic types (which enables QIIME 2 to help users avoid misusing their
 data). In general, we suggest referring to the QIIME 2 website
 (https://qiime2.org), which will always be the most up-to-date source for
 information and tutorials on QIIME 2, including newer versions of this
@@ -119,8 +119,9 @@ installation is available on Mac OS and Linux; or Windows via a virtual
 machine). The amount of free disk space and memory you will need vary
 dramatically depending on the number of samples and sequences you will analyze,
 and the algorithms you will use to do so. At present QIIME 2 requires a minimum
-of 6-7 GB for installation, and we recommend a minimum of 2 GB of memory as a
-starting point. Other types of analyses, such as those using shotgun
+of 6-7 GB for installation, and we recommend a minimum of 4 GB of memory as a
+starting point for small, and 8 GB of memory for most real-world datasets.
+Other types of analyses, such as those using shotgun
 metagenomics plugins, may require significantly more memory and disk space.
 
 *Software:* An up-to-date web browser, such as the latest version of Firefox or
@@ -132,24 +133,12 @@ Installing QIIME 2
 The latest version of QIIME 2, as well as detailed instructions on how to
 install on various operating systems, can be found at https://docs.qiime2.org.
 QIIME 2 utilizes a variety of external independent packages, and while we
-thrive to maintain backward compatibility, occasionally changes or updates to
+strive to maintain backward compatibility, occasionally changes or updates to
 these external packages may create compatibility issues with older versions of
-QIIME 2. To avoid these problems we recommend to always use the most recent
+QIIME 2. To avoid these problems we recommend always using the most recent
 version of QIIME 2 available online. The online tutorial will always provide
 installation instructions for the most up-to-date, tested, and stable version
-of QIIME 2. The following protocol was completed using QIIME 2 v 2019.10 and
-demonstrates usage with the command line interface (CLI). For users comfortable
-with Python 3 programming, an application programmer interface (API) version of
-this protocol is also available
-`here <https://github.com/qiime2/paper2/blob/master/notebooks/qiime2-protocol-API.ipynb>`_
-. No additional software is needed for using the API. Jupyter notebooks for
-both of these protocols are also available
-`in the Github repo <https://github.com/qiime2/paper2/tree/master/notebooks>`_
-.  Finally, an enhanced interactive online version of the CLI protocol is
-also available at https://curr-protoc-bioinformatics.qiime2.org/ with all
-intermediary files precomputed.  While we strongly encourage users to install
-QIIME 2 and follow along this tutorial, this enhanced tutorial provides an
-alternative for when time and computational resources are limited.
+of QIIME 2.
 
 .. topic:: Troubleshooting:
 
@@ -165,6 +154,50 @@ alternative for when time and computational resources are limited.
     QIIME 2. We strive to create an inclusive and welcoming community where we
     can collaborate to improve microbiome science. We hope you'll join us!
 
+(Re)Activating QIIME 2
+----------------------
+
+If at any point during the analysis the QIIME 2 conda environment is closed
+or deactivated, QIIME 2 2019.10 can be reactivated by running the following
+command:
+
+.. command-block::
+   :no-exec:
+
+   conda activate qiime2-2019.10
+
+To determine the currently active conda environment, run the following
+command and look for the line that starts with “active environment”:
+
+.. command-block::
+   :no-exec:
+
+   conda info
+
+Using this tutorial
+-------------------
+
+The following protocol was completed using QIIME 2 2019.10 and demonstrates
+usage with the command line interface (CLI). For users comfortable with
+Python 3 programming, an application programmer interface (API) version of
+this protocol is also available at
+https://github.com/qiime2/paper2/blob/master/notebooks/qiime2-protocol-API.ipynb.
+No additional software is needed for using the API. Jupyter notebooks for
+both of these protocols are also available at
+https://github.com/qiime2/paper2/tree/master/notebooks. Finally, an enhanced
+interactive online version of the CLI protocol is also available at
+https://curr-protoc-bioinformatics.qiime2.org with all intermediate files
+precomputed. While we strongly encourage users to install QIIME 2 and follow
+along this tutorial, this enhanced tutorial provides an alternative for when
+time and computational resources are limited. Following along the online
+version of this protocol enables users to skip any step and instead download
+the pre-processed output required for a subsequent step. Additionally, the
+online version also provides simple 'copy to clipboard' buttons for each code
+block which, unlike copying from a PDF file, retains the original formatting
+of the code, making it easy to paste into other environments. The enhanced
+online protocol will also be updated regularly with every new release of
+QIIME 2, unlike the PDF version.
+
 Acquire the data from the ECAM study
 ------------------------------------
 
@@ -179,7 +212,7 @@ Illumina MiSeq machine. To simplify and reduce the computational time required
 for this tutorial we have selected the forward reads of a subset of these
 samples for processing. To follow along with this protocol, create a new
 directory then download the raw sequences (~ 700 MB) and the corresponding
-metadata file into it.
+sample metadata file into it.
 
 .. command-block::
 
@@ -203,12 +236,16 @@ delete the original zip file ``81253.zip`` now to save space.
 Explore sample metadata files
 -----------------------------
 
-Metadata are data that describe other data. In the context of a microbiome
+In the previous step, in addition to downloading sequence data, we downloaded
+a researcher-generated sample metadata. In the context of a microbiome
 study, sample metadata are any data that describe characteristics of the
 samples that are being studied, the site they were collected from, and/or how
-they were collected and processed. For example, the ECAM study metadata include
+they were collected and processed. In this example, the ECAM study metadata include
 characteristics like age at the time of collection, birth mode and diet of the
-child, the type of DNA sequencing, and other information. Suggested standards
+child, the type of DNA sequencing, and other information. This is all
+information that is generally compiled at the time of sample collection, so
+is something the researcher should be working on prior to a QIIME 2 analysis.
+Suggested standards
 for the type of study metadata to collect, and how to represent the values, are
 discussed in detail in MIMARKS and MIxS (Yilmaz et al., 2011). In this
 tutorial, we also include a Support Protocol on metadata preparation to help
@@ -374,14 +411,15 @@ the quality score distribution for each position in your input sequences.
 Because it can take a while to compute these distributions from all of your
 sequence data (often tens of millions of sequences), a subset of your reads are
 selected randomly (sampled without replacement), and the quality scores of only
-those sequences are used to generate the box plots. By default, 10,000
+those sequences are used to generate the boxplots. By default, 10,000
 sequences are subsampled, but you can control that number with ``--p-n`` on the
 demux summarize command. Keep in mind that because of this random subsampling,
 every time you run demux summarize on the same sequence data you will obtain
 slightly different plots.
 
-When you hover the mouse over a box plot for a given base position, the box
-plot's data is shown in a table below the interactive plot as a parametric
+Click and drag on plot to zoom in. When you hover the mouse over a boxplot
+for a given base position, the boxplot's data is shown in a table below
+the interactive plot as a parametric
 seven-number summary This is a standard summary statistics of a dataset
 composed of 2nd, 9th, 25th, 50th, 75th, 91st, and 98th percentiles and can be
 used as a simple check for assumptions of normality. These values describe the
@@ -474,7 +512,9 @@ Deblur is applied in two steps.
     can significantly reduce computation time if your machine has access to
     multiple cores. To increase the number of cores you wish to designate to
     this task, use the ``--p-jobs-to-start`` parameter to change the default
-    value of 1 to a value suitable to your machine.
+    value of 1 to a value suitable to your machine. As a reminder, if you are
+    following the online version of this protocol, you can skip this step and
+    download the output artifacts and use those in the following steps.
 
 Deblur generates three outputs. An artifact with the semantic type
 ``FeatureTable[Frequency]``, which is a table of the count of each observed
@@ -646,7 +686,10 @@ for phylogenetic diversity computations.
     parameter from q2-deblur, allows this action to be performed in parallel
     across multiple cores, significantly reducing run time. See the developers'
     recommendations with regards to run-time optimization at
-    https://github.com/qiime2/q2-fragment-insertion#expected-runtimes.
+    https://github.com/qiime2/q2-fragment-insertion#expected-runtimes. As a
+    reminder, if you are following the online version of this protocol, you
+    can skip this step and download the output artifacts and use those in the
+    following steps.
 
 Once the insertion tree is created, you must filter your feature table so that
 it only contains fragments that are in the insertion tree. This step is needed
@@ -1037,11 +1080,11 @@ of the beta diversity metrics. For this tutorial, we'll use a sampling depth of
 .. command-block::
 
     qiime diversity core-metrics-phylogenetic \
-        --i-table child-table.qza \
+        --i-table child-table-norep.qza \
         --i-phylogeny insertion-tree.qza \
         --p-sampling-depth 3400 \
         --m-metadata-file metadata.tsv \
-        --p-n-jobs 1 \
+        --p-n-jobs 4 \
         --output-dir child-norep-core-metrics-results
 
 By default, the following metrics are computed by this pipeline and stored
@@ -1109,9 +1152,9 @@ Load the newly created ``shannon-group-significance.qzv`` Visualization.
 
 From the boxplots and Kurskal-Wallis test results (Figure 8), it appears that
 there are no differences between the child samples in terms of Shannon H
-diversity when mode of delivery is considered (p-value = 0.33). However,
+diversity when mode of delivery is considered (p-value = 0.63). However,
 exposure to antibiotics appears to be associated with higher diversity (p-value
-= 0.006). What are the biological implications?
+= 0.026). What are the biological implications?
 
 One important confounding factor here is that we are simultaneously analyzing
 our samples across all time-points and in doing so potentially losing
@@ -1148,7 +1191,7 @@ previous section. Re-run core-metrics-phylogenetic:
         --i-phylogeny insertion-tree.qza \
         --p-sampling-depth 3400 \
         --m-metadata-file metadata.tsv \
-        --p-n-jobs 1 \
+        --p-n-jobs 4 \
         --output-dir norep-C24-core-metrics-results
 
 And finally, run alpha-group-significance action again:
@@ -1210,7 +1253,7 @@ background in 'Axes' and creating a moving picture under the 'Animations' tabs.
     start over, click on the 'back' button. Using the ECAM dataset, we have
     generated an animation visualizing the temporal trajectories of one vaginal
     born and one cesarean baby in the 3D PCoA plot. This animation is available at
-    https://www.dropbox.com/s/v8vhbbuhrg51ff0/animation.mov?dl=0.
+    https://raw.githubusercontent.com/qiime2/paper2/master/sphinx_docs/_static/animation.mov
 
     For more information about animated ordinations, visit Emperor's online
     tutorial at
@@ -1316,7 +1359,7 @@ replicates were removed:
         --i-phylogeny insertion-tree.qza \
         --p-sampling-depth 3400 \
         --m-metadata-file metadata.tsv \
-        --p-n-jobs 1 \
+        --p-n-jobs 4 \
         --output-dir child-core-metrics-results
 
 To demonstrate how covariates can be included in an LME model, here we will
@@ -1366,7 +1409,7 @@ The volatility plot can be generated by running:
         --m-metadata-file child-core-metrics-results/shannon_vector.qza \
         --p-default-metric shannon \
         --p-default-group-column delivery \
-        --p-state-column day_of_life \
+        --p-state-column month \
         --p-individual-id-column host_subject_id \
         --o-visualization shannon-volatility.qzv
 
@@ -1376,7 +1419,7 @@ useful in identifying outliers qualitatively, by turning on 'show global
 control limits' to show +/- 2x and 3x standard deviation lines from global
 mean. Observations above those global control limits are susceptible to be
 outliers. In this analysis, we see high variance at time zero, while they
-become more similar by month 6 (day 180), and by month 24 (day 720),
+become more similar by month 8, and by month 24,
 vaginally-born children appear to be higher than cesarean-born (as expected).
 
 Differential abundance testing
@@ -1538,6 +1581,13 @@ C-section.
         --o-differentials songbird-results/differentials6monthControlled.qza \
         --o-regression-stats songbird-results/regression-stats6monthControlled.qza \
         --o-regression-biplot songbird-results/regression-biplot6monthControlled.qza
+
+.. topic:: Note
+
+   Note that users can adjust their model parameters and validate fitted
+   models by using the existing model diagnostic tools in songbird, such as
+   plotting graphs of predicition accuracy and visualizing convergence
+   summary.
 
 3. Examine the estimated coefficients for each feature by running:
 
