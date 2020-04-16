@@ -70,7 +70,7 @@ active community at https://forum.qiime2.org.
 Introduction
 ============
 
-This tutorial illustrates the use of QIIME 2 (Bolyen et al., 2019) in
+This tutorial illustrates the use of QIIME 2 (Bolyen et al., 2019) for
 processing, analyzing, and visualizing microbiome data. Here we use, as an
 example, a high-throughput 16S rRNA gene sequencing study, starting with raw
 sequences and producing publication-ready analysis and figures. QIIME 2 can
@@ -1151,7 +1151,7 @@ statistical test (e.g. Kruskal-Wallis test) with the following command:
 Load the newly created ``shannon-group-significance.qzv`` Visualization.
 
 From the boxplots and Kurskal-Wallis test results (Figure 8), it appears that
-there are no differences between the child samples in terms of Shannon H
+there are no differences between the child samples in terms of Shannon *H*
 diversity when mode of delivery is considered (p-value = 0.63). However,
 exposure to antibiotics appears to be associated with higher diversity (p-value
 = 0.026). What are the biological implications?
@@ -2792,7 +2792,7 @@ Figure captions
 .. figure:: _static/Figure6.png
     :figclass: align-center
 
-    **Figure 6** QIIME 2 Visualization of alpha diversity rarefaction plots
+    **Figure 6** QIIME 2 Visualization of taxonomic barplot
 
 .. figure:: _static/Figure7.png
     :figclass: align-center
