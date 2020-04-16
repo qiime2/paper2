@@ -108,8 +108,8 @@ tutorial. Questions, suggestions, and general discussion should always be
 directed to the QIIME 2 Forum (https://forum.qiime2.org). A brief 'Glossary of
 terms' for common QIIME 2 terminology is provided as Appendix 1.
 
-Basic protocols
-===============
+USING QIIME 2 WITH MICROBIOME DATA
+==================================
 
 Necessary resources
 -------------------
@@ -144,7 +144,7 @@ of QIIME 2.
 
     If you encounter any issues with installation, or at any other stages of
     this tutorial, please get in touch on the QIIME 2 Forum at
-    https://forum.qiime.org.  The QIIME 2 Forum is the hub of the QIIME 2 user
+    https://forum.qiime2.org.  The QIIME 2 Forum is the hub of the QIIME 2 user
     and developer communities. Technical support for users and developers is
     provided there, free of charge. We try to reply to technical support
     questions on the forum within 1-2 business days (though sometimes we need
@@ -538,23 +538,23 @@ happened to each of the samples during the deblur process. The reads-raw column
 gives information on the number of reads presented to the deblur algorithm.
 Because deblur works by deleting erroneous reads that it detects, the final
 number of reads is smaller than the starting number. The three columns that
-follow (fraction-artifact-with-minsize, fraction-artifact and
-fraction-missed-reference) summarize the data from other columns in a
+follow (*fraction-artifact-with-minsize*, *fraction-artifact* and
+*fraction-missed-reference*) summarize the data from other columns in a
 convenient way. They identify potential problems with the data at an early
-stage. fraction-artifact-with-minsize is the fraction of sequences detected as
+stage. *Fraction-artifact-with-minsize* is the fraction of sequences detected as
 artifactual, including those that fall below the minimum length threshold
-(specified by the ``--p-trim-length parameter``). Fraction-artifact is the
+(specified by the ``--p-trim-length parameter``). *Fraction-artifact* is the
 fraction of raw sequences that were identified as artifactual.
-Fraction-missed-reference is the fraction of post-deblur sequences that were
+*Fraction-missed-reference* is the fraction of post-deblur sequences that were
 not recruited by the positive reference database. The subsequent columns
 provide information about the number of sequences remaining after dereplication
-(unique-reads-derep, reads-derep), following deblurring (unique-reads-deblur,
-reads-deblur), number of hits that recruited to the negative reference database
-following deblurring process (unique-reads-hit-artifact, reads-hit-artifact),
-chimeric sequences detected (unique-reads-chimeric and reads-chimeric),
+(*unique-reads-derep*, *reads-derep*), following deblurring (*unique-reads-deblur*,
+*reads-deblur*), number of hits that recruited to the negative reference database
+following deblurring process (*unique-reads-hit-artifact*, *reads-hit-artifact*),
+*chimeric sequences detected* (*unique-reads-chimeric* and *reads-chimeric*),
 sequences that match/miss the positive reference database
-(unique-reads-hit-reference, reads-hit-reference, unique-reads-missed-reference
-and reads-missed-reference).  The number in the reads-hit-reference column is
+(*unique-reads-hit-reference*, *reads-hit-reference*, *unique-reads-missed-reference*
+and *reads-missed-reference*).  The number in the *reads-hit-reference* column is
 the final number of per-sample sequences present in the ``table-deblur.qza``
 QIIME 2 artifact.
 
@@ -1531,7 +1531,7 @@ cesarean-born babies.
 
 The ANCOM test has identified 1 feature that differ significantly by birth
 mode. To identify which taxa this feature corresponds to, we can load our
-``bespoke-taxonomy.qzv`` artifact from Step 7 and look up the feature id in the
+``bespoke-taxonomy.qzv`` artifact made in step 4 of the **Taxononomic classification** section and look up the feature id in the
 search-bar at the top.
 
 This identified feature and its corresponding taxonomic assignment are as follows:
@@ -1853,8 +1853,8 @@ Further exploration of these samples can be performed, such as extracting the
 samples and integrating them directly in a meta-analysis (see redbiom fetch to
 obtain feature tables and sample metadata).
 
-Support Protocols
-=================
+FURTHER MICROBIOME ANALYSES
+===========================
 
 The following sections are offered as stand-alone additional support for
 further microbiome analyses and do not rely on the ECAM dataset used in
