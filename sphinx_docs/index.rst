@@ -22,7 +22,7 @@ Flagstaff, AZ, USA, :sup:`5` Malopolska Centre of Biotechnology, Jagiellonian
 University, Kraków, Poland, :sup:`6` Bioinformatics and Systems Biology
 Program, University of California San Diego, La Jolla, CA, USA, :sup:`7` Center
 for Microbiome Innovation, University of California San Diego, La Jolla, CA,
-USA, :sup:`8` Center for Computational Biology and Bioinformatics, UC San
+USA, :sup:`8` Center for Computational Biology and Bioinformatics, University of California San
 Diego, La Jolla, CA, USA, :sup:`9` Jacobs School of Engineering, University of
 California San Diego, La Jolla, CA, USA, :sup:`10` Department of Computer
 Science and Engineering, University of California San Diego, La Jolla, CA, USA,
@@ -93,7 +93,10 @@ alternative methods are possible and why you might want to use them.
 Before Starting
 ---------------
 
-We recommend that you read about the core concepts of QIIME 2
+We recommend readers to follow the enhanced live version of this protocol 
+(https://curr-protoc-bioinformatics.qiime2.org) which will be updated frequently
+to always reflect the newest release of QIIME 2.
+We also recommend that you read about the core concepts of QIIME 2
 (https://docs.qiime2.org/2019.10/concepts/) before starting this tutorial to
 familiarize yourself with the platform's main features and concepts, including
 enhanced visualization methods through QIIME 2 View, decentralized provenance
@@ -185,18 +188,18 @@ https://github.com/qiime2/paper2/blob/master/notebooks/qiime2-protocol-API.ipynb
 No additional software is needed for using the API. Jupyter notebooks for
 both of these protocols are also available at
 https://github.com/qiime2/paper2/tree/master/notebooks. Finally, an enhanced
-interactive online version of the CLI protocol is also available at
+interactive live version of the CLI protocol is also available at
 https://curr-protoc-bioinformatics.qiime2.org with all intermediate files
 precomputed. While we strongly encourage users to install QIIME 2 and follow
-along this tutorial, this enhanced tutorial provides an alternative for when
-time and computational resources are limited. Following along the online
+along with this tutorial, the enhanced live version provides an alternative for when
+time and computational resources are limited. Following along the live
 version of this protocol enables users to skip any step and instead download
 the pre-processed output required for a subsequent step. Additionally, the
-online version also provides simple 'copy to clipboard' buttons for each code
+live version also provides simple 'copy to clipboard' buttons for each code
 block which, unlike copying from a PDF file, retains the original formatting
 of the code, making it easy to paste into other environments. The enhanced
-online protocol will also be updated regularly with every new release of
-QIIME 2, unlike the PDF version.
+live protocol will also be updated regularly with every new release of
+QIIME 2, unlike the published version which will remain static with the 2019.10 version.
 
 Acquire the data from the ECAM study
 ------------------------------------
@@ -405,7 +408,7 @@ then use the method you prefer for the rest of this tutorial.
 5. Explore the Visualization results:
 
 In the first 'Overview' tab we see a summary of our sequence counts followed by
-a per-sample breakdown. If you click on the 'Interactive Quality plot' (Figure
+a per-sample breakdown. If you click on the 'Interactive Quality plot' tab (Figure
 1), you can interact with the sequence quality plot, which shows a boxplot of
 the quality score distribution for each position in your input sequences.
 Because it can take a while to compute these distributions from all of your
@@ -601,7 +604,7 @@ the database is not very similar to the sequence you are using as a query.
    all groups (e.g. a given age or sex of subject) have enough samples and
    sequences to proceed with analysis. This check is important because
    variation in the number of sequences per sample, which is typically not
-   fully under control, often leads to samples dropping out of the analysis
+   fully under control, often leads to samples being dropped from the analysis
    because too few reads were obtained from them.
 
 .. command-block::
@@ -620,7 +623,7 @@ metadata categories and change sampling depth by dragging the bar or typing in
 the value. The 'Feature Detail' tab shows the frequency and number of observed
 samples associated with each feature.
 
-.. topic:: Alternative Pipelines:
+.. topic:: Alternative Pipeline:
 
     If traditional OTU clustering methods are desired, QIIME 2 users can
     perform these using the q2-vsearch plugin (Rognes et al., 2016):
@@ -639,7 +642,7 @@ evolutionary relatedness between the DNA sequences.
 
 QIIME 2 offers several methods for reconstructing phylogenetic trees based on
 features found in your data. These include several variants of traditional
-alignment-based methods of building a de novo tree, as well as a fragment
+alignment-based methods of building a *de novo* tree, as well as a fragment
 insertion method that aligns your features against a reference tree. It should
 be noted that de novo trees reconstructed from short sequences result in low
 quality trees because the sequences do not contain enough information to give
@@ -656,7 +659,7 @@ tested and benchmarked on 16S data against the Greengenes reference database
 consider the alternative methods mentioned in the box below.
 
 1. Download a backbone tree as the base for our features to be inserted onto.
-   Here we use the greengenes (16s rRNA) reference database.
+   Here, we use the greengenes (16s rRNA) reference database.
 
 .. command-block::
 
@@ -714,7 +717,7 @@ contains only features that are also present in the tree while the
 ``removed-table.qza`` contains features not present in the tree. Both of these
 tables can be visualized as shown in Step 5 of the previous section.
 
-.. topic:: Alternative Pipelines:
+.. topic:: Alternative Pipeline:
 
     If a traditional de novo phylogenetic tree is desired/required, QIIME 2
     offers several methods (FastTree (Price, Dehal, & Arkin, 2010), IQ-TREE
@@ -892,7 +895,7 @@ Alpha rarefaction plots
 One of the first steps in a typical microbiome analysis pipeline is to evaluate
 the sampling depth of our samples to determine whether sufficient surveying
 effort has been achieved. Sampling depth will naturally differ between samples,
-because the sequence counts generated by current sequencing instruments are not
+because the number of sequences generated by current sequencing instruments are not
 evenly distributed among samples nor correlated with sample biomass, and
 therefore, to avoid bias, must be normalized prior to analysis (e.g., diversity
 estimates as described below). The methods used for normalization are an active
@@ -908,7 +911,7 @@ all samples in the tables. The number of iterations (rarefied tables computed
 at each sampling depth) can be controlled with ``--p-iterations``. Average
 diversity values will be plotted for each sample at each even sampling depth,
 and samples can be grouped based on metadata categories in the resulting
-visualization if sample metadata is provided with the ``--m-metadata-file``
+Visualization if sample metadata is provided with the ``--m-metadata-file``
 parameter.
 
 .. command-block::
@@ -923,8 +926,8 @@ parameter.
 Load the ``child-alpha-rarefaction.qzv`` Visualization.
 
 The resulting Visualization (Figure 6) has two plots. The top plot is an alpha
-rarefaction plot, and is primarily used to determine if the within diversity of
-the samples has been fully captured. If the lines in the plot appear to "level
+rarefaction plot, and is primarily used to determine if the within diversity 
+has been fully captured. If the lines in the plot appear to "level
 out" (i.e., approach a slope of zero) at some sampling depth along the x-axis,
 this suggests that collecting additional sequences is unlikely to result in any
 significant changes to our samples' estimated diversity. If the lines in a plot
@@ -983,7 +986,7 @@ months 6, 12, and 24, while still maintaining a minimum depth that will capture
 the overall signature of the alpha diversity metrics as seen by our rarefaction
 plots.
 
-.. topic:: Alternative Pipelines:
+.. topic:: Alternative Pipeline:
 
     Newer methods are actively being developed that circumvent the need for
     rarefying by taking advantage of the compositional nature of microbiome
@@ -1194,7 +1197,7 @@ previous section. Re-run core-metrics-phylogenetic:
         --p-n-jobs 4 \
         --output-dir norep-C24-core-metrics-results
 
-And finally, run alpha-group-significance action again:
+And finally, run the alpha-group-significance action again:
 
 .. command-block::
 
@@ -1205,8 +1208,8 @@ And finally, run alpha-group-significance action again:
 
 Load this new Visualization.
 
-We can see now that at month 24 (Figure 9), vaginal birth appears to be
-associated with a higher Shannon value than cesarean birth (p-value = 0.02),
+We can see now that at month 24, vaginal birth appears to be
+associated with a higher Shannon value than cesarean birth (p-value = 0.02, Figure 9),
 while antibiotic exposure is no longer associated with differences in Shannon
 diversity (p-value = 0.87).
 
@@ -1223,7 +1226,7 @@ Each dot in the PCoA plot (Figure 10) represents a sample, and users can color
 them according to their metadata category of interest and rotate the 3D figure
 to see whether there is a clear separation in beta diversity driven by these
 covariates. Moreover, users can customize their figures using existing
-drop-down menus: hiding certain samples in 'Visibility', changing the
+drop-down menus by hiding certain samples in 'Visibility', changing the
 brightness of dots in 'Opacity', controlling their size in 'Scale', choosing
 different shapes for samples in 'Shape', modifying the color of axes and
 background in 'Axes' and creating a moving picture under the 'Animations' tabs.
@@ -1241,8 +1244,8 @@ background in 'Axes' and creating a moving picture under the 'Animations' tabs.
 
     The values in `animations_gradient` represent the age in months. In this
     category samples with no longitudinal data are set to 0, note that all values
-    have to be numeric in order for the animation to be displayed. As for the
-    `animations_subject` category, this includes unique identifiers for each
+    have to be numeric in order for the animation to be displayed. The
+    `animations_subject` category includes unique identifiers for each
     subject. Put together, these two categories will result in animated traces on a
     per-individual basis.
 
@@ -1263,13 +1266,13 @@ When we color the samples by delivery mode and change the shape of male infants
 to squares, no obvious clusters are observed.  There may be a general trend
 towards vaginal birth children separating from cesarean birth samples along
 Axis 1, which would suggest that microbial composition of cesarean born
-children are phylogenetically more related within their own groups than those
-from the vaginal birth group. However, given the low sample size in the
+children are phylogenetically more related within their own groups than that
+of the vaginal birth group. However, given the low sample size in the
 cesarean group, we are likely underpowered to detect these changes
 statistically. Nevertheless, we can test our hypothesis using a PERMANOVA,
 which tests the hypothesis that distances between samples within one group
 (within group distances) differ from the distances to samples in another group
-(across group distances). Other relevant tests in QIIME 2 exist, for example
+(across group distances). Other relevant tests in QIIME 2 exist, such as
 ANOSIM, PERMDISP, or the Mantel test; the choice of test should be carefully
 considered with regards to the biological question at hand, see Anderson and
 Walsh (2013) for an overview of these tests (Anderson & Walsh, 2013). It is
@@ -1292,8 +1295,8 @@ Load the Visualization.
 
 The overview statistics (Figure 11) provide us the parameters used in the
 PERMANOVA test and the resulting values of test statistic and p-value. The
-boxplots (Figure 9) show the pairwise distance between cesarean and vaginal
-birth. Lastly, the table (Figure 9) summarizes the results from PERMANOVA and
+boxplots show the pairwise distance between cesarean and vaginal
+birth. Lastly, the table (in Figure 11) summarizes the results from PERMANOVA and
 gives an additional q-value (adjusted p-value for multiple testing). The
 PERMANOVA test confirms our initial assessment that vaginal borns microbial
 communities are not statistically different from cesarean born communities in
@@ -1345,7 +1348,7 @@ all samples across 24 months (in the child-core-metrics-results folder), the
 metric name, our sample metadata file, a comma separated list of covariates to
 include in the model, the random effect variable (day_of_life), the column name
 from the metadata file containing the numeric state (i.e day_of_life), as well
-as the column name from the metadata file containing the individuals' id names
+as the column name from the metadata file containing the individuals' ID names
 to track through time. Unlike the group significant tests in the previous
 steps, LME models can handle continuous variables, therefore, we will utilize
 our full dataset by calling on the day_of_life column instead of month. We'll
@@ -1511,11 +1514,11 @@ where the x-axis summarizes the effect size difference of the given features
 between interested metadata categories (delivery modes in our case), and the
 y-axis is the strength of the ANCOM test statistic W. As ANCOM is essentially
 running pairwise tests, the W value is a count of the number of sub-hypotheses
-that have passed for a given feature. Hence, the differential abundant features
+that have passed for a given feature. Hence, the differentially abundant features
 will be those ASVs with high values on both the x- and y-axis, in other words,
 points that are close to the top right or left corners (in this tutorial, the
-one identified feature was highlighted in red circles). The identified features
-are summarized underneath the 'ANCOM statistical results.' Lastly, the
+one identified feature was highlighted with a red circle). The identified features
+are summarized underneath the 'ANCOM statistical results' section. Lastly, the
 percentile abundance table shows the number of sequences assigned to each
 identified feature in how many number of the samples. Regarding the identified
 feature in our analysis, of the samples in the cesarean group, in the sample
@@ -1531,8 +1534,8 @@ cesarean-born babies.
 
 The ANCOM test has identified 1 feature that differ significantly by birth
 mode. To identify which taxa this feature corresponds to, we can load our
-``bespoke-taxonomy.qzv`` artifact made in step 4 of the **Taxononomic classification** section and look up the feature id in the
-search-bar at the top.
+``bespoke-taxonomy.qzv`` artifact made in step 4 of the **Taxononomic classification** 
+section and look up the feature ID in the search-bar at the top.
 
 This identified feature and its corresponding taxonomic assignment are as follows:
 
@@ -1667,9 +1670,9 @@ the processing parameters used.
 
     redbiom summarize contexts
 
-This produces quite a bit of output as there are a few different sequencing
-technologies represented, a few different sequence trim lengths, a few
-different variable regions, and multiple feature assessment methods. The first
+This produces a long output as there are several different sequencing
+technologies, different sequence trim lengths, different variable regions,
+and multiple feature assessment methods represented. The first
 five lines of this output is below, which provides the context name, the number
 of samples in the context, the number of unique features, and a succinct
 description of the bioinformatic processing performed.
@@ -2076,7 +2079,7 @@ regard to sample groupings (i.e. armpit vs. foot).
 After identifying differential features QIIME 2 also provides methods for
 transform-independent analysis using Qurro
 (https://library.qiime2.org/plugins/qurro)
-(https://zenodo.org/record/3369454#.XZIttOdKiAw). By taking the log-ratio
+(https://doi.org/10.1101/2019.12.17.880047). By taking the log-ratio
 between two or the sum of multiple differential features, the sample groupings
 can be directly visualized.
 
@@ -2087,7 +2090,7 @@ Supervised learning (SL) methods predict sample data (e.g., metadata values) as
 a function of other sample data (e.g., microbiota composition) by training a SL
 model on training data. Various SL methods can predict either categorical data
 (a classification problem) or continuous values (a regression problem). SL
-methods have become increasingly applied in microbiome studies to predict
+methods have become increasingly common in microbiome studies to predict
 sample characteristics (e.g., disease state or location data), or to identify
 features that are associated with particular characteristics or sample classes
 (Bokulich, Collins, et al., 2016; Knights, Kuczynski, Koren, et al., 2011;
@@ -2154,7 +2157,7 @@ journals (e.g. the European Nucleotide Archive
 (https://www.ebi.ac.uk/training/online/course/ebi-metagenomics-portal-submitting-metagenomics-da/what-are-metadata-and-why-are-they-so-impo),
 Qiita
 (https://qiita.ucsd.edu/static/doc/html/tutorials/prepare-information-files.html#required-fields-for-centralized-qiita),
-and Microbiome
+and Microbiome Journal
 (https://microbiomejournal.biomedcentral.com/submission-guidelines/preparing-your-manuscript/microbiome-announcement),
 but they are also critical to enable future meta-analyses--both between your
 own data and others', and between your own data today and your new data
@@ -2206,7 +2209,7 @@ good example, because knowledge of which samples cannot be left out of the
 analysis to obtain biologically meaningful results is needed in order to choose
 the number of sequences per sample to keep. Similarly, for processing raw
 sequencing data into ``FeatureTable[Frequency]`` artifact, it is absolutely
-necessary to know how the samples have been processed, including rich
+necessary to know how the samples have been processed, including comprehensive
 preparation metadata for processing and troubleshooting, as well as the type of
 barcodes used for multiplexed samples. Metadata must be carefully considered,
 because the analysis cannot use information you did not provide. For example,
@@ -2243,7 +2246,7 @@ one-stop-shop for finding resources and software related to the QIIME 2
 ecosystem allowing users and authors to share information with their users, and
 where users can discover community-developed plugins and resources.
 
-https://forum.qiime.org: This is the hub of the QIIME 2 user and developer
+https://forum.qiime2.org: This is the hub of the QIIME 2 user and developer
 communities. Technical support for both users and developers is provided there,
 free of charge. We try to reply to technical support questions on the forum
 within 1-2 business days (though sometimes we need more time). Getting involved
@@ -2257,7 +2260,8 @@ Acknowledgements
 ================
 
 QIIME 2 development was primarily funded by NSF Awards 1565100 to JGC and
-1565057 to RK. We wish to thank all of the contributors to and users of QIIME 2
+1565057 to RK. A.B was funded by ACTRI grant # UL1TR001442. 
+We wish to thank all of the contributors to and users of QIIME 2
 for their essential role in the development of QIIME 2 and its documentation.
 
 Literature cited
@@ -2797,13 +2801,13 @@ Figure captions
 .. figure:: _static/Figure7.png
     :figclass: align-center
 
-    **Figure 7** QIIME 2 visualization of alpha diversity rarefaction plots
+    **Figure 7** QIIME 2 visualization of alpha taxonomic barplots
 
 .. figure:: _static/Figure8.png
     :figclass: align-center
 
-    **Figure 8** QIIME 2 visualization of alpha diversity comparisons across all
-    time points
+    **Figure 8** QIIME 2 visualization of alpha diversity comparisons 
+    between modes of delivery across all time points
 
 .. figure:: _static/Figure9.png
     :figclass: align-center
